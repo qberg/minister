@@ -1,7 +1,10 @@
 import { withPayload } from "@payloadcms/next/withPayload";
 import { config, withAnalyzer } from "@repo/next-config";
 import type { NextConfig } from "next";
+import createIntlPlugin from "@repo/i18n/plugin";
 import { env } from "./env";
+
+const withNextIntl = createIntlPlugin("../../packages/i18n/messages/en.json");
 
 let nextConfig: NextConfig = {
   ...config,
@@ -11,7 +14,6 @@ let nextConfig: NextConfig = {
       ".js": [".ts", ".tsx", ".js", ".jsx"],
       ".mjs": [".mts", ".mjs"],
     };
-
     return webpackConfig;
   },
 };
@@ -19,5 +21,7 @@ let nextConfig: NextConfig = {
 if (env.ANALYZE === "true") {
   nextConfig = withAnalyzer(nextConfig);
 }
+
+nextConfig = withNextIntl(nextConfig);
 
 export default withPayload(nextConfig, { devBundleServerPackages: false });

@@ -26,6 +26,7 @@
     "@repo/design-system": "workspace:*",
     "@repo/next-config": "workspace:*",
     "@repo/seo": "workspace:*",
+    "@repo/i18n": "workspace:*",
     "@t3-oss/env-nextjs": "0.13.8",
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
