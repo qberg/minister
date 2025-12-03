@@ -24,6 +24,12 @@
       "cache": false,
       "persistent": true
     },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
     "translate": {
       "dependsOn": ["^translate"],
       "cache": false

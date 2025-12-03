@@ -6,6 +6,10 @@
     "dev": "turbo dev",
     "check": "npx ultracite@latest check",
     "fix": "npx ultracite@latest fix",
+    "lint": "ultracite lint",
+    "lint:fix": "ultracite lint --write",
+    "format": "ultracite format",
+    "format:fix": "ultracite format --write",
     "test": "turbo test",
     "analyze": "turbo analyze",
     "clean": "git clean -xdf node_modules"
@@ -25,5 +29,12 @@
     "node": ">=18"
   },
   "packageManager": "pnpm@10.19.0",
-  "type": "module"
+  "type": "module",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "esbuild",
+      "unrs-resolver"
+    ]
+  }
 }

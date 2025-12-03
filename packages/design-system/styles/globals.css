@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @source "../**/*.{ts,tsx}";
 
-@plugin '@tailwindcss/typography';
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: oklch(1 0 0);
@@ -13,15 +13,12 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-oswald: var(--font-oswald);
-  --font-manrope: var(--font-manrope);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-  }
+  /* english fonts */
+  --font-times-new-roman: var(--font-times-new-roman);
+  --font-dm-sans: var(--font-dm-sans);
+  /* tamil fonts */
+  --font-anek-tamil: var(--font-anek-tamil);
+  --font-tamil-sangam-mn: var(--font-tamil-sangam-mn);
 }
 
 body {
