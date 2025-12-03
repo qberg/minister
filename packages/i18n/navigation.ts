@@ -12,7 +12,7 @@ import { routing } from "./routing";
  *
  * @example
  * ```tsx
- * import { Link, useRouter } from '@coord/i18n/navigation';
+ * import { Link, useRouter } from '@repo/i18n/navigation';
  *
  * // Automatically handles locale: /en-IN/about
  * <Link href="/about">About</Link>

@@ -4,8 +4,10 @@ import path from "path";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
-import { Media } from "./collections/Media";
 import { Users } from "./collections/Users";
+import payloadLocalization from "@repo/i18n/payload";
+import { s3Adapter } from "./storage/s3";
+import { Media } from "./collections/Media";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -17,6 +19,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  localization: payloadLocalization,
   collections: [Users, Media],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
@@ -29,7 +32,5 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [
-    // storage-adapter-placeholder
-  ],
+  plugins: [s3Adapter],
 });
