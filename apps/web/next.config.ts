@@ -1,7 +1,7 @@
 import { withPayload } from "@payloadcms/next/withPayload";
+import createIntlPlugin from "@repo/i18n/plugin";
 import { config, withAnalyzer } from "@repo/next-config";
 import type { NextConfig } from "next";
-import createIntlPlugin from "@repo/i18n/plugin";
 import { env } from "./env";
 
 const withNextIntl = createIntlPlugin("../../packages/i18n/messages/en.json");

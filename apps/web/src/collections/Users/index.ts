@@ -1,10 +1,10 @@
+import type { CollectionConfig } from "payload";
 import {
   AdminAccess,
   SelfOrAdminAccess,
 } from "@/access/collection-level-access";
 import { AdminFieldAccess } from "@/access/field-level-access";
 import { isActive } from "@/Fields/is-active";
-import type { CollectionConfig } from "payload";
 
 export const Users: CollectionConfig = {
   slug: "users",
@@ -63,8 +63,6 @@ export const Users: CollectionConfig = {
         update: () => false,
       },
     },
-
-    // === Personal Information ===
   ],
 
   hooks: {

@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    pages: Page;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +79,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -87,8 +89,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'ta-IN') | ('en' | 'ta-IN')[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    header: Header;
+  };
+  globalsSelect: {
+    header: HeaderSelect<false> | HeaderSelect<true>;
+  };
   locale: 'en' | 'ta-IN';
   user: User & {
     collection: 'users';
@@ -196,6 +202,81 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  /**
+   * Brief summary. Used as SEO description fallback.
+   */
+  excerpt?: string | null;
+  hero?:
+    | {
+        title: string;
+        centerImg: number | Media;
+        bgImg?: (number | null) | Media;
+        bgText: string;
+        content?:
+          | {
+              para: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'parallax-hero';
+      }[]
+    | null;
+  layout?:
+    | {
+        bgImg: number | Media;
+        /**
+         * The text overlay on top of image
+         */
+        headline: string;
+        variant?: ('midnight' | 'blue' | 'light') | null;
+        title: string;
+        description?:
+          | {
+              para: string;
+              id?: string | null;
+            }[]
+          | null;
+        hls?: {
+          title?: string | null;
+          tImg?: (number | null) | Media;
+          wImg?: (number | null) | Media;
+          sBlk?:
+            | {
+                title: string;
+                desc: string;
+                stats?:
+                  | {
+                      v: string;
+                      l: string;
+                      id?: string | null;
+                    }[]
+                  | null;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'sticky-stats';
+      }[]
+    | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  publishedDate?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  deletedAt?: string | null;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -225,6 +306,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: number | Page;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -339,6 +424,82 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  excerpt?: T;
+  hero?:
+    | T
+    | {
+        'parallax-hero'?:
+          | T
+          | {
+              title?: T;
+              centerImg?: T;
+              bgImg?: T;
+              bgText?: T;
+              content?:
+                | T
+                | {
+                    para?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  layout?:
+    | T
+    | {
+        'sticky-stats'?:
+          | T
+          | {
+              bgImg?: T;
+              headline?: T;
+              variant?: T;
+              title?: T;
+              description?:
+                | T
+                | {
+                    para?: T;
+                    id?: T;
+                  };
+              hls?:
+                | T
+                | {
+                    title?: T;
+                    tImg?: T;
+                    wImg?: T;
+                    sBlk?:
+                      | T
+                      | {
+                          title?: T;
+                          desc?: T;
+                          stats?:
+                            | T
+                            | {
+                                v?: T;
+                                l?: T;
+                                id?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  slug?: T;
+  slugLock?: T;
+  publishedDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  deletedAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -376,6 +537,58 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: number;
+  navItems?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          /**
+           * Optional: Add # to scroll to a section (e.g., "team" for #team)
+           */
+          anchor?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  navItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              anchor?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

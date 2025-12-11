@@ -1,5 +1,5 @@
-import { AdminFieldAccess } from "@/access/field-level-access";
 import type { Field } from "payload";
+import { AdminFieldAccess } from "@/access/field-level-access";
 
 export const isActive: Field = {
   name: "isActive",

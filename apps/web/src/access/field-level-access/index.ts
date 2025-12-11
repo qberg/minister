@@ -1,5 +1,5 @@
-import { hasRole } from "@/utils";
 import type { FieldAccess } from "payload";
+import { hasRole } from "@/utils";
 
 /**
  * Admin-only field access

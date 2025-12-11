@@ -1,5 +1,5 @@
+import type { Access } from "payload";
 import { hasAnyRole, hasRole } from "@/utils";
-import { Access } from "payload";
 
 /**
  * Admin only access
@@ -15,7 +15,7 @@ export const AdminAccess: Access = ({ req: { user } }): boolean => {
  * Admin or Coord rep access
  * Use for: Journal entries creation/ content management ig
  */
-export const CoordRepAccess: Access = ({ req: { user } }): boolean => {
+export const ContentManagerAccess: Access = ({ req: { user } }): boolean => {
   if (!user) return false;
 
   return hasAnyRole(user, ["admin", "content-manager"]);
@@ -25,17 +25,14 @@ export const CoordRepAccess: Access = ({ req: { user } }): boolean => {
  * Any authenticated user
  * Use for: Basic read operations, profile access
  */
-export const LoggedInAccess: Access = ({ req: { user } }): boolean => {
-  return Boolean(user);
-};
+export const LoggedInAccess: Access = ({ req: { user } }): boolean =>
+  Boolean(user);
 
 /**
  * Public Access
  * Use for: Public content
  */
-export const EveryoneAccess: Access = (): boolean => {
-  return true;
-};
+export const EveryoneAccess: Access = (): boolean => true;
 
 /**
  * Users can only see their own profiles, admins can see all

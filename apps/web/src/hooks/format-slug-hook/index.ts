@@ -1,5 +1,5 @@
-import { slugify } from "@/utils";
 import type { FieldHook } from "payload";
+import { slugify } from "@/utils";
 
 export const formatSlugHook =
   (fallback: string): FieldHook =>

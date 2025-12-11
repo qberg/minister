@@ -4,9 +4,7 @@ import { env } from "env";
 export const s3Adapter = s3Storage({
   collections: {
     media: {
-      generateFileURL: ({ filename }) => {
-        return `https://${env.CLOUDFRONT_URL}/${filename}`;
-      },
+      generateFileURL: ({ filename }) => `${env.CLOUDFRONT_URL}/${filename}`,
     },
   },
   bucket: env.S3_BUCKET,

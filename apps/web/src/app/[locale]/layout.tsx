@@ -1,20 +1,24 @@
 import type React from "react";
 import "./styles.css";
+import { hasLocale, NextIntlClientProvider } from "@repo/i18n";
+import { routing } from "@repo/i18n/routing";
+import { getMessages } from "@repo/i18n/server";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { LenisScroll } from "@/components/lenis-scroll";
 import {
   anek_tamil,
   dm_sans,
   tamil_sangam_mn,
   times_new_roman,
 } from "@/lib/fonts";
-import { hasLocale, NextIntlClientProvider } from "@repo/i18n";
-import { routing } from "@repo/i18n/routing";
-import { getMessages } from "@repo/i18n/server";
-import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   description: "A blank template using Payload in a Next.js app.",
-  title: "Payload Blank Template",
+  title: {
+    default: "T M Anbarasan",
+    template: "%s | T M Anbarasan",
+  },
 };
 
 export default async function RootLayout({
@@ -38,6 +42,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${enFontClasses} ${taFontClasses} antialiased`}>
+        <LenisScroll />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <main>{children}</main>
         </NextIntlClientProvider>

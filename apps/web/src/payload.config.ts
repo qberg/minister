@@ -1,13 +1,15 @@
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import payloadLocalization from "@repo/i18n/payload";
 import path from "path";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
-import { Users } from "./collections/Users";
-import payloadLocalization from "@repo/i18n/payload";
-import { s3Adapter } from "./storage/s3";
 import { Media } from "./collections/Media";
+import { Pages } from "./collections/Pages";
+import { Users } from "./collections/Users";
+import { s3Adapter } from "./storage/s3";
+import { Header } from "./header/config";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -18,9 +20,38 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    livePreview: {
+      breakpoints: [
+        {
+          label: "Mobile",
+          name: "mobile",
+          width: 375,
+          height: 667,
+        },
+        {
+          label: "Tablet",
+          name: "tablet",
+          width: 768,
+          height: 1024,
+        },
+        {
+          label: "Laptop",
+          name: "laptop",
+          width: 1280,
+          height: 610,
+        },
+        {
+          label: "Desktop",
+          name: "desktop",
+          width: 1536,
+          height: 864,
+        },
+      ],
+    },
   },
   localization: payloadLocalization,
-  collections: [Users, Media],
+  collections: [Users, Media, Pages],
+  globals: [Header],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

@@ -1,6 +1,6 @@
+import type { CheckboxField, TextField } from "payload";
 import { formatSlugHook } from "@/hooks/format-slug-hook";
 import { deepMerge } from "@/utils";
-import type { CheckboxField, TextField } from "payload";
 
 export type SlugFieldOverrides = {
   checkboxOverrides?: Partial<CheckboxField>;
@@ -9,7 +9,7 @@ export type SlugFieldOverrides = {
 
 type Slug = (
   fieldToUse?: string,
-  overrides?: SlugFieldOverrides,
+  overrides?: SlugFieldOverrides
 ) => [TextField, CheckboxField];
 
 /**
@@ -43,7 +43,7 @@ export const createSlugField: Slug = (fieldToUse = "title", overrides = {}) => {
       name: "slugLock",
       type: "checkbox",
     },
-    checkboxOverrides,
+    checkboxOverrides
   );
 
   const slugField = deepMerge<TextField>(
@@ -59,7 +59,7 @@ export const createSlugField: Slug = (fieldToUse = "title", overrides = {}) => {
         beforeValidate: [formatSlugHook(fieldToUse)],
       },
     },
-    slugOverrides,
+    slugOverrides
   );
 
   return [slugField, checkBoxField];
