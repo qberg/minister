@@ -10,6 +10,7 @@ import { Pages } from "./collections/Pages";
 import { Users } from "./collections/Users";
 import { Header } from "./header/config";
 import { s3Adapter } from "./storage/s3";
+import { Tags } from "./collections/Tags";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -50,7 +51,7 @@ export default buildConfig({
     },
   },
   localization: payloadLocalization,
-  collections: [Users, Media, Pages],
+  collections: [Users, Media, Pages, Tags],
   globals: [Header],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
