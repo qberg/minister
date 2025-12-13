@@ -12,6 +12,7 @@ import {
   tamil_sangam_mn,
   times_new_roman,
 } from "@/lib/fonts";
+import { Header } from "@/header/Component";
 
 export const metadata: Metadata = {
   description: "A blank template using Payload in a Next.js app.",
@@ -44,7 +45,9 @@ export default async function RootLayout({
       <body className={`${enFontClasses} ${taFontClasses} antialiased`}>
         <LenisScroll />
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <main>{children}</main>
+          <Header />
+
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>

@@ -1,4 +1,4 @@
-import type { PayloadRequest, CollectionSlug } from "payload";
+import type { CollectionSlug, PayloadRequest } from "payload";
 
 const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
   pages: "",
@@ -25,7 +25,7 @@ export const generatePreviewPath = ({ collection, slug, req }: Props) => {
     collection,
     path: `${collectionPrefixMap[collection]}/${encodedSlug}`.replace(
       /\/+/g,
-      "/",
+      "/"
     ),
     previewSecret: process.env.PREVIEW_SECRET || "",
   });

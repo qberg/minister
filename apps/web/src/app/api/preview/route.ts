@@ -1,10 +1,10 @@
-import type { CollectionSlug, PayloadRequest, TypedLocale } from "payload";
-import { getPayload } from "payload";
+import { env } from "@env";
+import configPromise from "@payload-config";
 import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 import type { NextRequest } from "next/server";
-import configPromise from "@payload-config";
-import { env } from "@env";
+import type { CollectionSlug, PayloadRequest, TypedLocale } from "payload";
+import { getPayload } from "payload";
 
 /**
  * Preview Route - Enables draft mode for authenticaded paylaod users
@@ -38,12 +38,12 @@ export async function GET(req: NextRequest): Promise<Response> {
     return new Response("Invalid preview token", { status: 403 });
   }
 
-  if (!path || !collection || !slug) {
+  if (!(path && collection && slug)) {
     return new Response(
       "Missing required parameters: path, collection or slug",
       {
         status: 400,
-      },
+      }
     );
   }
 
@@ -95,7 +95,7 @@ export async function GET(req: NextRequest): Promise<Response> {
   } catch (error) {
     payload.logger.error(
       { err: error, collection, slug },
-      "Document not found for preview",
+      "Document not found for preview"
     );
     return new Response(`Document not found: ${collection}/${slug}`, {
       status: 404,
@@ -109,7 +109,7 @@ export async function GET(req: NextRequest): Promise<Response> {
 
   payload.logger.info(
     { user: user.user, collection, slug, locale },
-    "Preview enabled",
+    "Preview enabled"
   );
 
   redirect(redirectUrl);

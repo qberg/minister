@@ -8,8 +8,8 @@ import { fileURLToPath } from "url";
 import { Media } from "./collections/Media";
 import { Pages } from "./collections/Pages";
 import { Users } from "./collections/Users";
-import { s3Adapter } from "./storage/s3";
 import { Header } from "./header/config";
+import { s3Adapter } from "./storage/s3";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

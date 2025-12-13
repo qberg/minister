@@ -1,0 +1,56 @@
+import { cn } from "@repo/design-system/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
+import type React from "react";
+
+const boxVariants = cva("overflow-hidden", {
+  variants: {
+    padding: {
+      none: "p-0",
+      base: "4xl:px-48 lxl:px-36 px-6 sxl:px-24 4xl:py-20 lxl:py-16 py-10 sxl:py-10 md:px-10 lg:px-20 lg:py-8",
+    },
+    invert: {
+      true: "bg-foreground text-background",
+      false: "bg-background text-foreground",
+    },
+    borderWidth: {
+      none: "-outline-offset-2 border-0 outline outline-2 outline-transparent",
+      thin: "border border-current",
+      thick: "border-2 border-current",
+    },
+  },
+  defaultVariants: {
+    padding: "base",
+    borderWidth: "none",
+    invert: false,
+  },
+});
+
+type BoxElement = "div" | "section" | "article" | "aside" | "header" | "footer";
+
+export interface BoxProps<T extends BoxElement = "div">
+  extends React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof boxVariants> {
+  as?: T;
+  ref?: React.Ref<HTMLElement>;
+}
+
+const Box = <T extends BoxElement = "div">({
+  className,
+  padding,
+  borderWidth,
+  invert,
+  as: Comp = "div" as T,
+  ref,
+  ...props
+}: BoxProps<T>) => (
+  <Comp
+    className={cn(boxVariants({ padding, borderWidth, invert }), className)}
+    ref={ref}
+    {...props}
+  />
+);
+
+Box.displayName = "Box";
+
+export { Box, boxVariants };
+export type BoxPadding = NonNullable<BoxProps["padding"]>;

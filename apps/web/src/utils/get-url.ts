@@ -1,13 +1,10 @@
 const canUseDOM = typeof window !== "undefined";
 
-export const getServerSideURL = (): string => {
-  return (
-    process.env.NEXT_PUBLIC_WEB_URL ||
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : "http://localhost:3000")
-  );
-};
+export const getServerSideURL = (): string =>
+  process.env.NEXT_PUBLIC_WEB_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
 
 export const getClientSideURL = (): string => {
   if (canUseDOM) {

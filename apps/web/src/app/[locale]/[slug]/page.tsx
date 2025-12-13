@@ -1,14 +1,13 @@
 import configPromise from "@payload-config";
 import type { Metadata } from "next";
+import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
-
 import { getPayload, type TypedLocale } from "payload";
 import { cache } from "react";
 import { BlockRenderer } from "@/blocks/block-renderer";
+import { LivePreviewListener } from "@/components/live-preview-listener";
 import { HeroRenderer } from "@/heros/hero-renderer";
 import type { Page } from "@/payload-types";
-import { draftMode } from "next/headers";
-import { LivePreviewListener } from "@/components/live-preview-listener";
 
 const PRE_RENDER_LOCALES: TypedLocale[] = ["ta-IN"];
 
@@ -147,5 +146,5 @@ const queryPageBySlug = cache(
     });
 
     return (result?.docs?.[0] as Page) || null;
-  },
+  }
 );

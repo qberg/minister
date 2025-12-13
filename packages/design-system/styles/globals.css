@@ -6,12 +6,56 @@
 
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(0.0672 0 0);
+}
+
+@theme {
+  --color-blue-50: oklch(0.9482 0.0204 276.95);
+  --color-blue-100: oklch(0.8972 0.407 273.33);
+  --color-blue-200: oklch(0.796 0.0851 271.03);
+  --color-blue-300: oklch(0.796 0.0851 271.03);
+  --color-blue-400: oklch(0.6005 0.1767 261.18);
+  --color-blue-500: oklch(0.4966 0.1461 261.27);
+  --color-blue-600: oklch(0.3209 0.1251 259.12);
+  --color-blue-700: oklch(0.2896 0.0855 261.29);
+  --color-blue-800: oklch(0.2896 0.0855 261.29);
+  --color-blue-900: oklch(0.1882 0.0562 261.43);
+  --color-blue-950: oklch(0.1506 0.0451 263.03);
+
+  --color-yellow-50: oklch(0.9663 0.0209 72.15);
+  --color-yellow-100: oklch(0.9408 0.0385 72.36);
+  --color-yellow-200: oklch(0.8811 0.0897 77.71);
+  --color-yellow-300: oklch(0.8217 0.1369 81.71);
+  --color-yellow-400: oklch(0.753 0.1251 81.23);
+  --color-yellow-500: oklch(0.692 0.1153 81.39);
+  --color-yellow-600: oklch(0.6328 0.1053 81.64);
+  --color-yellow-700: oklch(0.5112 0.0852 81.54);
+  --color-yellow-800: oklch(0.389 0.0647 81.95);
+  --color-yellow-900: oklch(0.2601 0.0436 83.85);
+  --color-yellow-950: oklch(0.2079 0.0369 82.77);
+
+  --color-neutral-50: oklch(1 0 0);
+  --color-neutral-100: oklch(0.9851 0 0);
+  --color-neutral-200: oklch(0.8607 0 0);
+  --color-neutral-300: oklch(0.6797 0 0);
+  --color-neutral-400: oklch(0.6797 0 0);
+  --color-neutral-500: oklch(0.5965 0 0);
+  --color-neutral-600: oklch(0.4997 0 0);
+  --color-neutral-700: oklch(0.4128 0 0);
+  --color-neutral-800: oklch(0.3171 0 0);
+  --color-neutral-900: oklch(0.2308 0 0);
+  --color-neutral-950: oklch(0.1776 0 0);
+
+  --color-black: oklch(0.0672 0 0);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-primary: var(--color-blue-600);
+  --color-secondary: var(--color-yellow-400);
+  --color-foreground: var(--color-black);
+  --color-background: var(--color-neutral-50);
+  --color-accent: var(--color-yellow-600);
+  --color-surface: var(--color-blue-600);
 
   /* english fonts */
   --font-times-new-roman: var(--font-times-new-roman);
@@ -19,8 +63,27 @@
   /* tamil fonts */
   --font-anek-tamil: var(--font-anek-tamil);
   --font-tamil-sangam-mn: var(--font-tamil-sangam-mn);
+
+  /* fluid fonts */
+  --text-6xl: clamp(2.5rem, 1.3415rem + 4.9428vw, 9.25rem);
+  --text-5xl: clamp(2.25rem, 0.0084rem + 4.6823vw, 7.5rem);
+  --text-4xl: clamp(1.5rem, 0rem + 2.5vw, 4rem);
+  --text-2xl: clamp(1.25rem, 0.9065rem + 1.3084vw, 3rem);
+  --text-xl: clamp(1rem, 0.764rem + 1.0069vw, 2.375rem);
+  --text-base: clamp(0.875rem, 0.0274rem + 1.2329vw, 2rem);
+
+  --text-9xl: clamp(4rem, -0.0005rem + 17.1878vw, 27.5rem);
+
+  /* Custom breakpoints */
+  --breakpoint-sxl: 85rem;
+  --breakpoint-lxl: 108rem;
+  --breakpoint-3xl: 121rem;
+  --breakpoint-4xl: 135rem;
+  --breakpoint-5xl: 160rem;
 }
 
-body {
-  @apply bg-background text-foreground;
+@layer utilities {
+  .margin-base {
+    @apply mt-4 lg:mt-6 sxl:mt-8 lxl:mt-12 4xl:mt-16;
+  }
 }

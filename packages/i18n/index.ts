@@ -5,15 +5,14 @@
  * Import from subpaths for specific functionality.
  */
 
+export { hasLocale, NextIntlClientProvider } from "next-intl";
 export type { Locale } from "./config";
 export {
-  locales,
   defaultLocale,
-  localeNames,
   localeLabelsEnglish,
+  localeNames,
+  locales,
 } from "./config";
-
-export { hasLocale, NextIntlClientProvider } from "next-intl";
 
 // Navigation
 

@@ -94,7 +94,9 @@ export const link: LinkType = ({
     });
   }
 
-  if (!disableLabel) {
+  if (disableLabel) {
+    linkResult.fields = [...linkResult.fields, ...linkTypes];
+  } else {
     linkResult.fields.push({
       type: "row",
       fields: [
@@ -111,8 +113,6 @@ export const link: LinkType = ({
         },
       ],
     });
-  } else {
-    linkResult.fields = [...linkResult.fields, ...linkTypes];
   }
 
   return deepMerge(linkResult, overrides);

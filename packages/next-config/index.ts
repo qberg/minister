@@ -10,6 +10,17 @@ export const config: NextConfig = {
     //     hostname: "img.example.com",
     //   },
     // ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "d462xg1zgerhx.cloudfront.net",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+    ],
   },
 
   // biome-ignore lint/suspicious/useAwait: rewrites is async

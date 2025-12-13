@@ -9,7 +9,7 @@ import createNextIntlPlugin from "next-intl/plugin";
  * const withNextIntl = createIntlPlugin('../../packages/i18n/src/messages/en.json')
  */
 export default function createIntlPlugin(
-  messagesPath = "../../packages/i18n/messages/en.json",
+  messagesPath = "../../packages/i18n/messages/en.json"
 ) {
   return createNextIntlPlugin({
     experimental: {

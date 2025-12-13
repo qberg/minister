@@ -1,10 +1,9 @@
 import type { GlobalConfig } from "payload";
-
-import { link } from "@/Fields/link";
 import {
   ContentManagerAccess,
   EveryoneAccess,
 } from "@/access/collection-level-access";
+import { link } from "@/Fields/link";
 import { revalidateHeader } from "./hooks/revalidate-header";
 
 export const Header: GlobalConfig = {
