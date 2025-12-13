@@ -17,7 +17,7 @@ const typographyVariants = cva("", {
       bodyLG: "font-dm-sans text-base tracking-tight leading-none font-normal",
       bodyMD:
         "font-dm-sans text-base tracking-tight leading-none font-semibold",
-      bodySM: "font-dm-sans text-base tracking-tight leading-none font-normal",
+      bodySM: "font-dm-sans text-sm tracking-tight leading-none font-light",
     },
   },
   defaultVariants: {

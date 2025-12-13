@@ -212,21 +212,31 @@ export interface Page {
    */
   excerpt?: string | null;
   hero?:
-    | {
-        title: string;
-        centerImg: number | Media;
-        bgImg?: (number | null) | Media;
-        bgText: string;
-        content?:
-          | {
-              para: string;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'parallax-hero';
-      }[]
+    | (
+        | {
+            title: string;
+            centerImg: number | Media;
+            bgImg?: (number | null) | Media;
+            bgText: string;
+            content?:
+              | {
+                  para: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'parallax-hero';
+          }
+        | {
+            title: string;
+            bgImg?: (number | null) | Media;
+            breadcrumb?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'minimal-hero';
+          }
+      )[]
     | null;
   layout?:
     | {
@@ -445,6 +455,15 @@ export interface PagesSelect<T extends boolean = true> {
                     para?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        'minimal-hero'?:
+          | T
+          | {
+              title?: T;
+              bgImg?: T;
+              breadcrumb?: T;
               id?: T;
               blockName?: T;
             };

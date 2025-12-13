@@ -53,6 +53,7 @@
   --color-primary: var(--color-blue-600);
   --color-secondary: var(--color-yellow-400);
   --color-foreground: var(--color-black);
+  --color-muted-foreground: var(--color-neutral-200);
   --color-background: var(--color-neutral-50);
   --color-accent: var(--color-yellow-600);
   --color-surface: var(--color-blue-600);
@@ -71,6 +72,7 @@
   --text-2xl: clamp(1.25rem, 0.9065rem + 1.3084vw, 3rem);
   --text-xl: clamp(1rem, 0.764rem + 1.0069vw, 2.375rem);
   --text-base: clamp(0.875rem, 0.0274rem + 1.2329vw, 2rem);
+  --text-sm: clamp(0.75rem, 0rem + 0.9375vw, 1.5rem);
 
   --text-9xl: clamp(4rem, -0.0005rem + 17.1878vw, 27.5rem);
 

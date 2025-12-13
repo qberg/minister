@@ -9,6 +9,7 @@ import { createSlugField } from "@/Fields/slug";
 import { ParallaxHero } from "@/heros/parallax-hero/config";
 import { PopulatePublishDateHook } from "@/hooks/populate-publish-date";
 import { generatePreviewPath } from "@/utils/generate-preview-path";
+import { MinimalHero } from "@/heros/minimal-hero/config";
 
 export const Pages: CollectionConfig<"pages"> = {
   slug: "pages",
@@ -67,7 +68,7 @@ export const Pages: CollectionConfig<"pages"> = {
               type: "blocks",
               minRows: 0,
               maxRows: 1,
-              blocks: [ParallaxHero],
+              blocks: [ParallaxHero, MinimalHero],
             },
           ],
           label: "Hero",
