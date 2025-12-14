@@ -10,6 +10,7 @@ import { ParallaxHero } from "@/heros/parallax-hero/config";
 import { PopulatePublishDateHook } from "@/hooks/populate-publish-date";
 import { generatePreviewPath } from "@/utils/generate-preview-path";
 import { MinimalHero } from "@/heros/minimal-hero/config";
+import { LatestUpdatesBlock } from "@/blocks/latest-updates-block/config";
 
 export const Pages: CollectionConfig<"pages"> = {
   slug: "pages",
@@ -78,7 +79,7 @@ export const Pages: CollectionConfig<"pages"> = {
             {
               name: "layout",
               type: "blocks",
-              blocks: [StickyStatsBlock],
+              blocks: [StickyStatsBlock, LatestUpdatesBlock],
             },
           ],
           label: "Content",

@@ -25,5 +25,13 @@ export const Tags: CollectionConfig<"tags"> = {
       required: true,
     },
     ...createSlugField("label"),
+    {
+      name: "order",
+      type: "number",
+      defaultValue: 0,
+      admin: {
+        description: "Display order (lower numbers first)",
+      },
+    },
   ],
 };
