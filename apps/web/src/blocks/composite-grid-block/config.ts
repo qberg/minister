@@ -20,6 +20,12 @@ export const CompositeGridBlock: Block = {
       type: "textarea",
       localized: true,
     },
+
+    {
+      name: "bgImg",
+      type: "upload",
+      relationTo: "media",
+    },
     {
       name: "items",
       type: "array",

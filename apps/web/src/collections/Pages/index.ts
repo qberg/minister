@@ -13,6 +13,7 @@ import { MinimalHero } from "@/heros/minimal-hero/config";
 import { LatestUpdatesBlock } from "@/blocks/latest-updates-block/config";
 import { CompositeGridBlock } from "@/blocks/composite-grid-block/config";
 import { TimelineBlock } from "@/blocks/timeline-block/config";
+import { TabbedContentBlock } from "@/blocks/tabbed-content/config";
 
 export const Pages: CollectionConfig<"pages"> = {
   slug: "pages",
@@ -86,6 +87,7 @@ export const Pages: CollectionConfig<"pages"> = {
                 LatestUpdatesBlock,
                 CompositeGridBlock,
                 TimelineBlock,
+                TabbedContentBlock,
               ],
             },
           ],
