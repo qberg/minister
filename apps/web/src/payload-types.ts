@@ -284,6 +284,8 @@ export interface Page {
             blockType: 'sticky-stats';
           }
         | {
+            showHeading?: boolean | null;
+            heading?: string | null;
             /**
              * Which tab opens by default
              */
@@ -614,6 +616,8 @@ export interface PagesSelect<T extends boolean = true> {
         'latest-updates'?:
           | T
           | {
+              showHeading?: T;
+              heading?: T;
               defType?: T;
               showTags?: T;
               showCta?: T;

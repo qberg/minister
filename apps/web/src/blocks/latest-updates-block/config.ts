@@ -4,6 +4,21 @@ export const LatestUpdatesBlock: Block = {
   slug: "latest-updates",
   fields: [
     {
+      name: "showHeading",
+      type: "checkbox",
+      defaultValue: false,
+      label: "Show the Heading",
+    },
+    {
+      name: "heading",
+      type: "text",
+      localized: true,
+      defaultValue: "Latest Updates",
+      admin: {
+        condition: (_, siblingData) => Boolean(siblingData.showHeading),
+      },
+    },
+    {
       name: "defType",
       type: "select",
       defaultValue: "announcements",

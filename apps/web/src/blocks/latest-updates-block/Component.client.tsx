@@ -129,7 +129,9 @@ const LatestUpdatesClient = ({ block, tags, initialData, locale }: Props) => {
 
         {/* content grids */}
         {currentType === "announcements" && <AnnouncementsGrid />}
-        {currentType === "articles" && <ArticlesGrid />}
+        {currentType === "articles" && (
+          <ArticlesGrid items={items} locale={locale} />
+        )}
         {currentType === "news-feat" && (
           <NewsFeatGrid items={items} locale={locale} />
         )}

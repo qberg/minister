@@ -12,7 +12,7 @@ function Card({ className, interactive, ...props }: CardProps) {
       data-slot="card"
       className={cn(
         "group flex flex-col border border-transparent overflow-hidden",
-        "px-0 py-2 lg:p-6 gap-8",
+        "px-0 py-2 lg:p-3 4xl:p-6 gap-8",
         interactive && [
           "cursor-pointer",
           "transition-colors duration-200 ease-out",
@@ -54,7 +54,7 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-content"
-      className={cn("flex flex-col gap-6", className)}
+      className={cn("flex flex-col gap-3 4xl:gap-6", className)}
       {...props}
     />
   );

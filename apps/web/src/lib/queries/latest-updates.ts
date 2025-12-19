@@ -74,6 +74,7 @@ export async function getLatestUpdates(
       publishedDate: true,
       image: true,
       tags: true,
+      externalLink: true,
     },
   });
 
