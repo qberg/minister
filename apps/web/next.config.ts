@@ -24,4 +24,5 @@ if (env.ANALYZE === "true") {
 
 nextConfig = withNextIntl(nextConfig);
 
+console.log("Final images config:", JSON.stringify(nextConfig.images, null, 2));
 export default withPayload(nextConfig, { devBundleServerPackages: false });

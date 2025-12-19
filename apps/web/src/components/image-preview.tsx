@@ -47,7 +47,7 @@ export function ImagePreview({
                 alt="Newspaper clippings"
                 fill
                 priority
-                sizes="100%"
+                unoptimized
                 className="rounded-lg object-cover"
               />
               {tagLabel && (
@@ -95,6 +95,7 @@ export function ImagePreview({
                           src={src}
                           alt="newspaper clippings"
                           fill
+                          unoptimized
                           sizes="100%"
                           className="rounded-2xl object-cover select-none"
                         />
