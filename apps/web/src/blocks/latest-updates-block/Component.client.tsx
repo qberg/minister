@@ -22,6 +22,7 @@ import { Typography } from "@repo/design-system/components/ui/typography";
 import NewsFeatGrid from "./news-feat-grid";
 import ArticlesGrid from "./articles-grid";
 import AnnouncementsGrid from "./announcements-grid";
+import AnimatedPattern from "@/components/animated-pattern";
 
 type Props = {
   block: LatestUpdatesBlockType;
@@ -84,7 +85,8 @@ const LatestUpdatesClient = ({ block, tags, initialData, locale }: Props) => {
   };
 
   return (
-    <Box as="section">
+    <Box as="section" className="relative">
+      <AnimatedPattern className="absolute bottom-0 left-0 w-[50vw] translate-y-1/4" />
       <Stack>
         {/* content type tabs*/}
         <Tabs
