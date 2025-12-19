@@ -87,7 +87,7 @@ const LatestUpdatesClient = ({ block, tags, initialData, locale }: Props) => {
   return (
     <Box as="section" className="relative">
       <AnimatedPattern className="absolute bottom-0 left-0 w-[50vw] translate-y-1/4" />
-      <Stack>
+      <Stack className="relative z-10">
         {/* content type tabs*/}
         <Tabs
           value={currentType}

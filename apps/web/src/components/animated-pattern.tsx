@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { patternPaths } from "@/lib/data/patterns";
 
 type Props = {
@@ -7,16 +6,13 @@ type Props = {
 
 const AnimatedPattern = ({ className }: Props) => {
   return (
-    <motion.svg
+    <svg
       width="1264"
       height="1264"
       viewBox="0 0 1264 1264"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
     >
       <g clipPath="url(#clip0_4114_21131)">
         <mask
@@ -31,29 +27,16 @@ const AnimatedPattern = ({ className }: Props) => {
         </mask>
         <g mask="url(#mask0_4114_21131)">
           {patternPaths.map((d, index) => (
-            <motion.path
-              key={index}
-              d={d}
-              fill="#002E71"
-              fillOpacity="0.24"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{
-                delay: index * 0.0003,
-                duration: 0.4,
-                ease: "easeOut",
-              }}
-            />
+            <path key={index} d={d} fill="#002E71" fillOpacity="0.24" />
           ))}
         </g>
       </g>
-
       <defs>
         <clipPath id="clip0_4114_21131">
           <rect width="1264" height="1264" fill="white" />
         </clipPath>
       </defs>
-    </motion.svg>
+    </svg>
   );
 };
 

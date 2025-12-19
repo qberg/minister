@@ -11,7 +11,7 @@ function Card({ className, interactive, ...props }: CardProps) {
     <motion.article
       data-slot="card"
       className={cn(
-        "group flex flex-col border border-transparent overflow-hidden",
+        "group flex flex-col border border-transparent overflow-hidden bg-background",
         "px-0 py-2 lg:p-3 4xl:p-6 gap-8",
         interactive && [
           "cursor-pointer",
