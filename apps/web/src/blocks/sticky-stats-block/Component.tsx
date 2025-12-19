@@ -7,11 +7,12 @@ import { getMediaUrl } from "@/lib/payload-media-utils";
 import type { LayoutBlock, StickyStatsVariant } from "@/types";
 import { StatBlock, StatGrid, StatItem } from "./stat-block";
 import { stickyStatsTextVariants, stickyStatsVariants } from "./variants";
+import type { TypedLocale } from "payload";
 
-type StickyStatsBlockProps = Extract<
-  LayoutBlock,
-  { blockType: "sticky-stats" }
->;
+type StickyStatsBlockProps = {
+  block: Extract<LayoutBlock, { blockType: "sticky-stats" }>;
+  locale?: TypedLocale;
+};
 
 const StickyStatsBlock = ({ block }: { block: StickyStatsBlockProps }) => {
   const variant = (block.variant as StickyStatsVariant) ?? "midnight";

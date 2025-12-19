@@ -70,6 +70,9 @@ export interface Config {
     users: User;
     media: Media;
     pages: Page;
+    articles: Article;
+    'news-feat': NewsFeat;
+    tags: Tag;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -80,6 +83,9 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    articles: ArticlesSelect<false> | ArticlesSelect<true>;
+    'news-feat': NewsFeatSelect<false> | NewsFeatSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -239,43 +245,64 @@ export interface Page {
       )[]
     | null;
   layout?:
-    | {
-        bgImg: number | Media;
-        /**
-         * The text overlay on top of image
-         */
-        headline: string;
-        variant?: ('midnight' | 'blue' | 'light') | null;
-        title: string;
-        description?:
-          | {
-              para: string;
-              id?: string | null;
-            }[]
-          | null;
-        hls?: {
-          title?: string | null;
-          tImg?: (number | null) | Media;
-          wImg?: (number | null) | Media;
-          sBlk?:
-            | {
-                title: string;
-                desc: string;
-                stats?:
-                  | {
-                      v: string;
-                      l: string;
-                      id?: string | null;
-                    }[]
-                  | null;
-                id?: string | null;
-              }[]
-            | null;
-        };
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'sticky-stats';
-      }[]
+    | (
+        | {
+            bgImg: number | Media;
+            /**
+             * The text overlay on top of image
+             */
+            headline: string;
+            variant?: ('midnight' | 'blue' | 'light') | null;
+            title: string;
+            description?:
+              | {
+                  para: string;
+                  id?: string | null;
+                }[]
+              | null;
+            hls?: {
+              title?: string | null;
+              tImg?: (number | null) | Media;
+              wImg?: (number | null) | Media;
+              sBlk?:
+                | {
+                    title: string;
+                    desc: string;
+                    stats?:
+                      | {
+                          v: string;
+                          l: string;
+                          id?: string | null;
+                        }[]
+                      | null;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'sticky-stats';
+          }
+        | {
+            /**
+             * Which tab opens by default
+             */
+            defType: 'announcements' | 'articles' | 'news-feat';
+            showTags?: boolean | null;
+            showCta?: boolean | null;
+            /**
+             * Number of items to show per page
+             */
+            perPage: number;
+            /**
+             * Which content types to show as tabs
+             */
+            enabled: ('announcements' | 'articles' | 'news-feat')[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'latest-updates';
+          }
+      )[]
     | null;
   slug?: string | null;
   slugLock?: boolean | null;
@@ -284,6 +311,70 @@ export interface Page {
   createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles".
+ */
+export interface Article {
+  id: number;
+  /**
+   * Brief title or headline of the article
+   */
+  title: string;
+  image: number | Media;
+  tags: number | Tag;
+  /**
+   * Name of newspaper (e.g., "The Hindu", "Times of India")
+   */
+  newspaper?: string | null;
+  publishedDate: string;
+  /**
+   * Optional: Link to online version of article
+   */
+  externalLink?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  label: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  /**
+   * Display order (lower numbers first)
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-feat".
+ */
+export interface NewsFeat {
+  id: number;
+  /**
+   * Brief title or headline of the feature
+   */
+  title: string;
+  /**
+   * Name of newspaper (e.g., "The Hindu", "Times of India")
+   */
+  newspaper?: string | null;
+  image: number | Media;
+  tags: number | Tag;
+  publishedDate: string;
+  /**
+   * Optional: Link to online version of article
+   */
+  externalLink?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -320,6 +411,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'articles';
+        value: number | Article;
+      } | null)
+    | ({
+        relationTo: 'news-feat';
+        value: number | NewsFeat;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: number | Tag;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -508,6 +611,17 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        'latest-updates'?:
+          | T
+          | {
+              defType?: T;
+              showTags?: T;
+              showCta?: T;
+              perPage?: T;
+              enabled?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   slug?: T;
   slugLock?: T;
@@ -516,6 +630,46 @@ export interface PagesSelect<T extends boolean = true> {
   createdAt?: T;
   deletedAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles_select".
+ */
+export interface ArticlesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  tags?: T;
+  newspaper?: T;
+  publishedDate?: T;
+  externalLink?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-feat_select".
+ */
+export interface NewsFeatSelect<T extends boolean = true> {
+  title?: T;
+  newspaper?: T;
+  image?: T;
+  tags?: T;
+  publishedDate?: T;
+  externalLink?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  label?: T;
+  slug?: T;
+  slugLock?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

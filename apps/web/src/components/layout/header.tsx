@@ -58,7 +58,7 @@ const HeaderContent = ({
     <div
       ref={ref}
       className={cn(
-        "mx-auto flex w-full items-center justify-between gap-4 px-6 py-3 lg:px-6 rounded-full opacity-90 shadow-[0px_5px_16px_0px_rgba(0,0,0,0.28)] backdrop-blur-lg",
+        "mx-auto flex w-full items-center justify-between gap-4 px-6 py-3 lg:px-6 rounded-full opacity-90 shadow-[0px_5px_16px_0px_rgba(0,0,0,0.28)] backdrop-blur-xs",
         className,
       )}
       {...props}

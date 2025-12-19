@@ -1,6 +1,5 @@
 import {
   Header,
-  HeaderActions,
   HeaderBrand,
   HeaderContent,
   HeaderNav,

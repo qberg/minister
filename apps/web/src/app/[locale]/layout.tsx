@@ -13,6 +13,7 @@ import {
   times_new_roman,
 } from "@/lib/fonts";
 import { Header } from "@/header/Component";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 export const metadata: Metadata = {
   description: "A blank template using Payload in a Next.js app.",
@@ -43,11 +44,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${enFontClasses} ${taFontClasses} antialiased`}>
-        <LenisScroll />
+        {/* }<LenisScroll /> */}
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-
-          {children}
+          <NuqsAdapter>
+            <Header />
+            {children}
+          </NuqsAdapter>
         </NextIntlClientProvider>
       </body>
     </html>

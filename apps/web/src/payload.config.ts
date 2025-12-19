@@ -11,6 +11,8 @@ import { Users } from "./collections/Users";
 import { Header } from "./header/config";
 import { s3Adapter } from "./storage/s3";
 import { Tags } from "./collections/Tags";
+import { NewspaperFeatuers } from "./collections/NewspaperFeatures";
+import { Articles } from "./collections/Articles";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -51,7 +53,7 @@ export default buildConfig({
     },
   },
   localization: payloadLocalization,
-  collections: [Users, Media, Pages, Tags],
+  collections: [Users, Media, Pages, Articles, NewspaperFeatuers, Tags],
   globals: [Header],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",

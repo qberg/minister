@@ -26,11 +26,11 @@ export function ImagePreview({
   useLockBodyScroll(isOpen);
 
   return (
-    <div className="relative flex w-full flex-col rounded-2xl">
+    <div className="relative flex w-full flex-col rounded-lg lg:rounded-2xl">
       <MotionConfig
         transition={{
           type: "spring",
-          stiffness: 400,
+          stiffness: 600,
           damping: 40,
         }}
       >
@@ -115,7 +115,6 @@ export function ImagePreview({
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.8 }}
-                            transition={{ delay: 0.1 }}
                           >
                             <X size={20} color="white" />
                           </motion.button>

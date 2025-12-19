@@ -75,7 +75,7 @@ export default async function SlugPage({ params }: Props) {
 
       {hasHero && <HeroRenderer hero={page.hero} />}
 
-      {hasLayout && <BlockRenderer blocks={page.layout} />}
+      {hasLayout && <BlockRenderer locale={locale} blocks={page.layout} />}
     </main>
   );
 }
@@ -146,5 +146,5 @@ const queryPageBySlug = cache(
     });
 
     return (result?.docs?.[0] as Page) || null;
-  }
+  },
 );
