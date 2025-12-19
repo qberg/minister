@@ -3,7 +3,7 @@ import { link } from "@/Fields/link";
 
 export const CompositeGridBlock: Block = {
   slug: "comp-grid",
-  interfaceName: "CompositeGrid",
+  interfaceName: "CompositeGridBlock",
   labels: {
     singular: "Composite Grid",
     plural: "Composite Grids",
