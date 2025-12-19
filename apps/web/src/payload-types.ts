@@ -304,6 +304,9 @@ export interface Page {
             blockName?: string | null;
             blockType: 'latest-updates';
           }
+        | CompositeGridBlock
+        | TimelineBlock
+        | TabbedContentBlock
       )[]
     | null;
   slug?: string | null;
@@ -313,6 +316,93 @@ export interface Page {
   createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CompositeGridBlock".
+ */
+export interface CompositeGridBlock {
+  heading: string;
+  description?: string | null;
+  bgImg?: (number | null) | Media;
+  items?:
+    | {
+        cardType: 'image' | 'content';
+        imageCard?: {
+          image: number | Media;
+        };
+        contentCard?: {
+          title: string;
+          text: string;
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?: {
+              relationTo: 'pages';
+              value: number | Page;
+            } | null;
+            url?: string | null;
+            /**
+             * Optional: Add # to scroll to a section (e.g., "team" for #team)
+             */
+            anchor?: string | null;
+            label: string;
+          };
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'comp-grid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimelineBlock".
+ */
+export interface TimelineBlock {
+  heading: string;
+  tagLine?: string | null;
+  items?:
+    | {
+        year: string;
+        image?: (number | null) | Media;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'timeline';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabbedContentBlock".
+ */
+export interface TabbedContentBlock {
+  heading: string;
+  description: string;
+  bgImg?: (number | null) | Media;
+  tabs?:
+    | {
+        label: string;
+        image: number | Media;
+        logo: number | Media;
+        description: string;
+        stats?:
+          | {
+              v: string;
+              l: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tab-content';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -626,6 +716,9 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        'comp-grid'?: T | CompositeGridBlockSelect<T>;
+        timeline?: T | TimelineBlockSelect<T>;
+        'tab-content'?: T | TabbedContentBlockSelect<T>;
       };
   slug?: T;
   slugLock?: T;
@@ -634,6 +727,90 @@ export interface PagesSelect<T extends boolean = true> {
   createdAt?: T;
   deletedAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CompositeGridBlock_select".
+ */
+export interface CompositeGridBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  bgImg?: T;
+  items?:
+    | T
+    | {
+        cardType?: T;
+        imageCard?:
+          | T
+          | {
+              image?: T;
+            };
+        contentCard?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    anchor?: T;
+                    label?: T;
+                  };
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimelineBlock_select".
+ */
+export interface TimelineBlockSelect<T extends boolean = true> {
+  heading?: T;
+  tagLine?: T;
+  items?:
+    | T
+    | {
+        year?: T;
+        image?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabbedContentBlock_select".
+ */
+export interface TabbedContentBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  bgImg?: T;
+  tabs?:
+    | T
+    | {
+        label?: T;
+        image?: T;
+        logo?: T;
+        description?: T;
+        stats?:
+          | T
+          | {
+              v?: T;
+              l?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

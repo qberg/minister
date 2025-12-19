@@ -3,6 +3,7 @@ import type { Page } from "@/payload-types";
 import StickyStatsBlock from "./sticky-stats-block/Component";
 import { LatestUpdatesBlock } from "./latest-updates-block/Component";
 import type { TypedLocale } from "payload";
+import { CompositeGridBlock } from "./composite-grid-block/Component";
 
 type BlockRendererProps = {
   blocks: Page["layout"];
@@ -12,6 +13,7 @@ type BlockRendererProps = {
 const blockComponents = {
   "sticky-stats": StickyStatsBlock,
   "latest-updates": LatestUpdatesBlock,
+  "comp-grid": CompositeGridBlock,
 };
 
 export function BlockRenderer({ locale, blocks }: BlockRendererProps) {

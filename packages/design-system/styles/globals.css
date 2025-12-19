@@ -61,6 +61,7 @@
   --color-accent: var(--color-yellow-600);
   --color-accent-foreground: var(--color-neutral-100);
   --color-surface: var(--color-blue-600);
+  --color-surface-muted: var(--color-yellow-50);
   --color-border: var(--color-neutral-600);
 
   --color-card: var(--color-neutral-50);

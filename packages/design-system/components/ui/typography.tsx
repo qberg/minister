@@ -15,7 +15,8 @@ const typographyVariants = cva("", {
       headingXS:
         "font-dm-sans text-2xl leading-none tracking-normal font-normal",
       h6: "font-dm-sans text-xl leading-8 tracking-tight font-normal",
-      headingXXS: "font-dm-sans text-xl leading-8 tracking-tight font-normal",
+      headingXXS:
+        "font-dm-sans text-xl leading-5 lg:leading-8 tracking-tight font-normal",
       bodyLG: "font-dm-sans text-base tracking-tight leading-none font-normal",
       bodyMD:
         "font-dm-sans text-base tracking-tight leading-none font-semibold",
