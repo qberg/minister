@@ -2,7 +2,7 @@
 
 import { ReactLenis } from "lenis/react";
 
-export function LenisScroll() {
+export function LenisScroll({ children }: { children: React.ReactNode }) {
   return (
     <ReactLenis
       options={{
@@ -31,6 +31,8 @@ export function LenisScroll() {
           node?.nodeName === "VERCEL-LIVE-FEEDBACK",
       }}
       root
-    />
+    >
+      {children}
+    </ReactLenis>
   );
 }

@@ -6,6 +6,7 @@ import { Box } from "@repo/design-system/components/layout/box";
 import { Stack } from "@repo/design-system/components/layout/stack";
 import { Typography } from "@repo/design-system/components/ui/typography";
 import type { TypedLocale } from "payload";
+import { TestScrollSpy } from "./test";
 
 type Props = {
   locale?: TypedLocale;
@@ -18,7 +19,11 @@ export function TabbedContentBlock({ block }: Props) {
   const description = block.description;
 
   return (
-    <Box as="section" className="min-h-screen relative bg-surface">
+    <Box
+      as="section"
+      overflow="visible"
+      className="min-h-screen relative bg-surface"
+    >
       {bgImageSrc && (
         <BackgroundImage src={bgImageSrc} className="opacity-10" />
       )}
@@ -35,6 +40,8 @@ export function TabbedContentBlock({ block }: Props) {
             {description}
           </Typography>
         )}
+
+        <TestScrollSpy />
       </Stack>
     </Box>
   );

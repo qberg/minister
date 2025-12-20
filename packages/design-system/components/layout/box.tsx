@@ -2,7 +2,7 @@ import { cn } from "@repo/design-system/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import type React from "react";
 
-const boxVariants = cva("overflow-hidden", {
+const boxVariants = cva("", {
   variants: {
     padding: {
       none: "p-0",
@@ -17,19 +17,25 @@ const boxVariants = cva("overflow-hidden", {
       thin: "border border-current",
       thick: "border-2 border-current",
     },
+    overflow: {
+      hidden: "overflow-hidden",
+      visible: "overflow-visible",
+      auto: "overflow-auto",
+      scroll: "overflow-scroll",
+    },
   },
   defaultVariants: {
     padding: "base",
     borderWidth: "none",
     invert: false,
+    overflow: "hidden",
   },
 });
 
 type BoxElement = "div" | "section" | "article" | "aside" | "header" | "footer";
 
 export interface BoxProps<T extends BoxElement = "div">
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof boxVariants> {
+  extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof boxVariants> {
   as?: T;
   ref?: React.Ref<HTMLElement>;
 }
@@ -39,12 +45,16 @@ const Box = <T extends BoxElement = "div">({
   padding,
   borderWidth,
   invert,
+  overflow,
   as: Comp = "div" as T,
   ref,
   ...props
 }: BoxProps<T>) => (
   <Comp
-    className={cn(boxVariants({ padding, borderWidth, invert }), className)}
+    className={cn(
+      boxVariants({ padding, borderWidth, invert, overflow }),
+      className,
+    )}
     ref={ref}
     {...props}
   />

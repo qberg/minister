@@ -16,7 +16,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { LenisScroll } from "@repo/design-system/components/ui/lenis-scroll";
 
 export const metadata: Metadata = {
-  description: "A blank template using Payload in a Next.js app.",
+  description: "TMA, grassroots leader of Tamil Nadu.",
   title: {
     default: "T M Anbarasan",
     template: "%s | T M Anbarasan",
@@ -44,13 +44,14 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${enFontClasses} ${taFontClasses} antialiased`}>
-        {/* }<LenisScroll /> */}
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <NuqsAdapter>
-            <Header />
-            {children}
-          </NuqsAdapter>
-        </NextIntlClientProvider>
+        <LenisScroll>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <NuqsAdapter>
+              <Header />
+              {children}
+            </NuqsAdapter>
+          </NextIntlClientProvider>
+        </LenisScroll>
       </body>
     </html>
   );
