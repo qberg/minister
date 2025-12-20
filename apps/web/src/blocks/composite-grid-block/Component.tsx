@@ -19,9 +19,9 @@ export function CompositeGridBlock({ block }: Props) {
   const description = block.description;
 
   return (
-    <Box as="section" className="min-h-screen bg-surface">
+    <Box as="section" className="bg-surface">
       {bgImageSrc && (
-        <BackgroundImage priority src={bgImageSrc} className="opacity-10" />
+        <BackgroundImage src={bgImageSrc} className="opacity-10" />
       )}
       <Stack className="relative z-10">
         {heading && <Heading text="About" />}

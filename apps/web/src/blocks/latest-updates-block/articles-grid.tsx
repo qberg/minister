@@ -1,5 +1,6 @@
 import type { LatestUpdateItem } from "@/types";
 import { Badge } from "@repo/design-system/components/ui/badge";
+import { Lens } from "@repo/design-system/components/ui/lens";
 import {
   Card,
   CardContent,
@@ -26,17 +27,18 @@ const ArticlesGrid = ({ items, locale }: Props) => {
           className="md:border-border md:border-r md:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(4n)]:border-r-0 lg:[&:nth-child(2n)]:border-r md:px-1 2xl:px-2"
         >
           <Card interactive className="rounded-lg lg:rounded-2xl">
-            <CardImage>
+            <Lens>
               <Image
                 src={item.image?.url || "/images/minister.png"}
                 alt={item.image?.alt || "Article Feature Image"}
-                fill
                 priority
+                width={500}
+                height={500}
                 unoptimized
                 className="object-cover"
                 sizes="(max-width:767px) 100vw, (min-width:768px) 33vw"
               />
-            </CardImage>
+            </Lens>
 
             <CardContent>
               <Badge>{item.tags?.label}</Badge>
