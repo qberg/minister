@@ -1,7 +1,6 @@
 import type { Page } from "@/payload-types";
-
-import ParallaxHero from "./parallax-hero/Component";
 import MinimalHero from "./minimal-hero/Component";
+import ParallaxHero from "./parallax-hero/Component";
 
 type HeroRendererProps = {
   hero: Page["hero"];

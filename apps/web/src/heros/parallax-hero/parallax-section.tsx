@@ -36,7 +36,7 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
   const textScaleRaw = useTransform(
     scrollYProgress,
     [0.3, 0.45, 0.5],
-    [1.25, 1.02, 1],
+    [1.25, 1.02, 1]
   );
   const textOpacityRaw = useTransform(scrollYProgress, [0.3, 0.5], [0, 0.8]);
 
@@ -49,7 +49,7 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
     <div
       className={cn(
         "relative flex w-full items-center justify-center overflow-hidden",
-        className,
+        className
       )}
       ref={containerRef}
     >

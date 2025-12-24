@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname, Link } from "@repo/i18n/navigation";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,6 +9,7 @@ import {
   BreadcrumbSeparator,
 } from "@repo/design-system/components/ui/breadcrumbs";
 import { Typography } from "@repo/design-system/components/ui/typography";
+import { Link, usePathname } from "@repo/i18n/navigation";
 import { Fragment } from "react";
 import { deslugify } from "@/utils/deslugify";
 

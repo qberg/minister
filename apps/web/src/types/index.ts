@@ -3,6 +3,7 @@ import type {
   Media,
   NewsFeat,
   Page,
+  TabbedContentBlock,
   Tag,
   User,
 } from "@/payload-types";
@@ -45,3 +46,5 @@ export type LatestUpdateItem = {
   newspaper?: string | null;
   externalLink?: string | null;
 };
+
+export type OrgInfoTabItem = NonNullable<TabbedContentBlock["tabs"]>[number];

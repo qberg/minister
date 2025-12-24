@@ -1,8 +1,8 @@
+import type { CollectionConfig } from "payload";
 import {
   ContentManagerAccess,
   EveryoneAccess,
 } from "@/access/collection-level-access";
-import type { CollectionConfig } from "payload";
 
 export const Articles: CollectionConfig<"articles"> = {
   slug: "articles",

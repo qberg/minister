@@ -1,4 +1,3 @@
-import { TestScrollSpy } from "@/blocks/tabbed-content/test";
 import { Box } from "@repo/design-system/components/layout/box";
 import { Typography } from "@repo/design-system/components/ui/typography";
 import { getTranslations } from "@repo/i18n/server";
@@ -14,8 +13,6 @@ export default async function HomePage() {
       <Box borderWidth="thin">
         <Typography as="h1">T. M. Anbarasan</Typography>
       </Box>
-
-      <TestScrollSpy />
     </div>
   );
 }

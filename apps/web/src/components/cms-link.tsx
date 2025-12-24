@@ -1,7 +1,7 @@
-import type { Page } from "@/payload-types";
 import { cn } from "@repo/design-system/lib/utils";
 import { Link } from "@repo/i18n/navigation";
 import type React from "react";
+import type { Page } from "@/payload-types";
 
 type CMSLinkType = {
   type?: "custom" | "reference" | null;
@@ -32,7 +32,7 @@ export const CMSLink = (props: CMSLinkType) => {
     : {};
 
   return (
-    <Link href={href} className={cn(className)} {...newTabProps}>
+    <Link className={cn(className)} href={href} {...newTabProps}>
       {children ?? label}
     </Link>
   );

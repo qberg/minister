@@ -5,14 +5,14 @@ import path from "path";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
+import { Articles } from "./collections/Articles";
 import { Media } from "./collections/Media";
+import { NewspaperFeatuers } from "./collections/NewspaperFeatures";
 import { Pages } from "./collections/Pages";
+import { Tags } from "./collections/Tags";
 import { Users } from "./collections/Users";
 import { Header } from "./header/config";
 import { s3Adapter } from "./storage/s3";
-import { Tags } from "./collections/Tags";
-import { NewspaperFeatuers } from "./collections/NewspaperFeatures";
-import { Articles } from "./collections/Articles";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

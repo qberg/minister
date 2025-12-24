@@ -1,13 +1,13 @@
+import { Typography } from "@repo/design-system/components/ui/typography";
+import { CMSLink } from "@/components/cms-link";
 import {
   Header,
   HeaderBrand,
   HeaderContent,
   HeaderNav,
 } from "@/components/layout/header";
-import { Typography } from "@repo/design-system/components/ui/typography";
 import Logo from "@/components/logo";
 import type { Header as HeaderData } from "@/payload-types";
-import { CMSLink } from "@/components/cms-link";
 
 type HeaderClientProps = {
   data: HeaderData;
@@ -15,15 +15,15 @@ type HeaderClientProps = {
 
 export const HeaderClient = ({ data }: HeaderClientProps) => {
   return (
-    <Header sticky hideOnScroll className="text-background">
+    <Header className="text-background" hideOnScroll sticky>
       <HeaderContent>
         {/*branding*/}
         <HeaderBrand>
           <Logo />
           <Typography
             as="h1"
-            variant="brandHeading"
             className="text-background"
+            variant="brandHeading"
           >
             T. M. Anbarasan
           </Typography>
@@ -33,7 +33,7 @@ export const HeaderClient = ({ data }: HeaderClientProps) => {
         <HeaderNav className="hidden lg:flex">
           {data?.navItems?.map((item, index) => (
             <CMSLink key={`${index}-${item.id}`} {...item.link}>
-              <Typography as="ul" variant="bodyMD" className="uppercase">
+              <Typography as="ul" className="uppercase" variant="bodyMD">
                 {item.link.label}
               </Typography>
             </CMSLink>

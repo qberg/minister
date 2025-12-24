@@ -29,10 +29,10 @@ const Header = ({
     <Box
       as="header"
       className={cn(
-        "w-full transition-transform duration-300 bg-transparent",
+        "w-full bg-transparent transition-transform duration-300",
         sticky && "fixed top-0 z-50",
         hideOnScroll && !isVisible && "-translate-y-full",
-        className,
+        className
       )}
       data-slot="header"
       padding={padding}
@@ -53,20 +53,18 @@ const HeaderContent = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;
-}) => {
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "mx-auto flex w-full items-center justify-between gap-4 px-6 py-3 lg:px-6 rounded-full opacity-90 shadow-[0px_5px_16px_0px_rgba(0,0,0,0.28)] backdrop-blur-xs",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-};
+}) => (
+  <div
+    className={cn(
+      "mx-auto flex w-full items-center justify-between gap-4 rounded-full px-6 py-3 opacity-90 shadow-[0px_5px_16px_0px_rgba(0,0,0,0.28)] backdrop-blur-xs lg:px-6",
+      className
+    )}
+    ref={ref}
+    {...props}
+  >
+    {children}
+  </div>
+);
 
 HeaderContent.displayName = "HeaderContent";
 
@@ -77,17 +75,15 @@ const HeaderBrand = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;
-}) => {
-  return (
-    <div
-      ref={ref}
-      className={cn("flex items-center gap-2 lg:gap-4 4xl:gap-6", className)}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-};
+}) => (
+  <div
+    className={cn("flex items-center 4xl:gap-6 gap-2 lg:gap-4", className)}
+    ref={ref}
+    {...props}
+  >
+    {children}
+  </div>
+);
 
 HeaderBrand.displayName = "HeaderBrand";
 
@@ -98,17 +94,15 @@ const HeaderNav = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & {
   ref?: React.Ref<HTMLDivElement>;
-}) => {
-  return (
-    <nav
-      ref={ref}
-      className={cn("flex items-center gap-8 4xl:gap-10", className)}
-      {...props}
-    >
-      {children}
-    </nav>
-  );
-};
+}) => (
+  <nav
+    className={cn("flex items-center 4xl:gap-10 gap-8", className)}
+    ref={ref}
+    {...props}
+  >
+    {children}
+  </nav>
+);
 
 HeaderNav.displayName = "HeaderNav";
 
@@ -121,8 +115,8 @@ const HeaderActions = ({
   ref?: React.Ref<HTMLDivElement>;
 }) => (
   <div
+    className={cn("flex items-center 4xl:gap-5 gap-4", className)}
     ref={ref}
-    className={cn("flex items-center gap-4 4xl:gap-5", className)}
     {...props}
   >
     {children}

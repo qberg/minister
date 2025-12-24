@@ -1,6 +1,6 @@
-import type { TagPreview } from "@/types";
-import { getPayload, type TypedLocale } from "payload";
 import config from "@payload-config";
+import { getPayload, type TypedLocale } from "payload";
+import type { TagPreview } from "@/types";
 
 type GetTagsParams = {
   locale: TypedLocale;

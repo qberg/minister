@@ -1,11 +1,11 @@
-import BackgroundImage from "@/components/background-image";
-import Heading from "@/components/heading";
-import { getMediaUrl } from "@/lib/payload-media-utils";
-import type { CompositeGridBlock as CompositeGridBlockProps } from "@/payload-types";
 import { Box } from "@repo/design-system/components/layout/box";
 import { Stack } from "@repo/design-system/components/layout/stack";
 import { Typography } from "@repo/design-system/components/ui/typography";
 import type { TypedLocale } from "payload";
+import BackgroundImage from "@/components/background-image";
+import Heading from "@/components/heading";
+import { getMediaUrl } from "@/lib/payload-media-utils";
+import type { CompositeGridBlock as CompositeGridBlockProps } from "@/payload-types";
 import { ContentCard, ImageCard } from "./cards";
 
 type Props = {
@@ -21,7 +21,7 @@ export function CompositeGridBlock({ block }: Props) {
   return (
     <Box as="section" className="bg-surface">
       {bgImageSrc && (
-        <BackgroundImage src={bgImageSrc} className="opacity-10" />
+        <BackgroundImage className="opacity-10" src={bgImageSrc} />
       )}
       <Stack className="relative z-10">
         {heading && <Heading text="About" />}
@@ -29,23 +29,23 @@ export function CompositeGridBlock({ block }: Props) {
         {description && (
           <Typography
             as="p"
+            className="text-surface-muted lg:max-w-[55ch]"
             variant="headingXXS"
-            className="lg:max-w-[55ch] text-surface-muted"
           >
             {description}
           </Typography>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-3 gap-4 lg:gap-4 4xl:gap-8 md:auto-rows-fr">
+        <div className="grid grid-cols-1 4xl:gap-8 gap-4 md:auto-rows-fr lg:grid-cols-3 lg:grid-rows-3 lg:gap-4">
           {block.items?.map((item, index) => {
             const key = item.id || index;
 
             switch (item.cardType) {
               case "image":
-                return <ImageCard key={key} data={item} position={index % 4} />;
+                return <ImageCard data={item} key={key} position={index % 4} />;
               case "content":
                 return (
-                  <ContentCard key={key} data={item} position={index % 4} />
+                  <ContentCard data={item} key={key} position={index % 4} />
                 );
               default:
                 return (

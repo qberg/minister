@@ -63,6 +63,7 @@
   --color-surface: var(--color-blue-600);
   --color-surface-muted: var(--color-yellow-50);
   --color-border: var(--color-neutral-600);
+  --color-alt-border: var(--color-yellow-100);
 
   --color-card: var(--color-neutral-50);
   --color-card-muted: var(--color-neutral-100);

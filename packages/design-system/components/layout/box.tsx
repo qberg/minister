@@ -35,7 +35,8 @@ const boxVariants = cva("", {
 type BoxElement = "div" | "section" | "article" | "aside" | "header" | "footer";
 
 export interface BoxProps<T extends BoxElement = "div">
-  extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof boxVariants> {
+  extends React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof boxVariants> {
   as?: T;
   ref?: React.Ref<HTMLElement>;
 }
@@ -53,7 +54,7 @@ const Box = <T extends BoxElement = "div">({
   <Comp
     className={cn(
       boxVariants({ padding, borderWidth, invert, overflow }),
-      className,
+      className
     )}
     ref={ref}
     {...props}

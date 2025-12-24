@@ -1,8 +1,8 @@
 import type { CollectionSlug, TypedLocale } from "payload";
-import LatestUpdatesClient from "./Component.client";
 import { getLatestUpdates } from "@/lib/queries/latest-updates";
 import { getTags } from "@/lib/queries/tags";
 import type { LatestUpdatesBlockType } from "@/types";
+import LatestUpdatesClient from "./Component.client";
 
 type Props = {
   locale: TypedLocale;
@@ -21,6 +21,6 @@ export async function LatestUpdatesBlock({ locale, block }: Props) {
   ]);
 
   return (
-    <LatestUpdatesClient block={block} tags={tags} initialData={initialData} />
+    <LatestUpdatesClient block={block} initialData={initialData} tags={tags} />
   );
 }

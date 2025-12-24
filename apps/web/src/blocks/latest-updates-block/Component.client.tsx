@@ -1,28 +1,26 @@
 "use client";
 
-import type {
-  LatestUpdateItem,
-  LatestUpdatesBlockType,
-  TagPreview,
-} from "@/types";
 import { Box } from "@repo/design-system/components/layout/box";
 import { Stack } from "@repo/design-system/components/layout/stack";
-
-import { parseAsString, useQueryStates } from "nuqs";
-import { useEffect, useState, useTransition } from "react";
-import type { CollectionSlug, TypedLocale } from "payload";
-import { fetchLatestUpdatesAction } from "@/app/actions/latest-updates";
-
 import {
   Tabs,
   TabsList,
   TabsTrigger,
 } from "@repo/design-system/components/ui/tabs";
 import { Typography } from "@repo/design-system/components/ui/typography";
-import NewsFeatGrid from "./news-feat-grid";
-import ArticlesGrid from "./articles-grid";
-import AnnouncementsGrid from "./announcements-grid";
+import { parseAsString, useQueryStates } from "nuqs";
+import type { CollectionSlug, TypedLocale } from "payload";
+import { useEffect, useState, useTransition } from "react";
+import { fetchLatestUpdatesAction } from "@/app/actions/latest-updates";
 import AnimatedPattern from "@/components/animated-pattern";
+import type {
+  LatestUpdateItem,
+  LatestUpdatesBlockType,
+  TagPreview,
+} from "@/types";
+import AnnouncementsGrid from "./announcements-grid";
+import ArticlesGrid from "./articles-grid";
+import NewsFeatGrid from "./news-feat-grid";
 
 type Props = {
   block: LatestUpdatesBlockType;
@@ -90,14 +88,14 @@ const LatestUpdatesClient = ({ block, tags, initialData, locale }: Props) => {
       <Stack className="relative z-10">
         {/* content type tabs*/}
         <Tabs
-          value={currentType}
+          className="mx-auto inline-flex"
           onValueChange={handleTypeChange}
-          className="inline-flex mx-auto"
+          value={currentType}
         >
           <TabsList size="lg" variant="button">
             {block.enabled.map((type) => (
               <TabsTrigger key={type} value={type}>
-                <Typography as="p" variant="bodyMD" className="uppercase">
+                <Typography as="p" className="uppercase" variant="bodyMD">
                   {getContentTypeLabel(type)}
                 </Typography>
               </TabsTrigger>
@@ -108,19 +106,19 @@ const LatestUpdatesClient = ({ block, tags, initialData, locale }: Props) => {
         {/*Tag filters*/}
         {block.showTags && tags.length > 0 && (
           <Tabs
-            value={currentTag}
-            onValueChange={handleTagChange}
             className="inline-flex"
+            onValueChange={handleTagChange}
+            value={currentTag}
           >
             <TabsList size="lg" variant="line">
               <TabsTrigger key="all" value="all">
-                <Typography as="p" variant="bodyMD" className="uppercase">
+                <Typography as="p" className="uppercase" variant="bodyMD">
                   All
                 </Typography>
               </TabsTrigger>
               {tags.map((tag) => (
                 <TabsTrigger key={tag.slug} value={tag.slug as string}>
-                  <Typography as="p" variant="bodyMD" className="uppercase">
+                  <Typography as="p" className="uppercase" variant="bodyMD">
                     {tag.label}
                   </Typography>
                 </TabsTrigger>

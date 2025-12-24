@@ -1,19 +1,19 @@
 import type React from "react";
 import "./styles.css";
+import { LenisScroll } from "@repo/design-system/components/ui/lenis-scroll";
 import { hasLocale, NextIntlClientProvider } from "@repo/i18n";
 import { routing } from "@repo/i18n/routing";
 import { getMessages } from "@repo/i18n/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Header } from "@/header/Component";
 import {
   anek_tamil,
   dm_sans,
   tamil_sangam_mn,
   times_new_roman,
 } from "@/lib/fonts";
-import { Header } from "@/header/Component";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { LenisScroll } from "@repo/design-system/components/ui/lenis-scroll";
 
 export const metadata: Metadata = {
   description: "TMA, grassroots leader of Tamil Nadu.",

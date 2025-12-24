@@ -3,17 +3,17 @@ import {
   ContentManagerAccess,
   EveryoneAccess,
 } from "@/access/collection-level-access";
+import { CompositeGridBlock } from "@/blocks/composite-grid-block/config";
+import { LatestUpdatesBlock } from "@/blocks/latest-updates-block/config";
 import { StickyStatsBlock } from "@/blocks/sticky-stats-block/config";
+import { TabbedContentBlock } from "@/blocks/tabbed-content-block/config";
+import { TimelineBlock } from "@/blocks/timeline-block/config";
 import { createPublishedDateField } from "@/Fields/published-date";
 import { createSlugField } from "@/Fields/slug";
+import { MinimalHero } from "@/heros/minimal-hero/config";
 import { ParallaxHero } from "@/heros/parallax-hero/config";
 import { PopulatePublishDateHook } from "@/hooks/populate-publish-date";
 import { generatePreviewPath } from "@/utils/generate-preview-path";
-import { MinimalHero } from "@/heros/minimal-hero/config";
-import { LatestUpdatesBlock } from "@/blocks/latest-updates-block/config";
-import { CompositeGridBlock } from "@/blocks/composite-grid-block/config";
-import { TimelineBlock } from "@/blocks/timeline-block/config";
-import { TabbedContentBlock } from "@/blocks/tabbed-content/config";
 
 export const Pages: CollectionConfig<"pages"> = {
   slug: "pages",

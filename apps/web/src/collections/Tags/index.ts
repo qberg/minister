@@ -1,9 +1,9 @@
+import type { CollectionConfig } from "payload";
 import {
   ContentManagerAccess,
   EveryoneAccess,
 } from "@/access/collection-level-access";
 import { createSlugField } from "@/Fields/slug";
-import type { CollectionConfig } from "payload";
 
 export const Tags: CollectionConfig<"tags"> = {
   slug: "tags",

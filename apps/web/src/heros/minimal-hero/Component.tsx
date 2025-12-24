@@ -1,9 +1,9 @@
-import BackgroundImage from "@/components/background-image";
-import { BreadCrumb } from "@/components/bread-crumb";
-import { getMediaUrl } from "@/lib/payload-media-utils";
 import { Box } from "@repo/design-system/components/layout/box";
 import { Stack } from "@repo/design-system/components/layout/stack";
 import { Typography } from "@repo/design-system/components/ui/typography";
+import BackgroundImage from "@/components/background-image";
+import { BreadCrumb } from "@/components/bread-crumb";
+import { getMediaUrl } from "@/lib/payload-media-utils";
 
 type MinimalHeroBlockType = Extract<HeroBlock, { blockType: "minimal-hero" }>;
 
@@ -16,16 +16,16 @@ const MinimalHero = ({ block }: MinimalHeroProps) => {
   const isBreadcrumb = block.breadcrumb;
 
   return (
-    <Box as="section" className="min-h-[25vw] relative bg-surface">
+    <Box as="section" className="relative min-h-[25vw] bg-surface">
       {/*bg image*/}
       {bgImageSrc && (
-        <BackgroundImage priority src={bgImageSrc} className="opacity-10" />
+        <BackgroundImage className="opacity-10" priority src={bgImageSrc} />
       )}
-      <Stack gap="sm" className="mt-24 lg:mt-[8vw] relative z-10">
+      <Stack className="relative z-10 mt-24 lg:mt-[8vw]" gap="sm">
         {/*bread crumbs*/}
         {isBreadcrumb && <BreadCrumb />}
         {/*title*/}
-        <Typography as="h2" variant="headingLG" className="text-accent">
+        <Typography as="h2" className="text-accent" variant="headingLG">
           {block.title}
         </Typography>
       </Stack>

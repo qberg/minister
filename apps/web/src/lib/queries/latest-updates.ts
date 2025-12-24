@@ -1,10 +1,10 @@
-import {
-  getPayload,
-  type Where,
-  type CollectionSlug,
-  type TypedLocale,
-} from "payload";
 import config from "@payload-config";
+import {
+  type CollectionSlug,
+  getPayload,
+  type TypedLocale,
+  type Where,
+} from "payload";
 import type {
   LatestUpdateItem,
   MediaPreview,
@@ -12,7 +12,7 @@ import type {
 } from "@/types";
 
 function mapToLatestUpdateItem(
-  doc: SelectedCollectionFields,
+  doc: SelectedCollectionFields
 ): LatestUpdateItem {
   return {
     id: doc.id,
@@ -52,7 +52,7 @@ export type LatestUpdatesResult = {
 };
 
 export async function getLatestUpdates(
-  params: GetLatestUpdatesParams,
+  params: GetLatestUpdatesParams
 ): Promise<LatestUpdatesResult> {
   const { locale, collection, tag, page, limit } = params;
 
@@ -80,7 +80,7 @@ export async function getLatestUpdates(
 
   return {
     docs: (result.docs as SelectedCollectionFields[]).map(
-      mapToLatestUpdateItem,
+      mapToLatestUpdateItem
     ),
     hasNextPage: result.hasNextPage,
     page: result.page || 0,

@@ -1,13 +1,13 @@
 import { Box } from "@repo/design-system/components/layout/box";
 import { Stack } from "@repo/design-system/components/layout/stack";
 import { Typography } from "@repo/design-system/components/ui/typography";
+import type { TypedLocale } from "payload";
 import BackgroundImage from "@/components/background-image";
 import { StickyScroll } from "@/components/layout/sticky-scroll";
 import { getMediaUrl } from "@/lib/payload-media-utils";
 import type { LayoutBlock, StickyStatsVariant } from "@/types";
-import { StatBlock, StatGrid, StatItem } from "./stat-block";
 import { stickyStatsTextVariants, stickyStatsVariants } from "./variants";
-import type { TypedLocale } from "payload";
+import { StatBlock, StatGrid, StatItem } from "./stat-block";
 
 type StickyStatsBlockProps = {
   block: Extract<LayoutBlock, { blockType: "sticky-stats" }>;

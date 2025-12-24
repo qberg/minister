@@ -6,16 +6,16 @@ const LOGO_STYLES = {
 
 const Logo = () => (
   <div
-    className="relative aspect-square rounded-full bg-secondary overflow-hidden"
+    className="relative aspect-square overflow-hidden rounded-full bg-secondary"
     style={LOGO_STYLES}
   >
     <Image
-      src="/logo.png"
       alt="Anbarasan Logo - Go to Home page"
+      className="object-cover"
       fill
       priority
-      className="object-cover"
       sizes="5vw"
+      src="/logo.png"
     />
   </div>
 );

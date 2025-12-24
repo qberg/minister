@@ -1,12 +1,12 @@
-import BackgroundImage from "@/components/background-image";
-import Heading from "@/components/heading";
-import { getMediaUrl } from "@/lib/payload-media-utils";
-import type { TabbedContentBlock as TabbedContentBlockProps } from "@/payload-types";
 import { Box } from "@repo/design-system/components/layout/box";
 import { Stack } from "@repo/design-system/components/layout/stack";
 import { Typography } from "@repo/design-system/components/ui/typography";
 import type { TypedLocale } from "payload";
-import { TestScrollSpy } from "./test";
+import BackgroundImage from "@/components/background-image";
+import Heading from "@/components/heading";
+import { getMediaUrl } from "@/lib/payload-media-utils";
+import type { TabbedContentBlock as TabbedContentBlockProps } from "@/payload-types";
+import ScrollCards from "./scroll-cards";
 
 type Props = {
   locale?: TypedLocale;
@@ -21,11 +21,11 @@ export function TabbedContentBlock({ block }: Props) {
   return (
     <Box
       as="section"
+      className="relative min-h-screen bg-surface"
       overflow="visible"
-      className="min-h-screen relative bg-surface"
     >
       {bgImageSrc && (
-        <BackgroundImage src={bgImageSrc} className="opacity-10" />
+        <BackgroundImage className="opacity-40" src={bgImageSrc} />
       )}
 
       <Stack className="relative z-10">
@@ -34,14 +34,14 @@ export function TabbedContentBlock({ block }: Props) {
         {description && (
           <Typography
             as="p"
+            className="text-surface-muted lg:max-w-[58ch]"
             variant="headingXXS"
-            className="lg:max-w-[55ch] text-surface-muted"
           >
             {description}
           </Typography>
         )}
 
-        <TestScrollSpy />
+        {block.tabs && <ScrollCards items={block.tabs || []} />}
       </Stack>
     </Box>
   );
