@@ -5,6 +5,7 @@ import type {
   Page,
   TabbedContentBlock,
   Tag,
+  TimelineBlock,
   User,
 } from "@/payload-types";
 
@@ -48,3 +49,4 @@ export type LatestUpdateItem = {
 };
 
 export type OrgInfoTabItem = NonNullable<TabbedContentBlock["tabs"]>[number];
+export type TimelineItem = NonNullable<TimelineBlock["items"]>[number];

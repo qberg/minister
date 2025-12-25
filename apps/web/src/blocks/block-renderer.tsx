@@ -4,6 +4,7 @@ import { CompositeGridBlock } from "./composite-grid-block/Component";
 import { LatestUpdatesBlock } from "./latest-updates-block/Component";
 import StickyStatsBlock from "./sticky-stats-block/Component";
 import { TabbedContentBlock } from "./tabbed-content-block/Component";
+import { TimelineBlock } from "./timeline-block/Component";
 
 type BlockRendererProps = {
   blocks: Page["layout"];
@@ -15,6 +16,7 @@ const blockComponents = {
   "latest-updates": LatestUpdatesBlock,
   "comp-grid": CompositeGridBlock,
   "tab-content": TabbedContentBlock,
+  timeline: TimelineBlock,
 };
 
 export function BlockRenderer({ locale, blocks }: BlockRendererProps) {
