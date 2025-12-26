@@ -4,6 +4,7 @@ import {
   EveryoneAccess,
 } from "@/access/collection-level-access";
 import { CompositeGridBlock } from "@/blocks/composite-grid-block/config";
+import { InteractiveMapBlock } from "@/blocks/interactive-map-block/config";
 import { LatestUpdatesBlock } from "@/blocks/latest-updates-block/config";
 import { StickyStatsBlock } from "@/blocks/sticky-stats-block/config";
 import { TabbedContentBlock } from "@/blocks/tabbed-content-block/config";
@@ -88,6 +89,7 @@ export const Pages: CollectionConfig<"pages"> = {
                 CompositeGridBlock,
                 TimelineBlock,
                 TabbedContentBlock,
+                InteractiveMapBlock,
               ],
             },
           ],

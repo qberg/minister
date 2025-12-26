@@ -2,7 +2,7 @@
 # scripts/extract-svg-paths.sh
 
 # Configuration
-SVG_FILE="$HOME/dev/minister/apps/web/public/bg/pattern.svg"
+SVG_FILE="$HOME/Downloads/alandur.svg"
 OUTPUT_FILE="./patterns.ts"
 
 # Check if SVG file exists

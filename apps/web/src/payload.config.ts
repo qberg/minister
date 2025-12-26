@@ -6,6 +6,7 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 import { Articles } from "./collections/Articles";
+import { MapZones } from "./collections/MapZones";
 import { Media } from "./collections/Media";
 import { NewspaperFeatuers } from "./collections/NewspaperFeatures";
 import { Pages } from "./collections/Pages";
@@ -53,7 +54,15 @@ export default buildConfig({
     },
   },
   localization: payloadLocalization,
-  collections: [Users, Media, Pages, Articles, NewspaperFeatuers, Tags],
+  collections: [
+    Users,
+    Media,
+    Pages,
+    Articles,
+    NewspaperFeatuers,
+    Tags,
+    MapZones,
+  ],
   globals: [Header],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",

@@ -1,6 +1,7 @@
 import type { TypedLocale } from "payload";
 import type { Page } from "@/payload-types";
 import { CompositeGridBlock } from "./composite-grid-block/Component";
+import InteractiveMapBlock from "./interactive-map-block/Component";
 import { LatestUpdatesBlock } from "./latest-updates-block/Component";
 import StickyStatsBlock from "./sticky-stats-block/Component";
 import { TabbedContentBlock } from "./tabbed-content-block/Component";
@@ -17,6 +18,7 @@ const blockComponents = {
   "comp-grid": CompositeGridBlock,
   "tab-content": TabbedContentBlock,
   timeline: TimelineBlock,
+  "int-map": InteractiveMapBlock,
 };
 
 export function BlockRenderer({ locale, blocks }: BlockRendererProps) {

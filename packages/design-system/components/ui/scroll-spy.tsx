@@ -228,7 +228,17 @@ export function ScrollSpyTrigger({
       whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.15 }}
     >
-      {children}
+      {isActive && (
+        <motion.div
+          layoutId="active-tab-bg"
+          className="absolute inset-0 bg-accent"
+          transition={{ type: "spring", stiffness: 300, damping: 30, restDelta: 0.01 }}
+        />
+      )}
+
+      <span className="relative z-10 text-background mix-blend-multiply dark:mix-blend-normal">
+        {children}
+      </span>
     </motion.button>
   );
 }

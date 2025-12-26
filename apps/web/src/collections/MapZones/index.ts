@@ -18,6 +18,8 @@ export const MapZones: CollectionConfig<"map-zones"> = {
     delete: ContentManagerAccess,
   },
   admin: {
+    useAsTitle: "name",
+    defaultColumns: ["name", "slug", "type"],
     group: "Alandur Map",
   },
   fields: [

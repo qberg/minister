@@ -73,6 +73,7 @@ export interface Config {
     articles: Article;
     'news-feat': NewsFeat;
     tags: Tag;
+    'map-zones': MapZone;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +87,7 @@ export interface Config {
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     'news-feat': NewsFeatSelect<false> | NewsFeatSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    'map-zones': MapZonesSelect<false> | MapZonesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -307,6 +309,7 @@ export interface Page {
         | CompositeGridBlock
         | TimelineBlock
         | TabbedContentBlock
+        | InteractiveMapBlock
       )[]
     | null;
   slug?: string | null;
@@ -406,6 +409,22 @@ export interface TabbedContentBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InteractiveMapBlock".
+ */
+export interface InteractiveMapBlock {
+  title?: string | null;
+  description?: string | null;
+  /**
+   * Summary mode shows a simplified view. Full mode allows deep linking.
+   */
+  mode?: ('summary' | 'full') | null;
+  headline?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'int-map';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles".
  */
 export interface Article {
@@ -470,6 +489,27 @@ export interface NewsFeat {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "map-zones".
+ */
+export interface MapZone {
+  id: number;
+  /**
+   * The name shown in the tooltip and header (e.g., "Ward 160" or "Iyyappanthangal")
+   */
+  name: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  type: 'panchayat' | 'ward';
+  /**
+   * Approximate population
+   */
+  population?: number | null;
+  areaSqKm?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -515,6 +555,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'map-zones';
+        value: number | MapZone;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -719,6 +763,7 @@ export interface PagesSelect<T extends boolean = true> {
         'comp-grid'?: T | CompositeGridBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         'tab-content'?: T | TabbedContentBlockSelect<T>;
+        'int-map'?: T | InteractiveMapBlockSelect<T>;
       };
   slug?: T;
   slugLock?: T;
@@ -814,6 +859,18 @@ export interface TabbedContentBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InteractiveMapBlock_select".
+ */
+export interface InteractiveMapBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  mode?: T;
+  headline?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles_select".
  */
 export interface ArticlesSelect<T extends boolean = true> {
@@ -849,6 +906,20 @@ export interface TagsSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "map-zones_select".
+ */
+export interface MapZonesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  slugLock?: T;
+  type?: T;
+  population?: T;
+  areaSqKm?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -1,5 +1,6 @@
 import type {
   Article,
+  MapZone,
   Media,
   NewsFeat,
   Page,
@@ -50,3 +51,11 @@ export type LatestUpdateItem = {
 
 export type OrgInfoTabItem = NonNullable<TabbedContentBlock["tabs"]>[number];
 export type TimelineItem = NonNullable<TimelineBlock["items"]>[number];
+
+export type MapZoneData = {
+  slug: string;
+  type: string;
+  d: string;
+};
+
+export type MapZoneOption = Pick<MapZone, "name" | "slug" | "type">;
