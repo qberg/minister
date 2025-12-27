@@ -20,7 +20,7 @@ export const MapZones: CollectionConfig<"map-zones"> = {
   admin: {
     useAsTitle: "name",
     defaultColumns: ["name", "slug", "type"],
-    group: "Alandur Map",
+    group: "Real Results of Alandur",
   },
   fields: [
     {
