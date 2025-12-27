@@ -1,8 +1,10 @@
 "use client";
 
 import { cn } from "@repo/design-system/lib/utils";
+import { AnimatePresence, useMotionValue } from "motion/react";
 import { useState } from "react";
 import MapPath from "./map-path";
+import Tooltip from "./tooltip";
 import { ZONES } from "./zones";
 
 type Props = {
@@ -20,14 +22,16 @@ export function AlandurMap({
 }: Props) {
   // --- Tooltip & Interaction Logic ---
   const [hoveredName, setHoveredName] = useState<string | null>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
   const handlePointerMove = (e: React.PointerEvent) => {
-    setMousePos({ x: e.clientX, y: e.clientY });
+    mouseX.set(e.clientX);
+    mouseY.set(e.clientY);
   };
 
-  const getName = (slug: string) =>
-    zoneNames[slug] || slug.replace(/-/g, " ").toUpperCase();
+  const getName = (slug: string) => zoneNames[slug] || slug.replace(/-/g, " ");
 
   return (
     <div
@@ -44,14 +48,11 @@ export function AlandurMap({
       onPointerLeave={() => setHoveredName(null)}
       onPointerMove={handlePointerMove}
     >
-      {hoveredName && (
-        <div
-          className="pointer-events-none fixed z-50 rounded bg-black/80 px-2 py-1 text-white text-xs"
-          style={{ top: mousePos.y + 10, left: mousePos.x + 10 }}
-        >
-          {hoveredName}
-        </div>
-      )}
+      <AnimatePresence>
+        {hoveredName && (
+          <Tooltip mouseX={mouseX} mouseY={mouseY} text={hoveredName} />
+        )}
+      </AnimatePresence>
 
       <svg
         className="h-auto w-full touch-manipulation select-none"

@@ -7,6 +7,7 @@ import type { TypedLocale } from "payload";
 import { useEffect, useMemo, useState } from "react";
 import { getMapZones } from "@/app/actions/map";
 import { AlandurMap } from "@/components/alandur-map";
+import { ZoneCombobox } from "@/components/alandur-map/zone-combobox";
 import Heading from "@/components/heading";
 import type { InteractiveMapBlock as InteractiveMapBlockProps } from "@/payload-types";
 import type { MapZoneOption } from "@/types";
@@ -47,7 +48,7 @@ function InteractiveMapBlock({ locale, block }: Props) {
 
   const zoneNameLookup = useMemo(() => {
     const lookup: Record<string, string> = {};
-    zones.forEach((z) => (lookup[z.name] = z.name));
+    zones.forEach((z) => (lookup[z.slug] = z.name));
     return lookup;
   }, [zones]);
 
@@ -57,7 +58,7 @@ function InteractiveMapBlock({ locale, block }: Props) {
   };
 
   return (
-    <Box as="section" className="min-h-screen" overflow="visible">
+    <Box as="section" className="" overflow="visible">
       <Stack className="relative z-10">
         {heading && <Heading text={heading} />}
 
@@ -74,7 +75,7 @@ function InteractiveMapBlock({ locale, block }: Props) {
             </Typography>
           )}
           {/*map*/}
-          <div className="relative flex w-full items-center justify-center md:w-4/6 md:p-8">
+          <div className="relative flex w-full items-center justify-center md:w-4/6 md:p-8 lg:min-h-[500px]">
             {isLoading && (
               <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-gray-50/50 backdrop-blur-sm">
                 <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600" />
@@ -92,11 +93,6 @@ function InteractiveMapBlock({ locale, block }: Props) {
                 onZoneSelect={handleZoneToggle}
                 zoneNames={zoneNameLookup}
               />
-            )}
-
-            {/* Empty State Fallback */}
-            {!isLoading && zones.length === 0 && (
-              <p className="text-gray-400 text-sm">No map data available.</p>
             )}
           </div>
 
@@ -122,6 +118,13 @@ function InteractiveMapBlock({ locale, block }: Props) {
             )}
 
             {/*search combobox*/}
+
+            <ZoneCombobox
+              activeSlug={activeSlug}
+              isLoading={isLoading}
+              onSelect={handleZoneToggle}
+              zones={zones}
+            />
           </div>
         </div>
       </Stack>

@@ -5,7 +5,9 @@ import path from "path";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
+import { Activities } from "./collections/Activities";
 import { Articles } from "./collections/Articles";
+import { Issues } from "./collections/Issues";
 import { MapZones } from "./collections/MapZones";
 import { Media } from "./collections/Media";
 import { NewspaperFeatuers } from "./collections/NewspaperFeatures";
@@ -61,6 +63,8 @@ export default buildConfig({
     Articles,
     NewspaperFeatuers,
     Tags,
+    Issues,
+    Activities,
     MapZones,
   ],
   globals: [Header],

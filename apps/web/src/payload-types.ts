@@ -73,6 +73,8 @@ export interface Config {
     articles: Article;
     'news-feat': NewsFeat;
     tags: Tag;
+    issues: Issue;
+    activities: Activity;
     'map-zones': MapZone;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -87,6 +89,8 @@ export interface Config {
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     'news-feat': NewsFeatSelect<false> | NewsFeatSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    issues: IssuesSelect<false> | IssuesSelect<true>;
+    activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
     'map-zones': MapZonesSelect<false> | MapZonesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -489,6 +493,35 @@ export interface NewsFeat {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "issues".
+ */
+export interface Issue {
+  id: number;
+  name: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  icon?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activities".
+ */
+export interface Activity {
+  id: number;
+  title: string;
+  cost: number;
+  type?: (number | null) | Issue;
+  zone?: (number | null) | MapZone;
+  scheme?: string | null;
+  financialYear?: string | null;
+  status?: ('planned' | 'in-progress' | 'completed') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "map-zones".
  */
 export interface MapZone {
@@ -555,6 +588,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'issues';
+        value: number | Issue;
+      } | null)
+    | ({
+        relationTo: 'activities';
+        value: number | Activity;
       } | null)
     | ({
         relationTo: 'map-zones';
@@ -906,6 +947,33 @@ export interface TagsSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "issues_select".
+ */
+export interface IssuesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  slugLock?: T;
+  icon?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activities_select".
+ */
+export interface ActivitiesSelect<T extends boolean = true> {
+  title?: T;
+  cost?: T;
+  type?: T;
+  zone?: T;
+  scheme?: T;
+  financialYear?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
