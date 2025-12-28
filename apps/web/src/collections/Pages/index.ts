@@ -12,6 +12,7 @@ import { TabbedContentBlock } from "@/blocks/tabbed-content-block/config";
 import { TimelineBlock } from "@/blocks/timeline-block/config";
 import { createPublishedDateField } from "@/Fields/published-date";
 import { createSlugField } from "@/Fields/slug";
+import { CutoutHero } from "@/heros/cutout-hero/config";
 import { MinimalHero } from "@/heros/minimal-hero/config";
 import { ParallaxHero } from "@/heros/parallax-hero/config";
 import { PopulatePublishDateHook } from "@/hooks/populate-publish-date";
@@ -74,7 +75,7 @@ export const Pages: CollectionConfig<"pages"> = {
               type: "blocks",
               minRows: 0,
               maxRows: 1,
-              blocks: [ParallaxHero, MinimalHero],
+              blocks: [ParallaxHero, CutoutHero, MinimalHero],
             },
           ],
           label: "Hero",

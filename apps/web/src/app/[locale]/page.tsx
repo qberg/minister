@@ -1,8 +1,6 @@
 import { Box } from "@repo/design-system/components/layout/box";
 import { Typography } from "@repo/design-system/components/ui/typography";
 import { getTranslations } from "@repo/i18n/server";
-import { WalletGallery } from "@/components/wallet";
-import { Skiper23 } from "@/components/wallet-expand";
 import { HomePreloader } from "./_components/home-preloader";
 
 export default async function HomePage() {
@@ -32,10 +30,6 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
-
-        <WalletGallery />
-
-        <Skiper23 />
 
         {/* Rest of page content... */}
         <Box className="h-[50vh] w-full bg-stone-200" />

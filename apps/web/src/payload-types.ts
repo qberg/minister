@@ -240,6 +240,7 @@ export interface Page {
             blockName?: string | null;
             blockType: 'parallax-hero';
           }
+        | CutoutHero
         | {
             title: string;
             bgImg?: (number | null) | Media;
@@ -324,6 +325,31 @@ export interface Page {
   createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CutoutHero".
+ */
+export interface CutoutHero {
+  title: string;
+  desc: string;
+  portraits?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  cutout?: (number | null) | Media;
+  stats?:
+    | {
+        l: string;
+        v: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cutout-hero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -758,6 +784,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        'cutout-hero'?: T | CutoutHeroSelect<T>;
         'minimal-hero'?:
           | T
           | {
@@ -834,6 +861,30 @@ export interface PagesSelect<T extends boolean = true> {
   createdAt?: T;
   deletedAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CutoutHero_select".
+ */
+export interface CutoutHeroSelect<T extends boolean = true> {
+  title?: T;
+  desc?: T;
+  portraits?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  cutout?: T;
+  stats?:
+    | T
+    | {
+        l?: T;
+        v?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
