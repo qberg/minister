@@ -119,6 +119,7 @@ export function IssueCarouselEmbla({
             aria-label="Previous slide"
             className="rounded-full bg-black/10 p-2 transition-colors hover:bg-black/20"
             onClick={() => api?.scrollPrev()}
+            type="button"
           >
             <ChevronLeft className="h-6 w-6 text-white" />
           </button>
@@ -126,6 +127,7 @@ export function IssueCarouselEmbla({
             aria-label="Next slide"
             className="rounded-full bg-black/10 p-2 transition-colors hover:bg-black/20"
             onClick={() => api?.scrollNext()}
+            type="button"
           >
             <ChevronRight className="h-6 w-6 text-white" />
           </button>
@@ -145,6 +147,7 @@ export function IssueCarouselEmbla({
                 )}
                 key={index}
                 onClick={() => api?.scrollTo(index)}
+                type="button"
               />
             ))}
           </div>

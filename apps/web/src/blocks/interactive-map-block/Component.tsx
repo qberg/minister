@@ -5,12 +5,17 @@ import { Stack } from "@repo/design-system/components/layout/stack";
 import { Typography } from "@repo/design-system/components/ui/typography";
 import type { TypedLocale } from "payload";
 import { useEffect, useMemo, useState } from "react";
+import { getMapStats } from "@/app/actions/get-map-stats";
 import { getMapZones } from "@/app/actions/map";
 import { AlandurMap } from "@/components/alandur-map";
 import { ZoneCombobox } from "@/components/alandur-map/zone-combobox";
+import { AnimatedHeading } from "@/components/animated-heading";
+import AnimatedStat from "@/components/animated-stat";
 import Heading from "@/components/heading";
+import { IssueCarouselEmbla } from "@/components/issue-carousel-embla";
+import { PerspectiveCarousel } from "@/components/perspective-carousel";
 import type { InteractiveMapBlock as InteractiveMapBlockProps } from "@/payload-types";
-import type { MapZoneOption } from "@/types";
+import type { AllImpactStats, MapZoneOption } from "@/types";
 
 type Props = {
   locale: TypedLocale;
@@ -25,6 +30,9 @@ function InteractiveMapBlock({ locale, block }: Props) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [zones, setZones] = useState<MapZoneOption[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [stats, setStats] = useState<AllImpactStats | null>(null);
+  const [isLoadingStats, setIsLoadingStats] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -46,6 +54,27 @@ function InteractiveMapBlock({ locale, block }: Props) {
     };
   }, [locale]);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchStats = async () => {
+      setIsLoadingStats(true);
+
+      const statsData = await getMapStats(activeSlug);
+
+      if (isMounted) {
+        setStats(statsData);
+        setIsLoadingStats(false);
+      }
+    };
+
+    fetchStats();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [activeSlug]);
+
   const zoneNameLookup = useMemo(() => {
     const lookup: Record<string, string> = {};
     zones.forEach((z) => (lookup[z.slug] = z.name));
@@ -58,7 +87,7 @@ function InteractiveMapBlock({ locale, block }: Props) {
   };
 
   return (
-    <Box as="section" className="" overflow="visible">
+    <Box as="section" className="" overflow="hidden">
       <Stack className="relative z-10">
         {heading && <Heading text={heading} />}
 
@@ -127,6 +156,62 @@ function InteractiveMapBlock({ locale, block }: Props) {
             />
           </div>
         </div>
+
+        <Stack className="">
+          <AnimatedHeading
+            className="text-primary leading-[120%]"
+            text={
+              activeSlug
+                ? `Impact on ${zoneNameLookup[activeSlug]}`
+                : "All Impact on Alandur"
+            }
+          />
+
+          <div className="grid grid-cols-1 gap-2 overflow-hidden rounded-2xl bg-black md:grid-cols-3">
+            <AnimatedStat
+              isLoading={isLoadingStats}
+              label="Amount Spent"
+              type="currency"
+              value={stats?.totalAmount || 0}
+            />
+            <AnimatedStat
+              isLoading={isLoadingStats}
+              label="Development Activities"
+              value={stats?.totalActivities || 0}
+            />
+
+            <AnimatedStat
+              isLoading={isLoadingStats}
+              label="Issues Addressed"
+              value={stats?.totalIssues || 0}
+            />
+          </div>
+          {/*issue cards max 8*/}
+
+          {stats && stats.issuesBreakdown.length > 0 && (
+            <div className="mt-12">
+              <PerspectiveCarousel
+                autoplay={true}
+                issues={stats.issuesBreakdown}
+                showNavigation={false}
+                showPagination={true}
+                spaceBetween={40}
+              />
+            </div>
+          )}
+
+          {stats && stats.issuesBreakdown.length > 0 && (
+            <div className="4xl:-mx-48 lxl:-mx-36 -mx-6 sxl:-mx-24 md:-mx-10 lg:-mx-20 mt-12 w-screen">
+              <IssueCarouselEmbla
+                autoplay={true}
+                issues={stats.issuesBreakdown}
+                loop={true}
+                showNavigation={true}
+                showPagination={true}
+              />
+            </div>
+          )}
+        </Stack>
       </Stack>
     </Box>
   );

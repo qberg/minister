@@ -59,3 +59,30 @@ export type MapZoneData = {
 };
 
 export type MapZoneOption = Pick<MapZone, "name" | "slug" | "type">;
+
+export type RawImpactAggregateRow = {
+  issueId: number;
+  issueSlug: string;
+  issueName: string | null;
+  issueColor: string | null;
+  iconFilename: string | null;
+  activityCount: string;
+  totalAmount: string;
+};
+
+export type IssueCardStat = {
+  id: string;
+  name: string;
+  slug: string;
+  activityCount: number;
+  totalAmount: number;
+  imageSrc?: string | null;
+  color?: string;
+};
+
+export type AllImpactStats = {
+  totalActivities: number;
+  totalAmount: number;
+  totalIssues: number;
+  issuesBreakdown: IssueCardStat[];
+};

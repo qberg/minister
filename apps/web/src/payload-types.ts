@@ -501,6 +501,8 @@ export interface Issue {
   slug?: string | null;
   slugLock?: boolean | null;
   icon?: (number | null) | Media;
+  color?: ('blue' | 'yellow' | 'neutral') | null;
+  overlayType?: ('solid' | 'gradient') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -959,6 +961,8 @@ export interface IssuesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   icon?: T;
+  color?: T;
+  overlayType?: T;
   updatedAt?: T;
   createdAt?: T;
 }

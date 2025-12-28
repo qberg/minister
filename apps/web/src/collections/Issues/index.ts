@@ -42,5 +42,49 @@ export const Issues: CollectionConfig<"issues"> = {
       relationTo: "media",
       label: "Image",
     },
+
+    {
+      name: "color",
+      type: "select",
+      label: "Colour of the overlay",
+      options: [
+        {
+          value: "blue",
+          label: "Blue",
+        },
+        {
+          value: "yellow",
+          label: "Yellow",
+        },
+        {
+          value: "neutral",
+          label: "Neutral",
+        },
+      ],
+      defaultValue: "blue",
+      admin: {
+        position: "sidebar",
+      },
+    },
+
+    {
+      name: "overlayType",
+      type: "select",
+      label: "Overlay Type",
+      options: [
+        {
+          value: "solid",
+          label: "Solid",
+        },
+        {
+          value: "gradient",
+          label: "Gradient",
+        },
+      ],
+      defaultValue: "solid",
+      admin: {
+        position: "sidebar",
+      },
+    },
   ],
 };

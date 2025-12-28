@@ -25,9 +25,6 @@ const containerExitVariants = {
   },
 };
 
-const TRANSITION_DURATION = 0.25;
-const EASING = [0.32, 0.72, 0, 1];
-
 function TimeLineContent({ items }: { items: TimelineItem[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 

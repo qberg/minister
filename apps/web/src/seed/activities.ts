@@ -179,6 +179,7 @@ export const seedActivities = async (payload: Payload): Promise<void> => {
 
   for (let i = 0; i < records.length; i += BATCH_SIZE) {
     const batch = records.slice(i, i + BATCH_SIZE);
+    // biome-ignore lint: need for evolving promises
     const promises = [];
 
     for (const row of batch) {
@@ -219,6 +220,7 @@ export const seedActivities = async (payload: Payload): Promise<void> => {
             title,
             cost: parseCost(row["AS Mount"]),
             scheme: row["Scheme Name"],
+            // biome-ignore lint: need for evolving promises
             financialYear: row["Year"],
             status: "completed",
             zone: zoneId,

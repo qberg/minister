@@ -71,12 +71,18 @@ function processQueryResults(result: unknown): AllImpactStats {
       totalActivities += count;
       totalAmount += amount;
 
+      const imageSrc = row.iconFilename
+        ? `https://d462xg1zgerhx.cloudfront.net/${row.iconFilename}`
+        : null;
+
       return {
         id: String(row.issueId),
         name: row.issueName || "Uncategorized",
         slug: row.issueSlug || "unknown",
+        color: row.issueColor || "blue",
         activityCount: count,
         totalAmount: amount,
+        imageSrc,
       };
     }
   );
@@ -105,7 +111,9 @@ async function fetchAggregateStats(
       SELECT 
         i.id as "issueId",
         i.slug as "issueSlug",
+        i.color as "issueColor",
         il.name as "issueName",
+        MAX(m.filename) as "iconFilename",
         COUNT(a.id) as "activityCount",
         COALESCE(SUM(a.cost), 0) as "totalAmount"
       FROM activities a
@@ -114,8 +122,10 @@ async function fetchAggregateStats(
       LEFT JOIN issues_locales il
         ON i.id = il._parent_id
         AND il._locale = ${DEFAULT_LOCALE}
+      LEFT JOIN media m
+        ON i.icon_id = m.id
       ${whereClause}
-      GROUP BY i.id, i.slug, il.name
+      GROUP BY i.id, i.slug,i.color, il.name
       ORDER BY "totalAmount" DESC
   `;
 

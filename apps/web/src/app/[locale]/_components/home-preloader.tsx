@@ -33,7 +33,7 @@ export const HomePreloader = ({ children }: { children: React.ReactNode }) => {
             const img = new Image();
             img.src = src;
             img.onload = resolve;
-            img.onerror = resolve; // Don't break on error
+            img.onerror = resolve;
           })
       );
       await Promise.all(promises);
@@ -76,14 +76,14 @@ export const HomePreloader = ({ children }: { children: React.ReactNode }) => {
   // SVG Curve Logic
   const initialPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height} Q${dimension.width / 2} ${dimension.height + 300} 0 ${dimension.height}  L0 0`;
 
-  // The target path pulls the curve UP.
+  // The target path pulls the curve UPPPPP
   // We set Q control point to 0 to flatten it at the top.
   const targetPath = `M0 0 L${dimension.width} 0 L${dimension.width} 0 Q${dimension.width / 2} 0 0 0 L0 0`;
 
   return (
     <>
       {/* PRELOADER LAYER 
-        We use AnimatePresence to handle the exit animation.
+        We use AnimatePresence to handle the exit animation. go away in style
       */}
       <AnimatePresence mode="wait">
         {isLoading && dimension.width > 0 && (
@@ -91,7 +91,6 @@ export const HomePreloader = ({ children }: { children: React.ReactNode }) => {
             {/* LAYER 1: THE CURTAIN (SVG) 
                - This is a direct child of AnimatePresence (via the fragment).
                - It has its own exit animation (lifting up).
-               - We use fixed inset-0 z-[50].
             */}
             <motion.svg
               aria-hidden="true"
@@ -100,7 +99,7 @@ export const HomePreloader = ({ children }: { children: React.ReactNode }) => {
             >
               <motion.path
                 exit="exit"
-                fill="#000000"
+                fill="#112955"
                 initial="initial"
                 variants={{
                   initial: {

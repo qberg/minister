@@ -1,10 +1,10 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import payloadLocalization from "@repo/i18n/payload";
-import path from "path";
 import { buildConfig } from "payload";
 import sharp from "sharp";
-import { fileURLToPath } from "url";
 import { Activities } from "./collections/Activities";
 import { Articles } from "./collections/Articles";
 import { Issues } from "./collections/Issues";

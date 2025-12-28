@@ -6,7 +6,15 @@
       "**/*",
       "!packages/design-system/components/ui",
       "!packages/design-system/lib",
-      "!packages/design-system/hooks"
-    ]
-  }
+      "!packages/design-system/hooks",
+      "!!apps/web/src/payload-types.ts",
+    ],
+  },
+  "linter": {
+    "rules": {
+      "style": {
+        "noMagicNumbers": "off",
+      },
+    },
+  },
 }
