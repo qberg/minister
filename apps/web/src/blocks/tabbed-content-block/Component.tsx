@@ -6,6 +6,7 @@ import BackgroundImage from "@/components/background-image";
 import Heading from "@/components/heading";
 import { getMediaUrl } from "@/lib/payload-media-utils";
 import type { TabbedContentBlock as TabbedContentBlockProps } from "@/payload-types";
+import MorphCards from "./morph-cards";
 import ScrollCards from "./scroll-cards";
 
 type Props = {
@@ -42,6 +43,10 @@ export function TabbedContentBlock({ block }: Props) {
         )}
 
         {block.tabs && <ScrollCards items={block.tabs || []} />}
+
+        {block.tabs && block.tabs.length !== 0 && (
+          <MorphCards items={block.tabs || []} />
+        )}
       </Stack>
     </Box>
   );

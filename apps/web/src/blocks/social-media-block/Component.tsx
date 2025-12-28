@@ -113,7 +113,7 @@ function SocialMediaBlock({ block }: Props) {
 
         {/* Platform Tabs */}
         <Tabs
-          className="mx-auto flex"
+          className="mx-auto flex overflow-x-auto"
           onValueChange={setSelectedPlatform}
           value={activeSocial?.platform || ""}
         >
