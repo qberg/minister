@@ -34,7 +34,9 @@ export function ZoneCombobox({
   const [open, setOpen] = React.useState(false);
 
   const selectedLabel = React.useMemo(
-    () => zones.find((z) => z.slug === activeSlug)?.name || "Select a zone...",
+    () =>
+      zones.find((z) => z.slug === activeSlug)?.name ||
+      "Select a ward/village...",
     [zones, activeSlug]
   );
 
