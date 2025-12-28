@@ -6,6 +6,7 @@ import {
 import { CompositeGridBlock } from "@/blocks/composite-grid-block/config";
 import { InteractiveMapBlock } from "@/blocks/interactive-map-block/config";
 import { LatestUpdatesBlock } from "@/blocks/latest-updates-block/config";
+import { SocialMediaBlock } from "@/blocks/social-media-block/config";
 import { StickyStatsBlock } from "@/blocks/sticky-stats-block/config";
 import { TabbedContentBlock } from "@/blocks/tabbed-content-block/config";
 import { TimelineBlock } from "@/blocks/timeline-block/config";
@@ -90,6 +91,7 @@ export const Pages: CollectionConfig<"pages"> = {
                 TimelineBlock,
                 TabbedContentBlock,
                 InteractiveMapBlock,
+                SocialMediaBlock,
               ],
             },
           ],
