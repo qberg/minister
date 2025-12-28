@@ -21,6 +21,11 @@ export async function LatestUpdatesBlock({ locale, block }: Props) {
   ]);
 
   return (
-    <LatestUpdatesClient block={block} initialData={initialData} tags={tags} />
+    <LatestUpdatesClient
+      block={block}
+      initialData={initialData}
+      locale={locale}
+      tags={tags}
+    />
   );
 }

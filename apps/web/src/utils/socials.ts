@@ -1,3 +1,5 @@
+const TRAILING_SLASH_REGEX = /\/$/;
+
 /**
  * Extract Twitter/X username from profile URL
  * @example getTwitterHandle("https://twitter.com/mkstalin") => "mkstalin"
@@ -20,7 +22,7 @@ const normalizeInstagramUrl = (url: string): string => {
   if (url.endsWith("/embed/")) {
     return url;
   }
-  return `${url.replace(/\/$/, "")}/embed/`;
+  return `${url.replace(TRAILING_SLASH_REGEX, "")}/embed/`;
 };
 
 /**

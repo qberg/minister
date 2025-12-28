@@ -52,6 +52,7 @@ export function ZoneCombobox({
           )}
           disabled={isLoading}
           role="combobox"
+          type="button"
         >
           {isLoading ? (
             <span className="flex items-center gap-2">
@@ -81,7 +82,7 @@ export function ZoneCombobox({
                   <CommandItem
                     key={zone.slug}
                     onSelect={() => {
-                      onSelect(zone.slug);
+                      onSelect(zone.slug || "");
                       setOpen(false);
                     }}
                     value={zone.name}
@@ -105,7 +106,7 @@ export function ZoneCombobox({
                   <CommandItem
                     key={zone.slug}
                     onSelect={() => {
-                      onSelect(zone.slug);
+                      onSelect(zone.slug || "");
                       setOpen(false);
                     }}
                     value={zone.name}
