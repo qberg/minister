@@ -81,13 +81,12 @@ const tabsTriggerVariants = cva(
       { variant: "line", size: "xs", className: "py-1.5" },
     ],
     defaultVariants: {
-      variant: "default",
+      variant: "button",
       size: "md",
     },
   },
 );
 
-// Variants for TabsContent
 const tabsContentVariants = cva(
   "mt-2.5 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
   {
@@ -102,7 +101,6 @@ const tabsContentVariants = cva(
   },
 );
 
-// Context
 type TabsContextType = {
   variant?: "default" | "button" | "line";
   size?: "lg" | "sm" | "xs" | "md";
@@ -128,7 +126,7 @@ function Tabs({
 
 function TabsList({
   className,
-  variant = "default",
+  variant = "line",
   shape = "default",
   size = "md",
   ...props

@@ -11,7 +11,7 @@ export const InteractiveMapBlock: Block = {
     {
       name: "title",
       type: "text",
-      label: "Section Title",
+      label: "Section Heading",
       localized: true,
       defaultValue: "Real Results of Alandur",
     },

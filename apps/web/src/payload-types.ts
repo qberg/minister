@@ -314,6 +314,7 @@ export interface Page {
         | TimelineBlock
         | TabbedContentBlock
         | InteractiveMapBlock
+        | SocialMediaBlock
       )[]
     | null;
   slug?: string | null;
@@ -426,6 +427,23 @@ export interface InteractiveMapBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'int-map';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialMediaBlock".
+ */
+export interface SocialMediaBlock {
+  heading?: string | null;
+  socialLinks?:
+    | {
+        platform: 'instagram' | 'twitter' | 'facebook' | 'youtube' | 'linkedin' | 'github';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'social-media';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -807,6 +825,7 @@ export interface PagesSelect<T extends boolean = true> {
         timeline?: T | TimelineBlockSelect<T>;
         'tab-content'?: T | TabbedContentBlockSelect<T>;
         'int-map'?: T | InteractiveMapBlockSelect<T>;
+        'social-media'?: T | SocialMediaBlockSelect<T>;
       };
   slug?: T;
   slugLock?: T;
@@ -909,6 +928,22 @@ export interface InteractiveMapBlockSelect<T extends boolean = true> {
   description?: T;
   mode?: T;
   headline?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialMediaBlock_select".
+ */
+export interface SocialMediaBlockSelect<T extends boolean = true> {
+  heading?: T;
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

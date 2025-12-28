@@ -45,6 +45,7 @@ const BackgroundImage = ({
       priority={priority}
       sizes="100vw"
       src={src}
+      unoptimized
     />
 
     {overlay && overlay !== "none" && (

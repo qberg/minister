@@ -11,6 +11,7 @@ import { AlandurMap } from "@/components/alandur-map";
 import { ZoneCombobox } from "@/components/alandur-map/zone-combobox";
 import { AnimatedHeading } from "@/components/animated-heading";
 import AnimatedStat from "@/components/animated-stat";
+import BackgroundImage from "@/components/background-image";
 import Heading from "@/components/heading";
 import { IssueCarouselEmbla } from "@/components/issue-carousel-embla";
 import { PerspectiveCarousel } from "@/components/perspective-carousel";
@@ -167,7 +168,8 @@ function InteractiveMapBlock({ locale, block }: Props) {
             }
           />
 
-          <div className="grid grid-cols-1 gap-2 overflow-hidden rounded-2xl bg-black md:grid-cols-3">
+          <div className="relative grid grid-cols-1 gap-2 overflow-hidden rounded-2xl bg-black md:grid-cols-3">
+            <BackgroundImage src="/images/stat-bg-dot.png" />
             <AnimatedStat
               isLoading={isLoadingStats}
               label="Amount Spent"
@@ -187,7 +189,6 @@ function InteractiveMapBlock({ locale, block }: Props) {
             />
           </div>
           {/*issue cards max 8*/}
-
           {stats && stats.issuesBreakdown.length > 0 && (
             <div className="mt-12">
               <PerspectiveCarousel

@@ -19,7 +19,7 @@ export function CompositeGridBlock({ block }: Props) {
   const description = block.description;
 
   return (
-    <Box as="section" className="bg-surface">
+    <Box as="section" className="relative bg-surface">
       {bgImageSrc && (
         <BackgroundImage className="opacity-10" src={bgImageSrc} />
       )}
