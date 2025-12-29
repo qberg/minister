@@ -333,12 +333,27 @@ export interface Page {
 export interface CutoutHero {
   title: string;
   desc: string;
+  link: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    url?: string | null;
+    /**
+     * Optional: Add # to scroll to a section (e.g., "team" for #team)
+     */
+    anchor?: string | null;
+    label: string;
+  };
   portraits?:
     | {
         image: number | Media;
         id?: string | null;
       }[]
     | null;
+  bgImg?: (number | null) | Media;
   cutout?: (number | null) | Media;
   stats?:
     | {
@@ -869,12 +884,23 @@ export interface PagesSelect<T extends boolean = true> {
 export interface CutoutHeroSelect<T extends boolean = true> {
   title?: T;
   desc?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        anchor?: T;
+        label?: T;
+      };
   portraits?:
     | T
     | {
         image?: T;
         id?: T;
       };
+  bgImg?: T;
   cutout?: T;
   stats?:
     | T

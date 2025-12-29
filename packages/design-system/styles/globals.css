@@ -76,8 +76,9 @@
   --font-tamil-sangam-mn: var(--font-tamil-sangam-mn);
 
   /* fluid fonts */
-  --text-6xl: clamp(2.5rem, 1.3415rem + 4.9428vw, 9.25rem);
+  --text-6xl: clamp(2.5rem, 0.0094rem + 5.7754vw, 9.25rem);
   --text-5xl: clamp(2.25rem, 0.0084rem + 4.6823vw, 7.5rem);
+  --text-3xl: clamp(1.5rem, 0rem + 2.5vw, 4rem);
   --text-4xl: clamp(1.5rem, 0rem + 2.5vw, 4rem);
   --text-2xl: clamp(1.25rem, -0.0007rem + 1.8754vw, 3rem);
   --text-xl: clamp(1rem, 0.764rem + 1.0069vw, 2.375rem);

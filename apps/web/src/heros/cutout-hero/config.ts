@@ -1,4 +1,5 @@
 import type { Block } from "payload";
+import { link } from "@/Fields/link";
 
 export const CutoutHero: Block = {
   slug: "cutout-hero",
@@ -21,6 +22,8 @@ export const CutoutHero: Block = {
         "Minister for MSME, Rural Industries & Urban Habitat Development. Three-term MLA of Alandur with a focus on development.",
     },
 
+    link(),
+
     {
       name: "portraits",
       type: "array",
@@ -34,6 +37,13 @@ export const CutoutHero: Block = {
           relationTo: "media",
         },
       ],
+    },
+
+    {
+      name: "bgImg",
+      type: "upload",
+      relationTo: "media",
+      label: "Background Image",
     },
 
     {
@@ -58,7 +68,7 @@ export const CutoutHero: Block = {
           name: "v",
           type: "text",
           localized: true,
-          label: "Label",
+          label: "Value",
           required: true,
         },
       ],

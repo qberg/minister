@@ -1,4 +1,5 @@
 import type { Page } from "@/payload-types";
+import CutoutHero from "./cutout-hero/Component";
 import MinimalHero from "./minimal-hero/Component";
 import ParallaxHero from "./parallax-hero/Component";
 
@@ -9,6 +10,7 @@ type HeroRendererProps = {
 const heroComponents = {
   "parallax-hero": ParallaxHero,
   "minimal-hero": MinimalHero,
+  "cutout-hero": CutoutHero,
 };
 
 export function HeroRenderer({ hero }: HeroRendererProps) {

@@ -106,7 +106,7 @@ type TabsContextType = {
   size?: "lg" | "sm" | "xs" | "md";
 };
 const TabsContext = React.createContext<TabsContextType>({
-  variant: "default",
+  variant: "button",
   size: "md",
 });
 
