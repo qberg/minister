@@ -7,6 +7,9 @@
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.0672 0 0);
+
+  --font-heading: var(--font-times-new-roman);
+  --font-body: var(--font-dm-sans);
 }
 
 @theme {
@@ -47,6 +50,9 @@
   --color-neutral-950: oklch(0.1776 0 0);
 
   --color-black: oklch(0.0672 0 0);
+
+  --font-heading: var(--font-times-new-roman);
+  --font-body: var(--font-dm-sans);
 }
 
 @theme inline {
@@ -74,6 +80,10 @@
   /* tamil fonts */
   --font-anek-tamil: var(--font-anek-tamil);
   --font-tamil-sangam-mn: var(--font-tamil-sangam-mn);
+
+  /* semantic fonts*/
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
 
   /* fluid fonts */
   --text-6xl: clamp(2.5rem, 0.0094rem + 5.7754vw, 9.25rem);

@@ -103,9 +103,11 @@ export interface Config {
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'ta-IN') | ('en' | 'ta-IN')[];
   globals: {
     header: Header;
+    footer: Footer;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: 'en' | 'ta-IN';
   user: User & {
@@ -465,6 +467,20 @@ export interface InteractiveMapBlock {
    */
   mode?: ('summary' | 'full') | null;
   headline?: string | null;
+  knowMoreLink?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    url?: string | null;
+    /**
+     * Optional: Add # to scroll to a section (e.g., "team" for #team)
+     */
+    anchor?: string | null;
+    label: string;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'int-map';
@@ -1005,6 +1021,16 @@ export interface InteractiveMapBlockSelect<T extends boolean = true> {
   description?: T;
   mode?: T;
   headline?: T;
+  knowMoreLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        anchor?: T;
+        label?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1177,9 +1203,91 @@ export interface Header {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  title: string;
+  desc: string;
+  bgImg?: (number | null) | Media;
+  socialLinks?:
+    | {
+        platform: 'instagram' | 'twitter' | 'facebook' | 'youtube' | 'linkedin' | 'github';
+        id?: string | null;
+      }[]
+    | null;
+  contacts?: {
+    phone?: string | null;
+    email?: string | null;
+    address?: string | null;
+  };
+  navItems?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          /**
+           * Optional: Add # to scroll to a section (e.g., "team" for #team)
+           */
+          anchor?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  navItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              anchor?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  title?: T;
+  desc?: T;
+  bgImg?: T;
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        id?: T;
+      };
+  contacts?:
+    | T
+    | {
+        phone?: T;
+        email?: T;
+        address?: T;
+      };
   navItems?:
     | T
     | {

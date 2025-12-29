@@ -19,9 +19,8 @@ type Props = {
 };
 
 export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise });
   try {
-    const payload = await getPayload({ config: configPromise });
-
     const pages = await payload.find({
       collection: "pages",
       limit: 1000,
@@ -49,7 +48,7 @@ export async function generateStaticParams() {
 
     return params;
   } catch (error) {
-    console.error("[GENERATE STATIC PARAMS ERROR]", error);
+    payload.logger.error(`[GENERATE STATIC PARAMS ERROR]: ${error}`);
 
     return [];
   }
@@ -76,8 +75,6 @@ export default async function SlugPage({ params }: Props) {
       {hasHero && <HeroRenderer hero={page.hero} />}
 
       {hasLayout && <BlockRenderer blocks={page.layout} locale={locale} />}
-
-      <div className="min-h-screen" />
     </main>
   );
 }
@@ -88,10 +85,11 @@ export async function generateMetadata({
   const { locale, slug } = await paramsPromise;
   const page = await queryPageBySlug({ slug, locale, draft: false });
 
-  if (!page)
+  if (!page) {
     return {
       title: "Page Not Found",
     };
+  }
 
   return {
     title: page.title || "T.M. Anbarasan",

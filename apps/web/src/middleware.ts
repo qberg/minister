@@ -14,6 +14,6 @@ export const config = {
   // - Vercel internals (_vercel/*)
   // - Static files (*.png, *.jpg, etc.)
   matcher: [
-    "/((?!api|trpc|_next/static|admin|_next/image|_vercel|favicon.ico|.*\\..*).*)",
+    "/((?!api|trpc|_next/static|admin|_next/image|_vercel|favicon.ico|legal|.*\\..*).*)",
   ],
 };

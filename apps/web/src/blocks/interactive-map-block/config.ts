@@ -1,4 +1,5 @@
 import type { Block } from "payload";
+import { link } from "@/Fields/link";
 
 export const InteractiveMapBlock: Block = {
   slug: "int-map",
@@ -48,5 +49,15 @@ export const InteractiveMapBlock: Block = {
         condition: (_, siblingData) => siblingData.mode === "summary",
       },
     },
+
+    link({
+      overrides: {
+        name: "knowMoreLink",
+        label: "Button Link",
+        admin: {
+          condition: (_, siblingData) => siblingData.mode === "summary",
+        },
+      },
+    }),
   ],
 };

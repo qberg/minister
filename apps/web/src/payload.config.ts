@@ -14,6 +14,7 @@ import { NewspaperFeatuers } from "./collections/NewspaperFeatures";
 import { Pages } from "./collections/Pages";
 import { Tags } from "./collections/Tags";
 import { Users } from "./collections/Users";
+import { Footer } from "./footer/config";
 import { Header } from "./header/config";
 import { s3Adapter } from "./storage/s3";
 
@@ -67,7 +68,7 @@ export default buildConfig({
     Activities,
     MapZones,
   ],
-  globals: [Header],
+  globals: [Header, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

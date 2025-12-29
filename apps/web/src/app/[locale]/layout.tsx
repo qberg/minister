@@ -7,6 +7,7 @@ import { getMessages } from "@repo/i18n/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Footer } from "@/footer/Component";
 import { Header } from "@/header/Component";
 import {
   anek_tamil,
@@ -42,13 +43,14 @@ export default async function RootLayout({
   const taFontClasses = `${anek_tamil.variable} ${tamil_sangam_mn.variable}`;
 
   return (
-    <html lang="en">
-      <body className={`${enFontClasses} ${taFontClasses} antialiased`}>
+    <html className={`${enFontClasses} ${taFontClasses}`} lang={locale}>
+      <body className="antialiased">
         <LenisScroll>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <NuqsAdapter>
               <Header />
               {children}
+              <Footer />
             </NuqsAdapter>
           </NextIntlClientProvider>
         </LenisScroll>

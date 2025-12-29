@@ -16,7 +16,7 @@ function CutoutHero({ block }: Props) {
   const cutoutSrc = getMediaUrl(cutout);
 
   return (
-    <Box as="section" className="!pb-0 !pr-0 relative md:min-h-screen" invert>
+    <Box as="section" className="relative pr-0! pb-0! md:min-h-screen" invert>
       {/*bg image*/}
       <BackgroundImage alt="Bg Image" src={bgImgSrc} />
       <div className="relative z-10 mt-[22vw] flex flex-col 4xl:gap-36 gap-4 lxl:gap-28 sxl:gap-20 md:mt-[9vw] md:flex-row md:justify-between lg:gap-16">
