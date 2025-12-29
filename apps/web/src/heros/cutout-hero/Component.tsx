@@ -19,7 +19,7 @@ function CutoutHero({ block }: Props) {
     <Box as="section" className="!pb-0 !pr-0 relative md:min-h-screen" invert>
       {/*bg image*/}
       <BackgroundImage alt="Bg Image" src={bgImgSrc} />
-      <div className="relative z-10 mt-[22vw] flex flex-col 4xl:gap-36 gap-2 lxl:gap-28 sxl:gap-20 md:mt-[9vw] md:flex-row md:justify-between lg:gap-16">
+      <div className="relative z-10 mt-[22vw] flex flex-col 4xl:gap-36 gap-4 lxl:gap-28 sxl:gap-20 md:mt-[9vw] md:flex-row md:justify-between lg:gap-16">
         {/*content flex*/}
         <div className="flex w-full flex-col 4xl:gap-8 gap-4 lxl:gap-6 sxl:gap-5 md:w-[45%]">
           {/*portraits*/}
@@ -49,7 +49,7 @@ function CutoutHero({ block }: Props) {
 
           {/*stats*/}
           {stats && stats.length !== 0 && (
-            <div className="mt-8 sxl:mt-24">
+            <div className="mt-8 sxl:mt-24 hidden md:block">
               <Stats stats={stats} />
             </div>
           )}
@@ -69,9 +69,15 @@ function CutoutHero({ block }: Props) {
 
         {/* mobile cutout image + stats*/}
         <div className="flex md:hidden">
-          <div className="flex w-1/2 flex-col gap-6">Stats</div>
+          <div className="w-[40%]">
+            {stats && stats.length !== 0 && (
+              <div className="my-4">
+                <Stats stats={stats} />
+              </div>
+            )}
+          </div>
           {/*cutout image*/}
-          <div className="relative aspect-square w-1/2">
+          <div className="relative aspect-square w-[60%]">
             <Image
               alt="TMA Cutout"
               className="object-cover"
@@ -99,7 +105,7 @@ function Portraits({ portraits }: PortraitsProps) {
 
         return (
           <div
-            className="relative aspect-square w-12 overflow-hidden rounded-2xl bg-neutral-50 md:w-[6.25vw]"
+            className="relative aspect-square w-12 overflow-hidden rounded-lg bg-neutral-50 md:w-[6.25vw] md:rounded-2xl"
             key={portrait.id}
           >
             <Image
@@ -123,7 +129,7 @@ type StatsProps = {
 
 function Stats({ stats }: StatsProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-0">
       {stats?.map((stat) => (
         <div
           className="flex flex-col items-center justify-center gap-2"
