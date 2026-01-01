@@ -86,3 +86,7 @@ export type AllImpactStats = {
   totalIssues: number;
   issuesBreakdown: IssueCardStat[];
 };
+export type AnimeScrollSectionData = {
+  id: string;
+  title: string;
+};

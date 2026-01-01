@@ -28,7 +28,7 @@ function ScrollCards({ items }: { items: OrgInfoTabItem[] }) {
                 const tabId = item.id || `tab-${index}`;
                 return (
                   <ScrollSpyTrigger
-                    className="relative w-full border-transparent border-l-4 px-4 py-3 text-center text-background uppercase transition-all hover:bg-gray-100"
+                    className="relative w-full cursor-pointer border-transparent border-l-4 px-4 py-3 text-center text-background uppercase transition-all hover:text-accent-foreground hover:underline"
                     key={tabId}
                     value={tabId}
                   >

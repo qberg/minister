@@ -22,7 +22,7 @@ export function TabbedContentBlock({ block }: Props) {
   return (
     <Box
       as="section"
-      className="relative min-h-screen bg-surface"
+      className="theme-dark relative min-h-screen bg-surface"
       overflow="visible"
     >
       {bgImageSrc && (

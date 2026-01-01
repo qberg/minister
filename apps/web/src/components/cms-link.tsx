@@ -38,7 +38,7 @@ export const CMSLink = (props: CMSLinkType) => {
   );
 };
 
-function buildHref({
+export function buildHref({
   type,
   reference,
   url,

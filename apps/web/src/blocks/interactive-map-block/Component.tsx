@@ -2,8 +2,10 @@
 
 import { Box } from "@repo/design-system/components/layout/box";
 import { Stack } from "@repo/design-system/components/layout/stack";
+import { Button } from "@repo/design-system/components/ui/button";
 import { Typography } from "@repo/design-system/components/ui/typography";
 import { Link } from "@repo/i18n/navigation";
+import { parseAsString, useQueryState } from "nuqs";
 import type { TypedLocale } from "payload";
 import { useEffect, useMemo, useState } from "react";
 import { getMapStats } from "@/app/actions/get-map-stats";
@@ -13,6 +15,7 @@ import { ZoneCombobox } from "@/components/alandur-map/zone-combobox";
 import { AnimatedHeading } from "@/components/animated-heading";
 import AnimatedStat from "@/components/animated-stat";
 import BackgroundImage from "@/components/background-image";
+import { buildHref } from "@/components/cms-link";
 import Heading from "@/components/heading";
 import { IssueCarouselEmbla } from "@/components/issue-carousel-embla";
 import { PerspectiveCarousel } from "@/components/perspective-carousel";
@@ -31,7 +34,12 @@ function InteractiveMapBlock({ locale, block }: Props) {
 
   const mode = block.mode;
 
-  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  //const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [activeSlug, setActiveSlug] = useQueryState(
+    "zone",
+    parseAsString.withOptions({ shallow: true, history: "replace" })
+  );
+
   const [zones, setZones] = useState<MapZoneOption[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -89,6 +97,11 @@ function InteractiveMapBlock({ locale, block }: Props) {
     const nextSlug = slug === activeSlug ? null : slug;
     setActiveSlug(nextSlug);
   };
+
+  const baseLink = block.knowMoreLink
+    ? buildHref(block.knowMoreLink)
+    : "/real-results-alandur";
+  const knowMoreHref = activeSlug ? `${baseLink}?zone=${activeSlug}` : baseLink;
 
   return (
     <Box as="section" className="relative" overflow="hidden">
@@ -219,9 +232,16 @@ function InteractiveMapBlock({ locale, block }: Props) {
 
         {/* Add Know More button in summary mode */}
         {mode === "summary" && block.knowMoreLink && (
-          <Link className="your-button-classes" href="/real-results-alandur">
-            Know More
-          </Link>
+          <div className="flex w-full items-center justify-center">
+            <Button>
+              <Link
+                className="your-button-classes"
+                href={knowMoreHref || "/real-results-alandur"}
+              >
+                Know More
+              </Link>
+            </Button>
+          </div>
         )}
       </Stack>
     </Box>

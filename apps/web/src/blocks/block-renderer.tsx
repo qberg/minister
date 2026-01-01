@@ -1,3 +1,4 @@
+import { ScrollSpyContent } from "@repo/design-system/components/ui/scroll-spy";
 import type { TypedLocale } from "payload";
 import type { Page } from "@/payload-types";
 import { CompositeGridBlock } from "./composite-grid-block/Component";
@@ -31,6 +32,7 @@ export function BlockRenderer({ locale, blocks }: BlockRendererProps) {
   return (
     <>
       {blocks.map((block, index) => {
+        const sectionId = `section-${index}`;
         const BlockComponent =
           blockComponents[block.blockType as keyof typeof blockComponents];
 
@@ -39,11 +41,13 @@ export function BlockRenderer({ locale, blocks }: BlockRendererProps) {
         }
 
         return (
-          <BlockComponent
-            block={block}
+          <ScrollSpyContent
+            className="relative"
             key={block.id || index}
-            locale={locale || "ta-IN"}
-          />
+            value={sectionId}
+          >
+            <BlockComponent block={block} locale={locale || "ta-IN"} />
+          </ScrollSpyContent>
         );
       })}
     </>

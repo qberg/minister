@@ -74,6 +74,11 @@
   --color-card: var(--color-neutral-50);
   --color-card-muted: var(--color-neutral-100);
 
+  --color-title: var(--text-title);
+  --color-body: var(--text-body);
+  --color-body-subtle: var(--text-body-subtle);
+  --color-highlight: var(--text-highlight);
+
   /* english fonts */
   --font-times-new-roman: var(--font-times-new-roman);
   --font-dm-sans: var(--font-dm-sans);
@@ -108,5 +113,20 @@
 @layer utilities {
   .margin-base {
     @apply mt-4 lg:mt-6 sxl:mt-8 lxl:mt-12 4xl:mt-16;
+  }
+
+  .theme-light {
+    --text-title: var(--color-yellow-400); /* #D7A647 */
+    --text-body: var(--color-blue-600); /* #002E71 */
+    --text-body-subtle: var(--color-neutral-600); /* #636363 */
+    --text-highlight: var(--color-yellow-400); /* #D7A647 */
+  }
+
+  /* Dark Theme Scope (Applied to dark/ sections) */
+  .theme-dark {
+    --text-title: var(--color-yellow-400); /* #D7A647 */
+    --text-body: var(--color-yellow-50); /* #FDF2E5 */
+    --text-body-subtle: var(--color-neutral-200); /* #D1D1D1 */
+    --text-highlight: var(--color-yellow-400); /* #D7A647 */
   }
 }

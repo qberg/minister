@@ -25,9 +25,16 @@ const typographyVariants = cva("", {
         "font-body text-base tracking-tight leading-none font-semibold",
       bodySM: "font-body text-sm tracking-tight leading-none font-light",
     },
+    intent: {
+      title: "text-title",
+      body: "text-body",
+      subtle: "text-body-subtle",
+      highlight: "text-higlight",
+    },
   },
   defaultVariants: {
     variant: "h1",
+    intent: "body",
   },
 });
 
@@ -41,12 +48,13 @@ export interface TypographyProps
 function Typography({
   className,
   variant,
+  intent,
   as: Comp = "p",
   ...props
 }: TypographyProps) {
   return (
     <Comp
-      className={cn(typographyVariants({ variant, className }))}
+      className={cn(typographyVariants({ variant,intent, className }))}
       {...props}
     />
   );

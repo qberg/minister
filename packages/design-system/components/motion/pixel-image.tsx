@@ -26,16 +26,18 @@ interface PixelImageProps {
   pixelFadeInDuration?: number; // in ms
   maxAnimationDelay?: number; // in ms
   colorRevealDelay?: number; // in ms
+  delay?: number;
   className?: string;
 }
 
 export const PixelImage = ({
   src,
-  grid = "8x8",
+  grid = "4x6",
   grayscaleAnimation = true,
   pixelFadeInDuration = 600,
   maxAnimationDelay = 1200,
   colorRevealDelay = 1200,
+  delay = 0,
   customGrid,
   className,
 }: PixelImageProps) => {
@@ -67,25 +69,28 @@ export const PixelImage = ({
 
   useEffect(() => {
     // 1. Trigger Entrance
-    setIsVisible(true);
+    const startTimeout = setTimeout(() => {
+      setIsVisible(true);
+    }, delay);
 
     // 2. Trigger Color Reveal
     const colorTimeout = setTimeout(() => {
       setShowColor(true);
-    }, colorRevealDelay);
+    }, delay + colorRevealDelay);
 
     // 3. Trigger Cleanup (Swap to single image)
     // We add a small buffer (100ms) to ensure CSS transitions are fully done
-    const totalDuration = maxAnimationDelay + pixelFadeInDuration + 100;
+    const totalDuration = delay + maxAnimationDelay + pixelFadeInDuration + 100;
     const cleanupTimeout = setTimeout(() => {
       setIsAnimationComplete(true);
     }, totalDuration);
 
     return () => {
+      clearTimeout(startTimeout);
       clearTimeout(colorTimeout);
       clearTimeout(cleanupTimeout);
     };
-  }, [colorRevealDelay, maxAnimationDelay, pixelFadeInDuration]);
+  }, [delay, colorRevealDelay, maxAnimationDelay, pixelFadeInDuration]);
 
   const pieces = useMemo(() => {
     const total = rows * cols;

@@ -1,17 +1,20 @@
 import configPromise from "@payload-config";
+import { ScrollSpyContent } from "@repo/design-system/components/ui/scroll-spy";
 import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { getPayload, type TypedLocale } from "payload";
 import { cache } from "react";
 import { BlockRenderer } from "@/blocks/block-renderer";
+import { LayoutSpyWrapper } from "@/components/layout/spy-wrapper";
 import { LivePreviewListener } from "@/components/live-preview-listener";
 import { HomePreloaderCurtain } from "@/components/loaders/home-preloader-curtain";
-import { PixelPageLoader } from "@/components/loaders/pixel-page-loader";
+import VerticalTiles from "@/components/loaders/vertical-tiles";
 import { Footer } from "@/footer/Component";
 import { Header } from "@/header/Component";
 import { HeroRenderer } from "@/heros/hero-renderer";
-import type { Page } from "@/payload-types";
+import { getCachedGlobal } from "@/lib/get-globals";
+import type { Header as HeaderData, Page } from "@/payload-types";
 
 const PRE_RENDER_LOCALES: TypedLocale[] = ["ta-IN"];
 
@@ -65,6 +68,8 @@ export default async function SlugPage({ params }: Props) {
 
   const page = await queryPageBySlug({ slug, locale });
 
+  const headerData: HeaderData = await getCachedGlobal("header", 1)();
+
   if (!page) {
     notFound();
   }
@@ -77,10 +82,23 @@ export default async function SlugPage({ params }: Props) {
       <Header />
       {isDraft && <LivePreviewListener />}
 
-      {hasHero && <HeroRenderer hero={page.hero} />}
+      <LayoutSpyWrapper
+        blocks={page.layout}
+        hasHero={Boolean(hasHero)}
+        headerData={headerData}
+      >
+        {hasHero && (
+          <ScrollSpyContent className="relative" value="hero">
+            <HeroRenderer hero={page.hero} />
+          </ScrollSpyContent>
+        )}
 
-      {hasLayout && <BlockRenderer blocks={page.layout} locale={locale} />}
-      <Footer />
+        {hasLayout && <BlockRenderer blocks={page.layout} locale={locale} />}
+
+        <ScrollSpyContent className="relative" value="footer">
+          <Footer />
+        </ScrollSpyContent>
+      </LayoutSpyWrapper>
     </main>
   );
 
@@ -89,7 +107,7 @@ export default async function SlugPage({ params }: Props) {
   }
 
   if (!isDraft) {
-    return <PixelPageLoader>{content}</PixelPageLoader>;
+    return <VerticalTiles>{content}</VerticalTiles>;
   }
 
   return content;

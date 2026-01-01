@@ -1,3 +1,5 @@
+'use client'
+
 import { useLenis } from "lenis/react";
 import React, {
   createContext,
@@ -228,7 +230,7 @@ export function ScrollSpyTrigger({
       whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.15 }}
     >
-      {isActive && (
+{isActive && (
         <motion.div
           layoutId="active-tab-bg"
           className="absolute inset-0 bg-accent"
@@ -272,7 +274,7 @@ export function ScrollSpyContent({
       ref={contentRef}
       id={value}
       className={className}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 1, y: 0 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-150px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}

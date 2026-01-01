@@ -45,15 +45,6 @@ const fadeUpVariants: Variants = {
   },
 };
 
-const imageScaleVariants: Variants = {
-  hidden: { scale: 1.1, opacity: 0 },
-  visible: {
-    scale: 1,
-    opacity: 1,
-    transition: { duration: 1.2, ease: EASING },
-  },
-};
-
 function CutoutHero({ block }: Props) {
   const { title, desc, cutout, portraits, stats, bgImg, link } = block;
 
@@ -128,7 +119,15 @@ function CutoutHero({ block }: Props) {
 
         {/* Cutout Image (Desktop) - Scale Down & Fade In */}
         <motion.div className="relative hidden aspect-square sxl:w-[50%] w-[40%] origin-bottom md:block">
-          <PixelImage src={cutoutSrc} />
+          <PixelImage
+            colorRevealDelay={1000}
+            delay={600}
+            grayscaleAnimation={false}
+            grid="3x8"
+            maxAnimationDelay={600}
+            pixelFadeInDuration={400}
+            src={cutoutSrc}
+          />
         </motion.div>
 
         {/* Mobile Layout */}
@@ -142,18 +141,8 @@ function CutoutHero({ block }: Props) {
           </div>
 
           {/* Cutout Image (Mobile) */}
-          <motion.div
-            className="relative aspect-square w-[60%]"
-            variants={imageScaleVariants}
-          >
-            <Image
-              alt="TMA Cutout"
-              className="object-cover"
-              fill
-              priority
-              src={cutoutSrc}
-              unoptimized
-            />
+          <motion.div className="relative aspect-square w-[60%]">
+            <PixelImage src={cutoutSrc} />
           </motion.div>
         </div>
       </motion.div>
