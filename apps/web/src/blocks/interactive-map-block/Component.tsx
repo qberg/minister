@@ -3,6 +3,7 @@
 import { Box } from "@repo/design-system/components/layout/box";
 import { Stack } from "@repo/design-system/components/layout/stack";
 import { Typography } from "@repo/design-system/components/ui/typography";
+import { Link } from "@repo/i18n/navigation";
 import type { TypedLocale } from "payload";
 import { useEffect, useMemo, useState } from "react";
 import { getMapStats } from "@/app/actions/get-map-stats";
@@ -27,6 +28,8 @@ function InteractiveMapBlock({ locale, block }: Props) {
   const heading = block.headline;
   const title = block.title;
   const description = block.description;
+
+  const mode = block.mode;
 
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [zones, setZones] = useState<MapZoneOption[]>([]);
@@ -88,9 +91,9 @@ function InteractiveMapBlock({ locale, block }: Props) {
   };
 
   return (
-    <Box as="section" className="" overflow="hidden">
+    <Box as="section" className="relative" overflow="hidden">
       <Stack className="relative z-10">
-        {heading && <Heading text={heading} />}
+        {heading && mode === "summary" && <Heading text={heading} />}
 
         {/*map with combobox*/}
         <div className="flex flex-col gap-4 md:flex-row">
@@ -189,7 +192,7 @@ function InteractiveMapBlock({ locale, block }: Props) {
             />
           </div>
           {/*issue cards max 8*/}
-          {stats && stats.issuesBreakdown.length > 0 && (
+          {stats && stats.issuesBreakdown.length > 0 && mode === "summary" && (
             <div className="mt-12">
               <PerspectiveCarousel
                 autoplay={true}
@@ -201,7 +204,7 @@ function InteractiveMapBlock({ locale, block }: Props) {
             </div>
           )}
 
-          {stats && stats.issuesBreakdown.length > 0 && (
+          {stats && stats.issuesBreakdown.length > 0 && mode === "summary" && (
             <div className="4xl:-mx-48 lxl:-mx-36 -mx-6 sxl:-mx-24 md:-mx-10 lg:-mx-20 mt-12 w-screen">
               <IssueCarouselEmbla
                 autoplay={true}
@@ -213,6 +216,13 @@ function InteractiveMapBlock({ locale, block }: Props) {
             </div>
           )}
         </Stack>
+
+        {/* Add Know More button in summary mode */}
+        {mode === "summary" && block.knowMoreLink && (
+          <Link className="your-button-classes" href="/real-results-alandur">
+            Know More
+          </Link>
+        )}
       </Stack>
     </Box>
   );

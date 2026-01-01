@@ -44,9 +44,10 @@ export function AlandurMap({
         )
           onZoneSelect("");
       }}
-      // Clicking the background (the div/svg area) deselects the current zone
       onPointerLeave={() => setHoveredName(null)}
+      // Clicking the background (the div/svg area) deselects the current zone
       onPointerMove={handlePointerMove}
+      style={{ viewTransitionName: "alandur-map" }}
     >
       <AnimatePresence>
         {hoveredName && (

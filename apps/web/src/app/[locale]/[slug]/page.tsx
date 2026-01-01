@@ -6,6 +6,10 @@ import { getPayload, type TypedLocale } from "payload";
 import { cache } from "react";
 import { BlockRenderer } from "@/blocks/block-renderer";
 import { LivePreviewListener } from "@/components/live-preview-listener";
+import { HomePreloaderCurtain } from "@/components/loaders/home-preloader-curtain";
+import { PixelPageLoader } from "@/components/loaders/pixel-page-loader";
+import { Footer } from "@/footer/Component";
+import { Header } from "@/header/Component";
 import { HeroRenderer } from "@/heros/hero-renderer";
 import type { Page } from "@/payload-types";
 
@@ -68,15 +72,27 @@ export default async function SlugPage({ params }: Props) {
   const hasHero = page.hero && page.hero.length > 0;
   const hasLayout = page.layout && page.layout.length > 0;
 
-  return (
+  const content = (
     <main>
+      <Header />
       {isDraft && <LivePreviewListener />}
 
       {hasHero && <HeroRenderer hero={page.hero} />}
 
       {hasLayout && <BlockRenderer blocks={page.layout} locale={locale} />}
+      <Footer />
     </main>
   );
+
+  if (slug === "home" && !isDraft) {
+    return <HomePreloaderCurtain>{content}</HomePreloaderCurtain>;
+  }
+
+  if (!isDraft) {
+    return <PixelPageLoader>{content}</PixelPageLoader>;
+  }
+
+  return content;
 }
 
 export async function generateMetadata({

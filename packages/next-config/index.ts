@@ -22,6 +22,9 @@ export const config: NextConfig = {
       },
     ],
   },
+  experimental: {
+    viewTransition: true,
+  },
 
   // biome-ignore lint/suspicious/useAwait: rewrites is async
   async rewrites() {

@@ -1,3 +1,4 @@
+import { ViewTransitions } from "next-view-transitions";
 import type React from "react";
 import "./styles.css";
 import { LenisScroll } from "@repo/design-system/components/ui/lenis-scroll";
@@ -7,8 +8,6 @@ import { getMessages } from "@repo/i18n/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Footer } from "@/footer/Component";
-import { Header } from "@/header/Component";
 import {
   anek_tamil,
   dm_sans,
@@ -45,15 +44,13 @@ export default async function RootLayout({
   return (
     <html className={`${enFontClasses} ${taFontClasses}`} lang={locale}>
       <body className="antialiased">
-        <LenisScroll>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            <NuqsAdapter>
-              <Header />
-              {children}
-              <Footer />
-            </NuqsAdapter>
-          </NextIntlClientProvider>
-        </LenisScroll>
+        <ViewTransitions>
+          <LenisScroll>
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              <NuqsAdapter>{children}</NuqsAdapter>
+            </NextIntlClientProvider>
+          </LenisScroll>
+        </ViewTransitions>
       </body>
     </html>
   );
