@@ -2,6 +2,7 @@
 
 import { useScrollSpy } from "@repo/design-system/components/ui/scroll-spy";
 import { cn } from "@repo/design-system/lib/utils";
+import { Menu } from "lucide-react";
 import {
   AnimatePresence,
   type MotionValue,
@@ -206,6 +207,7 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
   const activeIndex = sections.findIndex((s) => s.id === activeValue);
   const activeTitle = activeSection?.title || "Browsing";
   const shouldShowLabel = isDragging || isHovering || isToastActive;
+
   const maxIndex = sections.length - 1;
 
   const totalTicks =
@@ -217,16 +219,16 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
   console.log(navItems);
 
   return (
-    <>
+    <div className="-translate-x-1/2 fixed bottom-6 sxl:bottom-12 left-1/2 z-9999 flex w-[80vw] items-stretch justify-center gap-2 md:bottom-8 md:w-auto">
       <motion.div
         animate={{ opacity: 1, scale: 1 }}
-        className="-translate-x-1/2 fixed bottom-6 sxl:bottom-12 left-1/2 z-9999 w-[60vw] rounded-2xl bg-primary 4xl:px-8 px-6 sxl:px-8 4xl:py-4 py-4 sxl:py-6 text-primary-foreground md:bottom-8 md:w-[280px]"
+        className="flex w-[60vw] items-center rounded-2xl bg-primary 4xl:px-8 px-6 sxl:px-8 4xl:py-4 py-4 sxl:py-6 text-primary-foreground md:w-[280px]"
         initial={{ opacity: 0, scale: 0.8 }}
         style={{ transformOrigin: "bottom center" }}
         transition={CONFIG.ANIMATION.APPEAR}
       >
         <div
-          className="group relative cursor-grab active:cursor-grabbing"
+          className="group relative w-full cursor-grab active:cursor-grabbing"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           ref={trackRef}
@@ -248,6 +250,14 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
           />
         </div>
       </motion.div>
-    </>
+
+      {/* mobile hamburger*/}
+      <button
+        aria-label="Open Menu"
+        className="flex aspect-square items-center justify-center rounded-2xl rounded-2xl bg-primary p-4 text-primary-foreground"
+      >
+        <Menu className="lg:w-6" />
+      </button>
+    </div>
   );
 };
