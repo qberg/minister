@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Tabs as TabsPrimitive } from "radix-ui";
-import { cn } from "@repo/design-system/lib/utils";
+import { cn } from "../../lib/utils";
 
 // Variants for TabsList
 const tabsListVariants = cva(
@@ -102,7 +102,7 @@ const tabsContentVariants = cva(
 );
 
 type TabsContextType = {
-  variant?: "default" | "button" | "line";
+  variant?:  "button" | "line";
   size?: "lg" | "sm" | "xs" | "md";
 };
 const TabsContext = React.createContext<TabsContextType>({
@@ -134,7 +134,7 @@ function TabsList({
   VariantProps<typeof tabsListVariants>) {
   return (
     <TabsContext.Provider
-      value={{ variant: variant || "default", size: size || "md" }}
+      value={{ variant: variant || "line", size: size || "md" }}
     >
       <TabsPrimitive.List
         data-slot="tabs-list"

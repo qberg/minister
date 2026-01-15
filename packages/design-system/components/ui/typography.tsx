@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@repo/design-system/lib/utils";
+import { cn } from "../../lib/utils";
 
 const typographyVariants = cva("", {
   variants: {

@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@repo/design-system/lib/utils";
 import { useEffect, useMemo, useState } from "react";
+import { cn } from "../../lib/utils";
 
 type Grid = {
   rows: number;

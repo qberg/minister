@@ -1,6 +1,6 @@
-import { cn } from "@repo/design-system/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { motion } from "motion/react";
+import { cn } from "../../lib/utils";
 
 const NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as const;
 

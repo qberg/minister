@@ -1,6 +1,6 @@
-import { cn } from "@repo/design-system/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import type React from "react";
+import { cn } from "../../lib/utils";
 
 const boxVariants = cva("", {
   variants: {
@@ -47,19 +47,23 @@ const Box = <T extends BoxElement = "div">({
   borderWidth,
   invert,
   overflow,
-  as: Comp = "div" as T,
+  as,
   ref,
   ...props
-}: BoxProps<T>) => (
-  <Comp
-    className={cn(
-      boxVariants({ padding, borderWidth, invert, overflow }),
-      className
-    )}
-    ref={ref}
-    {...props}
-  />
-);
+}: BoxProps<T>) => {
+  const Comp = (as || "div") as React.ElementType;
+
+  return (
+    <Comp
+      className={cn(
+        boxVariants({ padding, borderWidth, invert, overflow }),
+        className
+      )}
+      ref={ref}
+      {...props}
+    />
+  );
+};
 
 Box.displayName = "Box";
 

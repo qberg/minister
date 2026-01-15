@@ -1,9 +1,8 @@
 "use client";
 
-import { cn } from "@repo/design-system/lib/utils";
-
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
+import { cn } from "../../lib/utils";
 
 type AppearSlideProps = {
   children: React.ReactNode;

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { HTMLMotionProps, motion } from "motion/react";
 import { ChevronRight, MoreHorizontal } from "lucide-react";
-import { cn } from "@repo/design-system/lib/utils";
+import { cn } from "../../lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 
 const iosEasing = [0.25, 0.1, 0.25, 1] as const;

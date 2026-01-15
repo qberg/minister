@@ -3,7 +3,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Dialog } from "radix-ui";
 import { motion } from "motion/react";
 import React from "react";
-import { cn } from "@repo/design-system/lib/utils";
+import { cn } from "../../lib/utils";
 import { X } from "lucide-react";
 
 type ImagePreviewContextValue = {

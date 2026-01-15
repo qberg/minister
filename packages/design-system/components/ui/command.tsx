@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
 import { Search } from "lucide-react";
-import { cn } from "@repo/design-system/lib/utils";
+import { cn } from "../../lib/utils";
 
 // 1. Root Wrapper
 function Command({ 

@@ -1,6 +1,6 @@
-import { cn } from "@repo/design-system/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import React from "react";
+import { cn } from "../../lib/utils";
 
 const stackVariants = cva("flex flex-col", {
   variants: {
