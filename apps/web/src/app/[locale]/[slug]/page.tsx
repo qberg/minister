@@ -8,6 +8,7 @@ import { cache } from "react";
 import { BlockRenderer } from "@/blocks/block-renderer";
 import { LayoutSpyWrapper } from "@/components/layout/spy-wrapper";
 import { LivePreviewListener } from "@/components/live-preview-listener";
+import { HomePreloaderCurtain } from "@/components/loaders/home-preloader-curtain";
 import VerticalTiles from "@/components/loaders/vertical-tiles";
 import { Footer } from "@/footer/Component";
 import { Header } from "@/header/Component";
@@ -100,6 +101,10 @@ export default async function SlugPage({ params }: Props) {
       </LayoutSpyWrapper>
     </main>
   );
+
+  if (slug === "home" && !isDraft) {
+    return <HomePreloaderCurtain>{content}</HomePreloaderCurtain>;
+  }
 
   if (!isDraft) {
     return <VerticalTiles>{content}</VerticalTiles>;
