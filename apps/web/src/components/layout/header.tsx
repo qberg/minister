@@ -7,11 +7,10 @@ import { useHideOnScroll } from "@repo/design-system/hooks/use-hide-on-scroll";
 import { cn } from "@repo/design-system/lib/utils";
 import type React from "react";
 
-export interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
+export interface HeaderProps extends React.ComponentPropsWithRef<"header"> {
   sticky?: boolean;
   hideOnScroll?: boolean;
   padding?: BoxPadding;
-  ref?: React.Ref<HTMLElement>;
 }
 
 const Header = ({
