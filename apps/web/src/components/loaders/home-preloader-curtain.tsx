@@ -22,18 +22,17 @@ export const HomePreloaderCurtain = ({
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    // 1. Lock scroll
     document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
     window.scrollTo(0, 0);
 
-    // 2. Set dimensions
     setDimension({ width: window.innerWidth, height: window.innerHeight });
 
-    // 3. Load Images
     const loadImages = async () => {
       const promises = FRAME_IMAGES.map(
         (src) =>
-          new Promise((resolve, _) => {
+          new Promise((resolve) => {
             const img = new Image();
             img.src = src;
             img.onload = resolve;
@@ -45,7 +44,6 @@ export const HomePreloaderCurtain = ({
 
     loadImages();
 
-    // 4. Counter & Logic
     const counterInterval = setInterval(() => {
       setCounter((prev) => {
         if (prev < 100) {
@@ -60,7 +58,6 @@ export const HomePreloaderCurtain = ({
       setImgIndex((prev) => (prev + 1) % FRAME_IMAGES.length);
     }, 150);
 
-    // 5. Cleanup and Exit
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2800);
@@ -69,32 +66,32 @@ export const HomePreloaderCurtain = ({
       clearInterval(shuffleInterval);
       clearInterval(counterInterval);
       clearTimeout(timer);
-
-      setTimeout(() => {
-        document.body.style.overflow = "";
-      }, 1000);
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
     };
   }, []);
 
-  // SVG Curve Logic
-  const initialPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height} Q${dimension.width / 2} ${dimension.height + 300} 0 ${dimension.height}  L0 0`;
+  useEffect(() => {
+    if (!isLoading) {
+      const unlockTimer = setTimeout(() => {
+        document.body.style.overflow = "";
+        document.body.style.position = "";
+        document.body.style.width = "";
+      }, 1000);
 
-  // The target path pulls the curve UPPPPP
-  // We set Q control point to 0 to flatten it at the top.
+      return () => clearTimeout(unlockTimer);
+    }
+  }, [isLoading]);
+
+  const initialPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height} Q${dimension.width / 2} ${dimension.height + 300} 0 ${dimension.height}  L0 0`;
   const targetPath = `M0 0 L${dimension.width} 0 L${dimension.width} 0 Q${dimension.width / 2} 0 0 0 L0 0`;
 
   return (
     <>
-      {/* PRELOADER LAYER 
-        We use AnimatePresence to handle the exit animation. go away in style
-      */}
       <AnimatePresence mode="wait">
         {isLoading && dimension.width > 0 && (
           <>
-            {/* LAYER 1: THE CURTAIN (SVG) 
-               - This is a direct child of AnimatePresence (via the fragment).
-               - It has its own exit animation (lifting up).
-            */}
             <motion.svg
               aria-hidden="true"
               className="pointer-events-none fixed inset-0 z-9999 h-[calc(100%+300px)] w-full"
@@ -121,34 +118,24 @@ export const HomePreloaderCurtain = ({
               />
             </motion.svg>
 
-            {/* LAYER 2: THE CONTENT (Text/Images) 
-               - This sits ON TOP of the curtain (z-[10000]).
-               - Its exit animation is a simple fade out.
-               - Crucially: It fades out BEFORE the curtain lifts (no delay on exit).
-            */}
             <motion.div
               className="fixed inset-0 z-10000 flex cursor-wait items-center justify-center text-white"
               exit={{ opacity: 0, transition: { duration: 0.3 } }}
               initial={{ opacity: 1 }}
               key="preloader-content"
             >
-              {/* Background Solid Fill (Failsafe before SVG loads) */}
               {dimension.width === 0 && (
                 <div className="absolute inset-0 bg-black" />
               )}
 
-              {/* Top: Counter */}
               <div className="absolute top-10 right-10 left-10 flex justify-between font-mono text-sm uppercase tracking-widest mix-blend-difference">
                 <span>Loading Assets</span>
                 <span>{counter}%</span>
               </div>
 
-              {/* Center: Image Shuffle & Name */}
               <div className="pointer-events-none relative flex items-center justify-center">
-                {/* Images */}
                 <div className="relative h-[400px] w-[300px] overflow-hidden opacity-100 grayscale-0">
                   {FRAME_IMAGES.map((src, i) => (
-                    // biome-ignore lint: need for anim
                     <img
                       alt=""
                       className={cn(
@@ -161,7 +148,6 @@ export const HomePreloaderCurtain = ({
                   ))}
                 </div>
 
-                {/* Text Overlay */}
                 <div className="absolute z-30 text-center mix-blend-difference">
                   <MaskedText className="font-black font-times-new-roman text-6xl uppercase leading-[0.85] tracking-tighter md:text-8xl">
                     T.M. Anbarasan
@@ -169,7 +155,6 @@ export const HomePreloaderCurtain = ({
                 </div>
               </div>
 
-              {/* Bottom: Label */}
               <div className="absolute bottom-10 w-full text-center font-mono text-sm uppercase tracking-widest mix-blend-difference">
                 Grassroots Leader
               </div>
@@ -177,15 +162,6 @@ export const HomePreloaderCurtain = ({
           </>
         )}
       </AnimatePresence>
-
-      {/* MAIN CONTENT 
-         - Logic:  use the `key` prop to force React to re-render 
-           the children when `isLoading` changes. 
-         - When `isLoading` is true, the key is "loading".
-         - When `isLoading` becomes false, the key becomes "loaded".
-         - This Re-Mounts the children, resetting their `initial` -> `animate` 
-           transitions so they play EXACTLY when the curtain lifts.
-      */}
 
       <AnimatePresence mode="wait">
         {!isLoading && <motion.div key="main-content">{children}</motion.div>}
