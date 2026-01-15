@@ -90,7 +90,7 @@ function useSectionToast(activeValue: string | null) {
 /**
  * Handles the bidirectional relationship between scroll progress and drag gestures.
  */
-function useScrollSync(trackRef: React.RefObject<HTMLDivElement>) {
+function useScrollSync(trackRef: React.RefObject<HTMLDivElement | null>) {
   const { scrollYProgress } = useScroll();
 
   // Smooth out the raw scroll progress
@@ -176,7 +176,7 @@ const RulerTicks = ({ count }: { count: number }) => {
                 ? "h-[18px] w-0.5 bg-secondary opacity-80"
                 : "h-[15px] w-[1.5px] bg-secondary opacity-20"
             )}
-            key={i}
+            key={`tick-${i}`}
           />
         );
       })}
@@ -191,10 +191,13 @@ const DraggableThumb = ({
   onDrag,
   setDragState,
 }: {
-  trackRef: React.RefObject<HTMLDivElement>;
+  trackRef: React.RefObject<HTMLDivElement | null>;
   xPercent: MotionValue<string>;
   xMotion: MotionValue<string>;
-  onDrag: (event: any, info: PanInfo) => void;
+  onDrag: (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => void;
   setDragState: (isDragging: boolean) => void;
 }) => (
   <motion.div
@@ -235,14 +238,14 @@ const MenuPanel = ({
           variants={CONFIG.ANIMATION.MENU}
         >
           <nav className="flex flex-col gap-1">
-            {navItems.map((item, i) => {
+            {navItems.map((item) => {
               const link = item.link;
               if (!link) {
                 return null;
               }
 
               return (
-                <motion.div key={i} variants={CONFIG.ANIMATION.ITEM}>
+                <motion.div key={item.id} variants={CONFIG.ANIMATION.ITEM}>
                   <Link
                     className="block rounded-xl px-4 py-3 font-medium text-primary-foreground/80 text-sm transition-colors hover:bg-primary-foreground/10 hover:text-primary-foreground"
                     href={link.url || "#"}
@@ -294,8 +297,6 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
   const labelPositionPercent =
     activeIndex >= 0 && maxIndex > 0 ? (activeIndex / maxIndex) * 100 : 0;
 
-  console.log(navItems);
-
   return (
     <div className="-translate-x-1/2 fixed bottom-6 sxl:bottom-12 left-1/2 z-9999 flex w-[80vw] items-stretch justify-center gap-2 md:bottom-8 md:w-auto">
       <motion.div
@@ -306,10 +307,16 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
         transition={CONFIG.ANIMATION.APPEAR}
       >
         <div
+          aria-label="Scroll navigation"
+          aria-valuemax={sections.length - 1}
+          aria-valuemin={0}
+          aria-valuenow={activeIndex}
+          aria-valuetext={activeTitle}
           className="group relative w-full cursor-grab active:cursor-grabbing"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           ref={trackRef}
+          role="slider"
         >
           <ScrollLabel
             isVisible={shouldShowLabel}

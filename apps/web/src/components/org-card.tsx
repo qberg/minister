@@ -54,7 +54,7 @@ const OrgCard = ({
         </Typography>
 
         <div className="grid grid-cols-2">
-          {stats.map((stat) => (
+          {stats?.map((stat) => (
             <div key={stat.id}>
               <Typography
                 as="h2"
