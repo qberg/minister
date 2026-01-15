@@ -1,7 +1,8 @@
 "use client";
 
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
+import { useRef } from "react"; // 1. Import useRef
 import {
   Autoplay,
   EffectCoverflow,
@@ -39,6 +40,10 @@ export function PerspectiveCarousel({
 }: Props) {
   const limitedIssues = issues.slice(0, 8);
 
+  // 2. Create refs for the navigation buttons
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+
   const carouselStyles = `
     .issue-carousel {
       padding-bottom: 50px !important;
@@ -52,6 +57,12 @@ export function PerspectiveCarousel({
       opacity: 1;
     }
   `;
+
+  const navButtonStyle = cn(
+    "flex aspect-square cursor-pointer items-center justify-center rounded-full border border-yellow-50 text-primary transition-all disabled:cursor-not-allowed disabled:opacity-50",
+    "w-12 p-2.5",
+    "md:w-[3.5vw] md:p-0"
+  );
 
   return (
     <motion.div
@@ -101,14 +112,19 @@ export function PerspectiveCarousel({
         grabCursor={true}
         loop={loop && limitedIssues.length > 1}
         modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
-        navigation={
-          showNavigation
-            ? {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-              }
-            : false
-        }
+        navigation={{
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
+        }}
+        onBeforeInit={(swiper) => {
+          if (typeof swiper.params.navigation !== "boolean") {
+            const navigation = swiper.params.navigation;
+            if (navigation) {
+              navigation.prevEl = prevRef.current;
+              navigation.nextEl = nextRef.current;
+            }
+          }
+        }}
         pagination={
           showPagination
             ? {
@@ -122,18 +138,23 @@ export function PerspectiveCarousel({
             <IssueCard data={issue} />
           </SwiperSlide>
         ))}
-
-        {showNavigation && (
-          <div>
-            <div className="swiper-button-next after:hidden">
-              <ChevronRightIcon className="h-6 w-6 text-white" />
-            </div>
-            <div className="swiper-button-prev after:hidden">
-              <ChevronLeftIcon className="h-6 w-6 text-white" />
-            </div>
-          </div>
-        )}
       </Swiper>
+
+      {(showNavigation || showPagination) && (
+        <div className="flex w-full items-center justify-between gap-6 md:gap-8">
+          {showNavigation && (
+            <button className={cn(navButtonStyle)} ref={prevRef}>
+              <ArrowLeft size={32} strokeWidth="1px" />
+            </button>
+          )}
+
+          {showNavigation && (
+            <button className={cn(navButtonStyle)} ref={nextRef}>
+              <ArrowRight size={32} strokeWidth="1px" />
+            </button>
+          )}
+        </div>
+      )}
     </motion.div>
   );
 }
