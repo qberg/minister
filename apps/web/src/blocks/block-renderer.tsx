@@ -46,6 +46,7 @@ export function BlockRenderer({ locale, blocks }: BlockRendererProps) {
             key={block.id || index}
             value={sectionId}
           >
+            {/* @ts-expect-error there may be some mismatch between the expected types here */}
             <BlockComponent block={block} locale={locale || "ta-IN"} />
           </ScrollSpyContent>
         );

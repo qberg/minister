@@ -21,6 +21,8 @@ export const keys = () =>
       NEXT_PUBLIC_WEB_URL: z.url(),
     },
     runtimeEnv: {
+      NODE_ENV: process.env.NODE_ENV,
+      ANALYZE: process.env.ANALYZE,
       DATABASE_URI: process.env.DATABASE_URI,
       PAYLOAD_SECRET: process.env.PAYLOAD_SECRET,
       PREVIEW_SECRET: process.env.PREVIEW_SECRET,
