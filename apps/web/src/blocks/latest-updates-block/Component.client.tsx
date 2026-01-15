@@ -18,7 +18,6 @@ import type {
   LatestUpdatesBlockType,
   TagPreview,
 } from "@/types";
-import AnnouncementsGrid from "./announcements-grid";
 import ArticlesGrid from "./articles-grid";
 import NewsFeatGrid from "./news-feat-grid";
 
@@ -128,7 +127,6 @@ const LatestUpdatesClient = ({ block, tags, initialData, locale }: Props) => {
         )}
 
         {/* content grids */}
-        {currentType === "announcements" && <AnnouncementsGrid />}
         {currentType === "articles" && (
           <ArticlesGrid items={items} locale={locale} />
         )}

@@ -6,15 +6,15 @@ import BackgroundImage from "@/components/background-image";
 import { StickyScroll } from "@/components/layout/sticky-scroll";
 import { getMediaUrl } from "@/lib/payload-media-utils";
 import type { LayoutBlock, StickyStatsVariant } from "@/types";
-import { stickyStatsTextVariants, stickyStatsVariants } from "./variants";
 import { StatBlock, StatGrid, StatItem } from "./stat-block";
+import { stickyStatsTextVariants, stickyStatsVariants } from "./variants";
 
 type StickyStatsBlockProps = {
   block: Extract<LayoutBlock, { blockType: "sticky-stats" }>;
   locale?: TypedLocale;
 };
 
-const StickyStatsBlock = ({ block }: { block: StickyStatsBlockProps }) => {
+const StickyStatsBlock = ({ block, locale }: StickyStatsBlockProps) => {
   const variant = (block.variant as StickyStatsVariant) ?? "midnight";
   const bgImageUrl = getMediaUrl(block.bgImg, "/images/about-bg.png");
 

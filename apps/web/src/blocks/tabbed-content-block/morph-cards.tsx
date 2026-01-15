@@ -75,7 +75,7 @@ function MorphCards({ items }: { items: OrgInfoTabItem[] }) {
 
                     {/*stat*/}
                     <div className="grid grid-cols-2">
-                      {card.stats.map((stat) => (
+                      {card.stats?.map((stat) => (
                         <div key={stat.id}>
                           <Typography
                             as="h2"

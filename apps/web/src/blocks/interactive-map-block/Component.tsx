@@ -88,7 +88,11 @@ function InteractiveMapBlock({ locale, block }: Props) {
 
   const zoneNameLookup = useMemo(() => {
     const lookup: Record<string, string> = {};
-    zones.forEach((z) => (lookup[z.slug] = z.name));
+    for (const z of zones) {
+      if (z.slug) {
+        lookup[z.slug] = z.name;
+      }
+    }
     return lookup;
   }, [zones]);
 
