@@ -34,6 +34,10 @@ const ImageCard = ({ data, position, ...props }: CardProps) => {
   const imageSrc =
     typeof data.imageCard.image === "object" ? data.imageCard.image.url : "";
 
+  if (!imageSrc) {
+    return null;
+  }
+
   return (
     <div
       className={cn("relative w-full", cardVariants({ position }))}

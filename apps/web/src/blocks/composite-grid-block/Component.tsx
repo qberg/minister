@@ -13,6 +13,11 @@ type Props = {
   block: CompositeGridBlockProps;
 };
 
+const getPositionVariant = (index: number): "0" | "1" | "2" | "3" => {
+  const position = index % 4;
+  return position.toString() as "0" | "1" | "2" | "3";
+};
+
 export function CompositeGridBlock({ block }: Props) {
   const bgImageSrc = getMediaUrl(block.bgImg);
   const heading = block.heading;
@@ -42,10 +47,20 @@ export function CompositeGridBlock({ block }: Props) {
 
             switch (item.cardType) {
               case "image":
-                return <ImageCard data={item} key={key} position={index % 4} />;
+                return (
+                  <ImageCard
+                    data={item}
+                    key={key}
+                    position={getPositionVariant(index)}
+                  />
+                );
               case "content":
                 return (
-                  <ContentCard data={item} key={key} position={index % 4} />
+                  <ContentCard
+                    data={item}
+                    key={key}
+                    position={getPositionVariant(index)}
+                  />
                 );
               default:
                 return (
