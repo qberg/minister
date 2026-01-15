@@ -6,7 +6,7 @@ const boxVariants = cva("", {
   variants: {
     padding: {
       none: "p-0",
-      base: "4xl:px-48 lxl:px-36 px-6 sxl:px-24 4xl:py-20 lxl:py-16 py-10 sxl:py-10 md:px-10 lg:px-20 lg:py-8",
+      base: "4xl:px-48 lxl:px-36 px-6 sxl:px-24 4xl:py-20 lxl:py-16 py-4 sxl:py-10 md:px-10 lg:px-20 lg:py-8",
     },
     invert: {
       true: "bg-foreground text-background",
