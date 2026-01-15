@@ -2,7 +2,8 @@
 
 import { useScrollSpy } from "@repo/design-system/components/ui/scroll-spy";
 import { cn } from "@repo/design-system/lib/utils";
-import { Menu } from "lucide-react";
+import { Link } from "@repo/i18n/navigation";
+import { Menu, X } from "lucide-react";
 import {
   AnimatePresence,
   type MotionValue,
@@ -25,6 +26,30 @@ const CONFIG = {
     SPRING: { stiffness: 300, damping: 30, restDelta: 0.01 } as const,
     APPEAR: { delay: 2, type: "spring", stiffness: 300, damping: 10 } as const,
     LABEL: { type: "spring", stiffness: 400, damping: 20 } as const,
+    MENU: {
+      open: {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        transition: {
+          type: "spring",
+          stiffness: 300,
+          damping: 25,
+          staggerChildren: 0.05,
+          delayChildren: 0.1,
+        },
+      },
+      closed: {
+        opacity: 0,
+        scale: 0.9,
+        y: 20,
+        transition: { type: "spring", stiffness: 400, damping: 30 },
+      },
+    } as const,
+    ITEM: {
+      open: { opacity: 1, y: 0 },
+      closed: { opacity: 0, y: 10 },
+    } as const,
   },
 };
 
@@ -77,7 +102,9 @@ function useScrollSync(trackRef: React.RefObject<HTMLDivElement>) {
 
   const handleDrag = useCallback(
     (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-      if (!trackRef.current) return;
+      if (!trackRef.current) {
+        return;
+      }
 
       const trackRect = trackRef.current.getBoundingClientRect();
       const availableWidth = trackRect.width - CONFIG.THUMB_WIDTH;
@@ -183,6 +210,56 @@ const DraggableThumb = ({
   />
 );
 
+// --- Menu panel ---
+const MenuPanel = ({
+  isOpen,
+  navItems,
+  onClose,
+}: {
+  isOpen: boolean;
+  navItems: HeaderData["navItems"];
+  onClose: () => void;
+}) => {
+  if (!navItems) {
+    return null;
+  }
+
+  return (
+    <AnimatePresence mode="wait">
+      {isOpen && (
+        <motion.div
+          animate="open"
+          className="absolute right-4 bottom-full mb-2 w-64 origin-bottom-right rounded-2xl bg-primary"
+          exit="closed"
+          initial="closed"
+          variants={CONFIG.ANIMATION.MENU}
+        >
+          <nav className="flex flex-col gap-1">
+            {navItems.map((item, i) => {
+              const link = item.link;
+              if (!link) {
+                return null;
+              }
+
+              return (
+                <motion.div key={i} variants={CONFIG.ANIMATION.ITEM}>
+                  <Link
+                    className="block rounded-xl px-4 py-3 font-medium text-primary-foreground/80 text-sm transition-colors hover:bg-primary-foreground/10 hover:text-primary-foreground"
+                    href={link.url || "#"}
+                    onClick={onClose}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </nav>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 // --- Main Component ---
 
 type Props = {
@@ -197,6 +274,7 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
   // Local State
   const [isDragging, setIsDragging] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Custom Hook Logic
   const isToastActive = useSectionToast(activeValue);
@@ -252,12 +330,48 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
       </motion.div>
 
       {/* mobile hamburger*/}
-      <button
-        aria-label="Open Menu"
-        className="flex aspect-square items-center justify-center rounded-2xl rounded-2xl bg-primary p-4 text-primary-foreground"
-      >
-        <Menu className="lg:w-6" />
-      </button>
+      <div className="relative block md:hidden">
+        <MenuPanel
+          isOpen={isMenuOpen}
+          navItems={navItems}
+          onClose={() => setIsMenuOpen(false)}
+        />
+        {/* Toggle Button */}
+        <motion.button
+          animate={{ opacity: 1, scale: 1 }}
+          aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
+          className={cn(
+            "flex aspect-square h-full items-center justify-center rounded-2xl shadow-2xl outline-none transition-colors duration-200",
+            "bg-primary text-primary-foreground",
+            "hover:cursor-pointer"
+          )}
+          initial={{ opacity: 0, scale: 0.8 }}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          transition={{ ...CONFIG.ANIMATION.APPEAR, delay: 2.1 }}
+        >
+          <AnimatePresence mode="wait">
+            {isMenuOpen ? (
+              <motion.div
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                initial={{ rotate: -90, opacity: 0 }}
+                key="close"
+              >
+                <X className="h-6 w-6" />
+              </motion.div>
+            ) : (
+              <motion.div
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                initial={{ rotate: 90, opacity: 0 }}
+                key="menu"
+              >
+                <Menu className="h-6 w-6" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
+      </div>
     </div>
   );
 };
