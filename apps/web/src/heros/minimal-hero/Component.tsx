@@ -1,14 +1,17 @@
 import { Box } from "@repo/design-system/components/layout/box";
 import { Stack } from "@repo/design-system/components/layout/stack";
 import { Typography } from "@repo/design-system/components/ui/typography";
+import type { TypedLocale } from "payload";
 import BackgroundImage from "@/components/background-image";
 import { BreadCrumb } from "@/components/bread-crumb";
 import { getMediaUrl } from "@/lib/payload-media-utils";
+import type { HeroBlock } from "@/types";
 
 type MinimalHeroBlockType = Extract<HeroBlock, { blockType: "minimal-hero" }>;
 
 type MinimalHeroProps = {
   block: MinimalHeroBlockType;
+  locale?: TypedLocale;
 };
 
 const MinimalHero = ({ block }: MinimalHeroProps) => {

@@ -1,6 +1,7 @@
 import { Box } from "@repo/design-system/components/layout/box";
 import { Stack } from "@repo/design-system/components/layout/stack";
 import { Typography } from "@repo/design-system/components/ui/typography";
+import type { TypedLocale } from "payload";
 import type React from "react";
 import BackgroundImage from "@/components/background-image";
 import { getMediaUrl } from "@/lib/payload-media-utils";
@@ -11,6 +12,7 @@ type ParallaxHeroBlockType = Extract<HeroBlock, { blockType: "parallax-hero" }>;
 
 type ParallaxHeroProps = {
   block: ParallaxHeroBlockType;
+  locale?: TypedLocale;
 };
 
 const ParallaxHero: React.FC<ParallaxHeroProps> = ({ block }) => {

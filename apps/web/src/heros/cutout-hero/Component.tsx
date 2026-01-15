@@ -6,6 +6,7 @@ import { Button } from "@repo/design-system/components/ui/button";
 import { Typography } from "@repo/design-system/components/ui/typography";
 import { motion, type Variants } from "motion/react";
 import Image from "next/image";
+import type { TypedLocale } from "payload";
 import BackgroundImage from "@/components/background-image";
 import { CMSLink } from "@/components/cms-link";
 import { getMediaUrl } from "@/lib/payload-media-utils";
@@ -13,9 +14,8 @@ import type { CutoutHero as CutoutHeroProps } from "@/payload-types";
 
 type Props = {
   block: CutoutHeroProps;
+  locale?: TypedLocale;
 };
-
-const EASING = [0.76, 0, 0.24, 1];
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -32,7 +32,7 @@ const textRevealVariants: Variants = {
   hidden: { y: "100%" },
   visible: {
     y: 0,
-    transition: { duration: 0.8, ease: EASING },
+    transition: { duration: 0.8, ease: "easeInOut" },
   },
 };
 
@@ -41,7 +41,7 @@ const fadeUpVariants: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 1, ease: EASING },
+    transition: { duration: 1, ease: "easeInOut" },
   },
 };
 
