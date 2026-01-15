@@ -54,25 +54,25 @@ export async function Footer() {
               </Typography>
 
               {footerData.contacts.phone && (
-                <div
+                <a
                   className="text-surface-default transition-colors hover:text-primary-default"
                   href={`tel:${footerData.contacts.phone}`}
                 >
                   <Typography as="span" intent="subtle" variant="bodyLG">
                     {footerData.contacts.phone}
                   </Typography>
-                </div>
+                </a>
               )}
 
               {footerData.contacts.email && (
-                <div
+                <a
                   className="text-surface-default transition-colors hover:text-primary-default"
                   href={`mailto:${footerData.contacts.email}`}
                 >
                   <Typography as="span" intent="subtle" variant="bodyLG">
                     {footerData.contacts.email}
                   </Typography>
-                </div>
+                </a>
               )}
 
               {footerData.contacts.address && (
