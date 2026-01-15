@@ -89,7 +89,7 @@ export default async function SlugPage({ params }: Props) {
       >
         {hasHero && (
           <ScrollSpyContent className="relative" value="hero">
-            <HeroRenderer hero={page.hero} />
+            <HeroRenderer heroes={page.hero} locale={locale} />
           </ScrollSpyContent>
         )}
 
