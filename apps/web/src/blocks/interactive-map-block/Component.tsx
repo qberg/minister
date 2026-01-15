@@ -17,7 +17,6 @@ import AnimatedStat from "@/components/animated-stat";
 import BackgroundImage from "@/components/background-image";
 import { buildHref } from "@/components/cms-link";
 import Heading from "@/components/heading";
-import { IssueCarouselEmbla } from "@/components/issue-carousel-embla";
 import { PerspectiveCarousel } from "@/components/perspective-carousel";
 import type { InteractiveMapBlock as InteractiveMapBlockProps } from "@/payload-types";
 import type { AllImpactStats, MapZoneOption } from "@/types";
@@ -27,6 +26,7 @@ type Props = {
   block: InteractiveMapBlockProps;
 };
 
+// biome-ignore lint: need
 function InteractiveMapBlock({ locale, block }: Props) {
   const heading = block.headline;
   const title = block.title;
@@ -34,7 +34,6 @@ function InteractiveMapBlock({ locale, block }: Props) {
 
   const mode = block.mode;
 
-  //const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [activeSlug, setActiveSlug] = useQueryState(
     "zone",
     parseAsString.withOptions({ shallow: true, history: "replace" })
@@ -210,21 +209,9 @@ function InteractiveMapBlock({ locale, block }: Props) {
               <PerspectiveCarousel
                 autoplay={true}
                 issues={stats.issuesBreakdown}
-                showNavigation={false}
-                showPagination={true}
-                spaceBetween={40}
-              />
-            </div>
-          )}
-
-          {stats && stats.issuesBreakdown.length > 0 && mode === "summary" && (
-            <div className="4xl:-mx-48 lxl:-mx-36 -mx-6 sxl:-mx-24 md:-mx-10 lg:-mx-20 mt-12 w-screen">
-              <IssueCarouselEmbla
-                autoplay={true}
-                issues={stats.issuesBreakdown}
-                loop={true}
                 showNavigation={true}
                 showPagination={true}
+                spaceBetween={40}
               />
             </div>
           )}
