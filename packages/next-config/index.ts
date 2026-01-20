@@ -22,8 +22,10 @@ export const config: NextConfig = {
       },
     ],
   },
+  output: "standalone",
   experimental: {
     viewTransition: true,
+    optimizePackageImports: ["lucide-react", "@mui/material"],
   },
 
   // biome-ignore lint/suspicious/useAwait: rewrites is async
