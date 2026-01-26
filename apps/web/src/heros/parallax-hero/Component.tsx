@@ -21,7 +21,12 @@ const ParallaxHero: React.FC<ParallaxHeroProps> = ({ block }) => {
   const bgDisplayText = block.bgText;
 
   return (
-    <Box as="section" className="relative min-h-screen" invert padding="none">
+    <Box
+      as="section"
+      className="relative min-h-screen bg-foreground"
+      invert
+      padding="none"
+    >
       {bgImageSrc && <BackgroundImage priority src={bgImageSrc} />}
       <Stack className="relative z-10 mx-auto mt-24 lg:mt-[12vw]" gap="lg">
         <div className="whitespace-nowrap text-center">

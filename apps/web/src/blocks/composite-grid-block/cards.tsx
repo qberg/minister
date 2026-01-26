@@ -1,8 +1,10 @@
+import { Button } from "@repo/design-system/components/ui/button";
 import { Typography } from "@repo/design-system/components/ui/typography";
 import { cn } from "@repo/design-system/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
 import AnimatedPattern from "@/components/animated-pattern";
+import { CMSLink } from "@/components/cms-link";
 import type { CompositeGridBlock as CompositeGridBlockProps } from "@/payload-types";
 
 const cardVariants = cva(
@@ -51,14 +53,20 @@ const ImageCard = ({ data, position, ...props }: CardProps) => {
 const ContentCard = ({ data, position, ...props }: CardProps) => (
   <div className={cn("bg-foreground", cardVariants({ position }))} {...props}>
     <AnimatedPattern className="absolute bottom-0 left-0 w-full" />
-    <div className="flex flex-col gap-8 4xl:p-12 p-6 lg:p-8">
-      <Typography as="h4" className="text-secondary" variant="brandHeading">
+    <div className="relative z-10 flex h-full flex-col justify-center gap-8 4xl:p-12 p-6 lg:p-8">
+      <Typography as="h4" className="text-secondary" variant="headingSM">
         {data.contentCard?.title}
       </Typography>
 
-      <Typography as="p" className="text-primary-foreground" variant="bodyLG">
+      <Typography as="p" intent="subtle" variant="bodyLG">
         {data.contentCard?.text}
       </Typography>
+
+      {data.contentCard?.link && (
+        <CMSLink {...data.contentCard?.link}>
+          <Button variant={"outline"}>{data.contentCard.link.label}</Button>
+        </CMSLink>
+      )}
     </div>
   </div>
 );

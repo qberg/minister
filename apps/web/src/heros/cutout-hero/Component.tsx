@@ -185,10 +185,10 @@ function Stats({ stats }: StatsProps) {
           className="flex flex-col items-center justify-center gap-2 text-center"
           key={stat.id}
         >
-          <Typography as="h4" className="text-neutral-50" variant="headingSM">
+          <Typography as="h4" className="flex-1" variant="headingSM">
             {stat.v}
           </Typography>
-          <Typography as="span" className="" variant="bodyLG">
+          <Typography as="span" className="flex-1" variant="bodyLG">
             {stat.l}
           </Typography>
         </div>

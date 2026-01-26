@@ -24,18 +24,19 @@ export function CompositeGridBlock({ block }: Props) {
   const description = block.description;
 
   return (
-    <Box as="section" className="relative bg-surface">
+    <Box as="section" className="theme-dark relative bg-surface">
       {bgImageSrc && (
         <BackgroundImage className="opacity-10" src={bgImageSrc} />
       )}
       <Stack className="relative z-10">
-        {heading && <Heading text="About" />}
+        {heading && <Heading text={heading} />}
 
         {description && (
           <Typography
             as="p"
-            className="text-surface-muted lg:max-w-[55ch]"
-            variant="headingXXS"
+            className="lg:max-w-[92ch]"
+            intent={"body"}
+            variant="headingXS"
           >
             {description}
           </Typography>
