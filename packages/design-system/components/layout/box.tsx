@@ -9,8 +9,8 @@ const boxVariants = cva("", {
       base: "4xl:px-48 lxl:px-36 px-6 sxl:px-24 4xl:py-20 lxl:py-16 py-4 sxl:py-10 md:px-10 lg:px-20 lg:py-8",
     },
     invert: {
-      true: "bg-foreground text-background",
-      false: "bg-background text-foreground",
+      true: "theme-light",
+      false: "theme-dark",
     },
     borderWidth: {
       none: "-outline-offset-2 border-0 outline outline-2 outline-transparent",

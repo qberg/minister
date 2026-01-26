@@ -298,7 +298,7 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
     activeIndex >= 0 && maxIndex > 0 ? (activeIndex / maxIndex) * 100 : 0;
 
   return (
-    <div className="-translate-x-1/2 fixed bottom-6 sxl:bottom-12 left-1/2 z-9999 flex w-[80vw] items-stretch justify-center gap-2 md:bottom-8 md:w-auto">
+    <div className="-translate-x-1/2 fixed bottom-6 left-1/2 z-9999 flex w-[80vw] items-stretch justify-center gap-2 md:bottom-4 md:left-[90%] md:w-auto">
       <motion.div
         animate={{ opacity: 1, scale: 1 }}
         className="flex w-[60vw] items-center rounded-2xl bg-primary 4xl:px-8 px-6 sxl:px-8 4xl:py-4 py-4 sxl:py-6 text-primary-foreground md:w-[280px]"

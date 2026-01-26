@@ -40,7 +40,6 @@ export function PerspectiveCarousel({
 }: Props) {
   const limitedIssues = issues.slice(0, 8);
 
-  // 2. Create refs for the navigation buttons
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
 

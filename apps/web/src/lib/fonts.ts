@@ -29,7 +29,7 @@ export const anek_tamil = Anek_Tamil({
   display: "swap",
   subsets: ["latin", "tamil"],
   weight: ["400", "600", "700"],
-  variable: "--font-anek",
+  variable: "--font-anek-tamil",
 });
 
 export const tamil_sangam_mn = localFont({

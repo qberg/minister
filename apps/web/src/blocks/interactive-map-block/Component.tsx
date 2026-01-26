@@ -18,6 +18,7 @@ import BackgroundImage from "@/components/background-image";
 import { buildHref } from "@/components/cms-link";
 import Heading from "@/components/heading";
 import { PerspectiveCarousel } from "@/components/perspective-carousel";
+import { SimpleIssueCard } from "@/components/simple-issue-card";
 import type { InteractiveMapBlock as InteractiveMapBlockProps } from "@/payload-types";
 import type { AllImpactStats, MapZoneOption } from "@/types";
 
@@ -232,6 +233,14 @@ function InteractiveMapBlock({ locale, block }: Props) {
                 Know More
               </Link>
             </Button>
+          </div>
+        )}
+
+        {mode === "full" && (
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+            {stats?.issuesBreakdown.map((issue) => (
+              <SimpleIssueCard data={issue} key={issue.id} />
+            ))}
           </div>
         )}
       </Stack>

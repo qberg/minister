@@ -52,8 +52,7 @@ function CutoutHero({ block }: Props) {
   const cutoutSrc = getMediaUrl(cutout);
 
   return (
-    <Box as="section" className="relative pr-0! pb-0!" invert>
-      {/* Background Image - Fade in slowly */}
+    <Box as="section" className="theme-dark relative pr-0! pb-0!" invert>
       <BackgroundImage alt="Bg Image" src={bgImgSrc} />
 
       {/* Main Container - Controls Staggering */}
@@ -64,7 +63,7 @@ function CutoutHero({ block }: Props) {
         variants={containerVariants}
       >
         {/* Content Column */}
-        <div className="lxl:mt-[3vw] sxl:mt-[2vw] flex w-full flex-col 4xl:gap-8 gap-4 lxl:gap-6 sxl:gap-5 md:w-[45%] lg:gap-3">
+        <div className="lxl:mt-[3vw] flex w-full flex-col 4xl:gap-8 gap-4 lxl:gap-6 sxl:gap-5 md:mt-[2.5vw] md:w-[45%] lg:gap-3">
           {/* Portraits - Staggered Fade Up */}
           {portraits && portraits.length !== 0 && (
             <motion.div variants={fadeUpVariants}>
@@ -75,11 +74,7 @@ function CutoutHero({ block }: Props) {
           {title && (
             <div className="overflow-hidden">
               <motion.div variants={textRevealVariants}>
-                <Typography
-                  as="h1"
-                  className="text-surface-muted"
-                  variant="headingXL"
-                >
+                <Typography as="h1" intent={"body"} variant="headingXL">
                   {title}
                 </Typography>
               </motion.div>
@@ -88,11 +83,7 @@ function CutoutHero({ block }: Props) {
 
           {desc && (
             <motion.div variants={fadeUpVariants}>
-              <Typography
-                as="p"
-                className="text-neutral-200"
-                variant="headingXS"
-              >
+              <Typography as="p" intent={"subtle"} variant="headingXS">
                 {desc}
               </Typography>
             </motion.div>
@@ -109,7 +100,7 @@ function CutoutHero({ block }: Props) {
           {/* Stats - Staggered entrance */}
           {stats && stats.length !== 0 && (
             <motion.div
-              className="mt-2 sxl:mt-12 hidden pb-8 md:block lg:mt-8"
+              className="mt-2 sxl:mt-12 hidden pb-8 md:block lg:mt-4"
               variants={fadeUpVariants}
             >
               <Stats stats={stats} />
@@ -159,7 +150,7 @@ type PortraitsProps = {
 
 function Portraits({ portraits }: PortraitsProps) {
   return (
-    <div className="flex gap-4 md:gap-8">
+    <div className="flex gap-4 sxl:gap-8">
       {portraits?.map((portrait) => {
         const portraitSrc = getMediaUrl(portrait.image);
         return (
@@ -191,7 +182,7 @@ function Stats({ stats }: StatsProps) {
     <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-0">
       {stats?.map((stat) => (
         <div
-          className="flex flex-col items-center justify-center gap-2"
+          className="flex flex-col items-center justify-center gap-2 text-center"
           key={stat.id}
         >
           <Typography as="h4" className="text-neutral-50" variant="headingSM">

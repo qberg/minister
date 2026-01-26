@@ -15,7 +15,7 @@ export function TimelineBlock({ block }: Props) {
   const heading = block.heading;
   const tagLine = block.tagLine;
   return (
-    <Box as="section" className="relative min-h-screen" invert>
+    <Box as="section" className="relative min-h-screen bg-foreground">
       <Stack>
         {heading && <Heading text={heading} />}
         {tagLine && (
