@@ -7,7 +7,7 @@ const NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as const;
 // --- 1. THE DIGIT COMPONENT ---
 
 const digitVariants = cva(
-  "relative overflow-hidden font-normal font-times-new-roman tabular-nums leading-none tracking-normal",
+  "relative overflow-hidden font-heading font-normal tabular-nums leading-none tracking-normal [html[lang=ta-IN]_&]:font-bold",
   {
     variants: {
       size: {

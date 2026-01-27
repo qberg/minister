@@ -160,7 +160,7 @@ export function IssueCard({
 
       <div className="relative z-10 flex flex-col gap-1">
         <Typography
-          className="font-bold uppercase leading-tight tracking-wide drop-shadow-sm"
+          className="font-bold text-yellow-50 uppercase leading-tight tracking-wide drop-shadow-sm"
           variant="brandHeading"
         >
           {data.name}

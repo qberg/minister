@@ -35,8 +35,8 @@ export function TabbedContentBlock({ block }: Props) {
         {description && (
           <Typography
             as="p"
-            className="text-surface-muted lg:max-w-[58ch]"
-            variant="headingXXS"
+            className="text-surface-muted lg:max-w-[98ch]"
+            variant="headingXS"
           >
             {description}
           </Typography>

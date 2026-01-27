@@ -10,12 +10,6 @@ import { useState } from "react";
 import { getMediaUrl } from "@/lib/payload-media-utils";
 import type { TimelineItem } from "@/types";
 
-const textVariants = {
-  hidden: { opacity: 0, y: 10, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-  exit: { opacity: 0, y: -10, filter: "blur(4px)" },
-};
-
 const containerExitVariants = {
   visible: { opacity: 1 },
   exit: {
@@ -50,15 +44,17 @@ function TimeLineContent({ items }: { items: TimelineItem[] }) {
     <div className="relative mx-auto flex w-full w-full flex-col gap-6 md:max-w-[95%] md:flex-row lg:gap-8">
       {/*desktop nav*/}
       <button
-        className="-translate-x-[125%] -translate-y-1/2 absolute top-1/2 left-0 hidden aspect-square w-[3.5vw] items-center justify-center rounded-full border border-yellow-50 md:flex"
+        className="-translate-x-[125%] -translate-y-1/2 absolute top-1/2 left-0 hidden aspect-square w-[3.5vw] items-center justify-center rounded-full border border-yellow-50 text-yellow-50 md:flex"
         onClick={handlePrev}
+        type="button"
       >
         <ArrowLeft size={32} strokeWidth="1px" />
       </button>
 
       <button
-        className="-translate-y-1/2 absolute top-1/2 right-0 hidden aspect-square w-[3.5vw] translate-x-[140%] items-center justify-center rounded-full border border-yellow-50 md:flex"
+        className="-translate-y-1/2 absolute top-1/2 right-0 hidden aspect-square w-[3.5vw] translate-x-[140%] items-center justify-center rounded-full border border-yellow-50 text-yellow-50 md:flex"
         onClick={handleNext}
+        type="button"
       >
         <ArrowRight size={32} strokeWidth="1px" />
       </button>
@@ -70,7 +66,7 @@ function TimeLineContent({ items }: { items: TimelineItem[] }) {
           <AnimatePresence mode="wait">
             <motion.div
               animate="visible"
-              className="flex flex-col gap-6 lg:gap-8" // Let TextReveal handle the hidden->visible state
+              className="flex flex-col gap-6" // Let TextReveal handle the hidden->visible state
               exit="exit"
               initial="visible"
               key={activeYear}
@@ -80,19 +76,21 @@ function TimeLineContent({ items }: { items: TimelineItem[] }) {
                 <Typography
                   as="h4"
                   className="text-accent"
-                  variant="brandHeading"
+                  intent={"title"}
+                  variant="headingSM"
                 >
                   <TextReveal
                     className="leading-tight"
                     duration={0.1}
                     variant="scale"
+                    wordLevel
                   >
                     {title}
                   </TextReveal>
                 </Typography>
               )}
               {description && (
-                <Typography as="h6" variant="headingXXS">
+                <Typography as="h6" intent={"subtle"} variant="headingXXS">
                   <TextReveal
                     delay={0.2}
                     duration={0.4}

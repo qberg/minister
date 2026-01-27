@@ -52,7 +52,11 @@ function CutoutHero({ block }: Props) {
   const cutoutSrc = getMediaUrl(cutout);
 
   return (
-    <Box as="section" className="theme-dark relative pr-0! pb-0!" invert>
+    <Box
+      as="section"
+      className="theme-dark relative bg-background pr-0! pb-0!"
+      invert
+    >
       <BackgroundImage alt="Bg Image" src={bgImgSrc} />
 
       {/* Main Container - Controls Staggering */}

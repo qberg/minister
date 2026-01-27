@@ -3,12 +3,16 @@ import {
   ContentManagerAccess,
   EveryoneAccess,
 } from "@/access/collection-level-access";
+import { isFeat } from "@/Fields/is-featured";
 
 export const NewspaperFeatuers: CollectionConfig<"news-feat"> = {
   slug: "news-feat",
   labels: {
     singular: "Newspaper Feature",
     plural: "Newspaper Features",
+  },
+  admin: {
+    useAsTitle: "title",
   },
   access: {
     create: ContentManagerAccess,
@@ -66,5 +70,6 @@ export const NewspaperFeatuers: CollectionConfig<"news-feat"> = {
         description: "Optional: Link to online version of article",
       },
     },
+    isFeat,
   ],
 };

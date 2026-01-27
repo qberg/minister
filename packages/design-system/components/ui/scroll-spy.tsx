@@ -10,6 +10,7 @@ import React, {
   useState,
 } from "react";
 import { motion } from "motion/react";
+import { cn } from "../../lib/utils";
 
 type ScrollSpyContextValue = {
   activeValue: string;
@@ -238,7 +239,14 @@ export function ScrollSpyTrigger({
         />
       )}
 
-      <span className="relative z-10 text-background mix-blend-multiply dark:mix-blend-normal">
+<span 
+        className={cn(
+          "relative z-10 text-sm font-medium transition-colors duration-200",
+          isActive 
+            ? "text-body"  // Color when active (e.g., White)
+            : "text-body-subtle hover:text-body" // Color when inactive
+        )}
+      >
         {children}
       </span>
     </motion.button>

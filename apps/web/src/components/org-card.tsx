@@ -15,7 +15,7 @@ const OrgCard = ({
 
   return (
     <div className="flex w-full flex-col 4xl:gap-8 gap-4 lxl:gap-6 rounded-lg border-2 border-alt-border 4xl:p-8 lxl:p-6 p-4 md:flex-row">
-      <div className="relative order-2 aspect-[0.75/1] w-full overflow-hidden rounded-lg md:w-[25vw] lg:order-1 2xl:w-[25vw]">
+      <div className="relative order-2 aspect-[0.75/1] sxl:w-[20vw] w-full shrink-0 overflow-hidden rounded-lg md:w-[18vw] lg:order-1">
         {imageSrc && (
           <Image alt="Org Photo" className="object-cover" fill src={imageSrc} />
         )}
@@ -36,34 +36,32 @@ const OrgCard = ({
             </div>
           )}
 
-          <Typography
-            as="h4"
-            className="text-yellow-400"
-            variant="brandHeading"
-          >
+          <Typography as="h4" intent={"title"} variant="headingSM">
             {label}
           </Typography>
         </div>
 
         <Typography
           as="div"
-          className="text-muted-foreground md:max-w-[45ch]"
-          variant="bodyLG"
+          className="md:max-w-[80ch]"
+          intent={"subtle"}
+          variant="headingXXS"
         >
           {description}
         </Typography>
 
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 gap-2">
           {stats?.map((stat) => (
             <div key={stat.id}>
               <Typography
                 as="h2"
-                className="mb-1 text-accent"
+                className="mb-1"
+                intent={"title"}
                 variant="headingLG"
               >
                 {stat.v}
               </Typography>
-              <Typography as="p" className="text-neutral-200" variant="bodyLG">
+              <Typography as="p" intent={"subtle"} variant="bodyLG">
                 {stat.l}
               </Typography>
             </div>

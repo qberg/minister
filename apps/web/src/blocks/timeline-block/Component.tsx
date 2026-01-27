@@ -15,11 +15,14 @@ export function TimelineBlock({ block }: Props) {
   const heading = block.heading;
   const tagLine = block.tagLine;
   return (
-    <Box as="section" className="relative min-h-screen bg-foreground">
+    <Box
+      as="section"
+      className="theme-dark relative min-h-screen bg-foreground"
+    >
       <Stack>
         {heading && <Heading text={heading} />}
         {tagLine && (
-          <Typography as="h2" className="text-yellow-100" variant="headingLG">
+          <Typography as="h2" intent={"body"} variant="headingLG">
             {tagLine}
           </Typography>
         )}

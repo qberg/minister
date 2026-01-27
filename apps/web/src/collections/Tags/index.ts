@@ -11,6 +11,9 @@ export const Tags: CollectionConfig<"tags"> = {
     singular: "Tag",
     plural: "Tags",
   },
+  admin: {
+    useAsTitle: "label",
+  },
   access: {
     create: ContentManagerAccess,
     read: EveryoneAccess,

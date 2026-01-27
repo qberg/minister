@@ -24,7 +24,12 @@ export function AnimatedHeading({ text, className }: Props) {
             mass: 0.8,
           }}
         >
-          <Typography as="h2" className={className} variant="headingLG">
+          <Typography
+            as="h2"
+            className={className}
+            intent={"body"}
+            variant="headingLG"
+          >
             {text}
           </Typography>
         </motion.div>

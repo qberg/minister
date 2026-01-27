@@ -3,6 +3,7 @@ import {
   ContentManagerAccess,
   EveryoneAccess,
 } from "@/access/collection-level-access";
+import { isFeat } from "@/Fields/is-featured";
 import { createSlugField } from "@/Fields/slug";
 
 export const Issues: CollectionConfig<"issues"> = {
@@ -86,5 +87,6 @@ export const Issues: CollectionConfig<"issues"> = {
         position: "sidebar",
       },
     },
+    isFeat,
   ],
 };

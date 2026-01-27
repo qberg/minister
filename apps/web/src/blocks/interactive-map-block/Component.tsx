@@ -108,7 +108,7 @@ function InteractiveMapBlock({ locale, block }: Props) {
   const knowMoreHref = activeSlug ? `${baseLink}?zone=${activeSlug}` : baseLink;
 
   return (
-    <Box as="section" className="relative" overflow="hidden">
+    <Box as="section" className="relative" invert overflow="hidden">
       <Stack className="relative z-10">
         {heading && mode === "summary" && <Heading text={heading} />}
 
@@ -150,7 +150,8 @@ function InteractiveMapBlock({ locale, block }: Props) {
             {title && (
               <Typography
                 as="h4"
-                className="hidden text-primary md:block"
+                className="hidden md:block"
+                intent={"body"}
                 variant="headingXS"
               >
                 {title}
@@ -158,11 +159,7 @@ function InteractiveMapBlock({ locale, block }: Props) {
             )}
 
             {description && (
-              <Typography
-                as="p"
-                className="text-teritary-foreground"
-                variant="headingXXS"
-              >
+              <Typography as="p" intent={"subtle"} variant="headingXXS">
                 {description}
               </Typography>
             )}

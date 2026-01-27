@@ -523,6 +523,10 @@ export interface Article {
    * Optional: Link to online version of article
    */
   externalLink?: string | null;
+  /**
+   * Should this album be visible to the public?
+   */
+  isFeat?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -563,6 +567,10 @@ export interface NewsFeat {
    * Optional: Link to online version of article
    */
   externalLink?: string | null;
+  /**
+   * Should this album be visible to the public?
+   */
+  isFeat?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -578,6 +586,10 @@ export interface Issue {
   icon?: (number | null) | Media;
   color?: ('blue' | 'yellow' | 'neutral') | null;
   overlayType?: ('solid' | 'gradient') | null;
+  /**
+   * Should this album be visible to the public?
+   */
+  isFeat?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1061,6 +1073,7 @@ export interface ArticlesSelect<T extends boolean = true> {
   newspaper?: T;
   publishedDate?: T;
   externalLink?: T;
+  isFeat?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1075,6 +1088,7 @@ export interface NewsFeatSelect<T extends boolean = true> {
   tags?: T;
   publishedDate?: T;
   externalLink?: T;
+  isFeat?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1101,6 +1115,7 @@ export interface IssuesSelect<T extends boolean = true> {
   icon?: T;
   color?: T;
   overlayType?: T;
+  isFeat?: T;
   updatedAt?: T;
   createdAt?: T;
 }

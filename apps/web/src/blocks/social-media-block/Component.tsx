@@ -7,7 +7,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "@repo/design-system/components/ui/tabs";
-import { Typography } from "@repo/design-system/components/ui/typography";
 import { AnimatePresence, motion } from "motion/react";
 import type { TypedLocale } from "payload";
 import React, { useState } from "react";
@@ -106,7 +105,7 @@ function SocialMediaBlock({ block }: Props) {
   // ============================================================================
 
   return (
-    <Box as="section">
+    <Box as="section" invert>
       <Stack className="relative">
         {/* Section Heading */}
         {heading && <Heading text={heading} />}
@@ -120,9 +119,7 @@ function SocialMediaBlock({ block }: Props) {
           <TabsList size="lg" variant="button">
             {socialLinks.map((social) => (
               <TabsTrigger key={social.platform} value={social.platform}>
-                <Typography as="p" className="uppercase" variant="bodyMD">
-                  {social.platform}
-                </Typography>
+                <span className="text-sm uppercase">{social.platform}</span>
               </TabsTrigger>
             ))}
           </TabsList>
