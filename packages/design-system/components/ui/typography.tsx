@@ -26,7 +26,7 @@ const typographyVariants = cva("", {
 
       bodyLG: "font-body text-base tracking-tight leading-none font-normal [html[lang=ta-IN]_&]:leading-[1.25] [html[lang=ta-IN]_&]:tracking-[-0.01em]",
       bodyMD:
-        "font-body text-base tracking-tight leading-none font-semibold",
+        "font-body text-sm tracking-[-0.01em] leading-[1.2] font-semibold",
       bodySM: "font-body text-sm tracking-tight leading-none font-light",
     },
     intent: {

@@ -18,8 +18,10 @@
   --text-4xl: clamp(1.5rem, 0rem + 2.5vw, 4rem);
   --text-2xl: clamp(1.25rem, 0.1199rem + 1.6438vw, 2.75rem);
   --text-xl: clamp(1rem, 0.3333rem + 1.0417vw, 2rem);
+
   --text-base: clamp(0.875rem, 0.0274rem + 1.2329vw, 2rem);
-  --text-sm: clamp(0.75rem, 0rem + 0.9375vw, 1.5rem);
+  --text-sm: clamp(0.875rem, 0rem + 1.0938vw, 1.75rem);
+  --text-xs: clamp(0.875rem, 0rem + 1.0938vw, 1.75rem);
 
   --text-9xl: clamp(6rem, -2.6364rem + 17.2727vw, 25rem);
 }
@@ -28,27 +30,16 @@
   --font-heading: var(--font-anek-tamil);
   --font-body: var(--font-tamil-sangam-mn);
 
-  /* done*/
   --text-6xl: clamp(2.5rem, 0.3339rem + 3.1507vw, 5.375rem);
-
-  /* done*/
   --text-5xl: clamp(1.25rem, -0.9167rem + 3.3854vw, 4.5rem);
-
-  /* done*/
   --text-3xl: clamp(1.25rem, -0.1667rem + 2.2135vw, 3.375rem);
-
   --text-4xl: clamp(1.5rem, 0rem + 2.5vw, 4rem);
-
-  /* done*/
   --text-2xl: clamp(1rem, 0.1667rem + 1.3021vw, 2.25rem);
-
-  /* done*/
   --text-xl: clamp(1rem, 0.25rem + 0.9375vw, 1.75rem);
 
-  /* done*/
   --text-base: clamp(0.875rem, 0.0745rem + 1.1644vw, 1.9375rem);
-
-  --text-sm: clamp(0.75rem, 0rem + 0.9375vw, 1.5rem);
+  --text-sm: clamp(0.875rem, 0rem + 1.0938vw, 1.75rem);
+  --text-xs: clamp(0.875rem, 0rem + 1.0938vw, 1.75rem);
 
   --text-9xl: clamp(4rem, -1rem + 10vw, 15rem);
 }

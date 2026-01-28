@@ -79,7 +79,6 @@ export default async function SlugPage({ params }: Props) {
 
   const content = (
     <main>
-      <Header />
       {isDraft && <LivePreviewListener />}
 
       <LayoutSpyWrapper
@@ -87,6 +86,7 @@ export default async function SlugPage({ params }: Props) {
         hasHero={Boolean(hasHero)}
         headerData={headerData}
       >
+        <Header />
         {hasHero && (
           <ScrollSpyContent className="relative" value="hero">
             <HeroRenderer heroes={page.hero} locale={locale} />
