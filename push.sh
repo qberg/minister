@@ -3,7 +3,7 @@ set -e
 
 # Configuration
 SERVER_USER="ubuntu"
-SERVER_HOST="ec2-43-205-118-245.ap-south-1.compute.amazonaws.com"
+SERVER_HOST="alandur.minsky.dev"
 SERVER_PATH="/home/ubuntu/valamanaalandur"
 SSH_KEY="$HOME/.ssh/minsky-aws.pem"
 

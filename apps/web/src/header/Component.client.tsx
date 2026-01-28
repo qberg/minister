@@ -1,5 +1,6 @@
 import { Typography } from "@repo/design-system/components/ui/typography";
 import { CMSLink } from "@/components/cms-link";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import {
   Header,
   HeaderBrand,
@@ -40,10 +41,14 @@ export const HeaderClient = ({ data }: HeaderClientProps) => {
           ))}
 
           {/* Desktop actions */}
-          <div>ENG</div>
+          <div>
+            <LanguageSwitcher />
+          </div>
         </HeaderNav>
 
-        <div className="lg:hidden">Mobile</div>
+        <div className="lg:hidden">
+          <LanguageSwitcher />
+        </div>
       </HeaderContent>
     </Header>
   );
