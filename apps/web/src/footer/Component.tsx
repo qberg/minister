@@ -1,9 +1,16 @@
 import { Box } from "@repo/design-system/components/layout/box";
 import { Typography } from "@repo/design-system/components/ui/typography";
+import { cn } from "@repo/design-system/lib/utils";
+import { getTranslations } from "@repo/i18n/server";
 import Image from "next/image";
+import Link from "next/link";
 import type { TypedLocale } from "payload";
 import BackgroundImage from "@/components/background-image";
 import { CMSLink } from "@/components/cms-link";
+import { FacebookIcon } from "@/components/icons/facebook-icon";
+import { InstagramIcon } from "@/components/icons/instagram-icon";
+import { XIcon } from "@/components/icons/x-icon";
+import { YouTubeIcon } from "@/components/icons/youtube-icon";
 import { getCachedGlobal } from "@/lib/get-globals";
 import { getMediaUrl } from "@/lib/payload-media-utils";
 import type { Footer as FooterData } from "@/payload-types";
@@ -16,14 +23,36 @@ export async function Footer({ locale = "ta-IN" }: Props) {
   const footerData: FooterData = await getCachedGlobal("footer", locale, 1)();
 
   const bgImageSrc = getMediaUrl(footerData.bgImg);
+  const t = await getTranslations({ locale, namespace: "Footer" });
 
+  const platformConfig: Record<
+    string,
+    { Icon: React.ElementType; extraClass?: string }
+  > = {
+    youtube: {
+      Icon: YouTubeIcon,
+      extraClass: "scale-[1.4]",
+    },
+    instagram: {
+      Icon: InstagramIcon,
+      extraClass: "scale-100",
+    },
+    twitter: {
+      Icon: XIcon,
+      extraClass: "scale-90",
+    },
+    facebook: {
+      Icon: FacebookIcon,
+      extraClass: "scale-100",
+    },
+  };
   return (
     <Box
       as="footer"
       className="theme-dark relative flex min-h-[60vh] flex-col bg-surface"
     >
       {bgImageSrc && (
-        <BackgroundImage className="opacity-10" src={bgImageSrc} />
+        <BackgroundImage className="opacity-90" src={bgImageSrc} />
       )}
       <div className="relative z-10 flex flex-col gap-6 md:flex-row md:justify-between">
         {/*tagline + Socials*/}
@@ -43,19 +72,36 @@ export async function Footer({ locale = "ta-IN" }: Props) {
             </Typography>
           </div>
 
-          <div>Socials</div>
+          <div className="flex gap-1 lg:gap-4">
+            {footerData.socialLinks?.map((link) => {
+              const config = platformConfig[link.platform];
+              if (!config) {
+                return null;
+              }
+              const { Icon, extraClass } = config;
+
+              return (
+                <Link
+                  aria-label={`Visit our ${link.platform} page`}
+                  className="text-body transition-colors duration-200 hover:text-secondary"
+                  href={link.url || "https://youtube.com"}
+                  key={link.id}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <Icon className={cn("h-[2vw] w-[2vw]", extraClass)} />
+                </Link>
+              );
+            })}
+          </div>
         </div>
 
         {/*contact + about */}
         <div className="flex w-full justify-between gap-2 lg:w-[45%]">
           {footerData.contacts && (
-            <div className="flex max-w-[20ch] flex-col gap-2 lg:max-w-[30ch] lg:gap-4">
-              <Typography
-                as="h4"
-                className="text-surface-muted"
-                variant="bodyLG"
-              >
-                CONTACTS
+            <div className="flex max-w-[20ch] flex-col gap-2 sxl:gap-4 lg:max-w-[30ch]">
+              <Typography as="h4" intent={"body"} variant="bodyLG">
+                {t("contacts")}
               </Typography>
 
               {footerData.contacts.phone && (
@@ -82,21 +128,16 @@ export async function Footer({ locale = "ta-IN" }: Props) {
 
               {footerData.contacts.address && (
                 <address className="not-italic">
-                  <Typography
-                    as="span"
-                    className="leading-4"
-                    intent="subtle"
-                    variant="bodyLG"
-                  >
+                  <Typography as="span" intent="subtle" variant="bodyLG">
                     {footerData.contacts.address}
                   </Typography>
                 </address>
               )}
             </div>
           )}
-          <div className="flex flex-col gap-4">
-            <Typography as="h4" className="text-surface-muted" variant="bodyLG">
-              SITEMAP
+          <div className="flex flex-col gap-2 sxl:gap-4">
+            <Typography as="h4" intent={"body"} variant="bodyLG">
+              {t("sitemap")}
             </Typography>
 
             {footerData?.navItems?.map((item, index) => (
@@ -110,35 +151,38 @@ export async function Footer({ locale = "ta-IN" }: Props) {
         </div>
       </div>
 
-      <div className="mt-auto flex justify-between gap-4 border-t-1 border-t-neutral-50/40 4xl:pt-10 pt-4 lg:pt-6">
+      <div className="relative z-10 mt-auto flex justify-between gap-4 border-t-1 border-t-neutral-50/40 4xl:pt-10 pt-4 lg:pt-6">
         <div className="flex-1">
           <Typography as="span" intent="subtle" variant="bodySM">
-            © 2025 T. M. Anbarasan. All Rights Reserved.
+            {t("trademark")}
           </Typography>
         </div>
-        <div className="hidden flex-1 justify-center gap-2 md:flex">
+        <div className="hidden flex-1 items-center justify-center gap-2 md:flex">
           <Typography as="span" intent="subtle" variant="bodySM">
-            Developed by
+            {t("creatorTag")}
           </Typography>
-          <span className="relative aspect-[1.5/1] w-10">
+          <span className="relative aspect-[1.5/1] w-12">
             <Image
               alt="Minsky Logo"
-              className="object-cover"
+              className="object-contain"
               fill
-              priority
-              src="/minsky-logo.png"
-              unoptimized
+              loading="lazy"
+              src="/minsky-logo.svg"
             />
           </span>
         </div>
-        <div className="flex flex-1 justify-end gap-2">
-          <Typography as="span" intent="subtle" variant="bodySM">
-            Privacy Policy
-          </Typography>
+        <div className="flex flex-1 justify-end gap-2 md:gap-4">
+          <Link href="/legal/privacy-policy">
+            <Typography as="span" intent="subtle" variant="bodySM">
+              {t("ppLabel")}
+            </Typography>
+          </Link>
 
-          <Typography as="span" intent="subtle" variant="bodySM">
-            Terms and Conditions
-          </Typography>
+          <Link href="/legal/terms-conditions">
+            <Typography as="span" intent="subtle" variant="bodySM">
+              {t("termsLabel")}
+            </Typography>
+          </Link>
         </div>
       </div>
     </Box>

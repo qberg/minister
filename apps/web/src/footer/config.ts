@@ -56,6 +56,12 @@ export const Footer: GlobalConfig = {
             { label: "GitHub", value: "github" },
           ],
         },
+        {
+          name: "url",
+          type: "text",
+          label: "Handle Link",
+          defaultValue: "https://example.com",
+        },
       ],
     },
 

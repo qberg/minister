@@ -19,9 +19,9 @@ export const stickyStatsVariants = cva(
 export const stickyStatsTextVariants = cva("", {
   variants: {
     variant: {
-      midnight: "text-background",
-      blue: "text-background",
-      light: "text-surface",
+      midnight: "text-yellow-50",
+      blue: "text-yellow-50",
+      light: "text-blue-600",
     },
   },
   defaultVariants: {

@@ -63,7 +63,7 @@ const ScrollCard = ({
     {isVisible && (
       <motion.div
         animate={{ opacity: 1, y: -12, scale: 1 }}
-        className="absolute bottom-full left-0 w-full"
+        className="absolute bottom-full left-0 hidden w-full md:block"
         exit={{ opacity: 0, y: 4, scale: 0.95 }}
         initial={{ opacity: 0, y: 10, scale: 0.95 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}

@@ -22,6 +22,14 @@ declare const messages: {
     "perspective_card_label": "Spent",
     "simple_card_label": "Amount Spent",
     "cta_label": "Know More"
+  },
+  "Footer": {
+    "contacts": "CONTACTS",
+    "sitemap": "SITEMAP",
+    "trademark": "© 2025 T. M. Anbarasan. All Rights Reserved.",
+    "creatorTag": "Developed by",
+    "ppLabel": "Privacy Policy",
+    "termsLabel": "Terms and Conditions"
   }
 };
 export default messages;

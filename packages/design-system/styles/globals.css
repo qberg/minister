@@ -21,7 +21,7 @@
 
   --text-base: clamp(0.875rem, 0.0274rem + 1.2329vw, 2rem);
   --text-sm: clamp(0.875rem, 0rem + 1.0938vw, 1.75rem);
-  --text-xs: clamp(0.875rem, 0rem + 1.0938vw, 1.75rem);
+  --text-xs: clamp(0.75rem, 0rem + 0.9375vw, 1.5rem);
 
   --text-9xl: clamp(6rem, -2.6364rem + 17.2727vw, 25rem);
 }
@@ -39,7 +39,7 @@
 
   --text-base: clamp(0.875rem, 0.0745rem + 1.1644vw, 1.9375rem);
   --text-sm: clamp(0.875rem, 0rem + 1.0938vw, 1.75rem);
-  --text-xs: clamp(0.875rem, 0rem + 1.0938vw, 1.75rem);
+  --text-xs: clamp(0.75rem, 0rem + 0.9375vw, 1.5rem);
 
   --text-9xl: clamp(4rem, -1rem + 10vw, 15rem);
 }
@@ -150,6 +150,7 @@
     --text-body: var(--color-blue-600); /* #002E71 */
     --text-body-subtle: var(--color-neutral-600); /* #636363 */
     --text-highlight: var(--color-yellow-400); /* #D7A647 */
+    --color-body-subtle: var(--color-neutral-600);
   }
 
   /* Dark Theme Scope (Applied to dark/ sections) */
@@ -158,5 +159,6 @@
     --text-body: var(--color-yellow-50); /* #FDF2E5 */
     --text-body-subtle: var(--color-neutral-200); /* #D1D1D1 */
     --text-highlight: var(--color-yellow-400); /* #D7A647 */
+    --color-body-subtle: var(--color-neutral-200);
   }
 }

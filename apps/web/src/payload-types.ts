@@ -1242,6 +1242,7 @@ export interface Footer {
   socialLinks?:
     | {
         platform: 'instagram' | 'twitter' | 'facebook' | 'youtube' | 'linkedin' | 'github';
+        url?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -1308,6 +1309,7 @@ export interface FooterSelect<T extends boolean = true> {
     | T
     | {
         platform?: T;
+        url?: T;
         id?: T;
       };
   contacts?:

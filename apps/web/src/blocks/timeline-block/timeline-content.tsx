@@ -134,14 +134,14 @@ function TimeLineContent({ items }: { items: TimelineItem[] }) {
       {/*mobile next/prev*/}
       <div className="flex w-full justify-between md:hidden">
         <button
-          className="aspect-square items-center justify-center rounded-full border border-yellow-50 p-2"
+          className="aspect-square items-center justify-center rounded-full border border-yellow-50 p-2 text-yellow-50"
           onClick={handlePrev}
         >
           <ArrowLeft size={24} strokeWidth="1px" />
         </button>
 
         <button
-          className="aspect-square items-center justify-center rounded-full border border-yellow-50 p-2"
+          className="aspect-square items-center justify-center rounded-full border border-yellow-50 p-2 text-yellow-50"
           onClick={handleNext}
         >
           <ArrowRight size={24} strokeWidth="1px" />

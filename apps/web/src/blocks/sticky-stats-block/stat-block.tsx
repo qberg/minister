@@ -5,11 +5,7 @@ import { AppearSlide } from "@repo/design-system/components/motion/appear-slide"
 import { Typography } from "@repo/design-system/components/ui/typography";
 import { cn } from "@repo/design-system/lib/utils";
 import { motion } from "motion/react";
-import {
-  type StickyStatsVariant,
-  stickyStatBlockDescVariants,
-  stickyStatLabelVariants,
-} from "./variants";
+import type { StickyStatsVariant } from "./variants";
 
 type StatItemProps = {
   value: string;
@@ -19,24 +15,14 @@ type StatItemProps = {
   index?: number;
 };
 
-const StatItem = ({
-  value,
-  label,
-  className,
-  variant = "midnight",
-  index = 0,
-}: StatItemProps) => (
+const StatItem = ({ value, label, className, index = 0 }: StatItemProps) => (
   <div className={cn("", className)}>
     <AppearSlide delay={index * 0.15}>
-      <Typography as="h2" className="mb-1 text-accent" variant="headingLG">
+      <Typography as="h2" className="mb-1" intent={"title"} variant="headingLG">
         {value}
       </Typography>
     </AppearSlide>
-    <Typography
-      as="p"
-      className={stickyStatLabelVariants({ variant })}
-      variant="bodyLG"
-    >
+    <Typography as="p" intent={"subtle"} variant="bodyLG">
       {label}
     </Typography>
   </div>
@@ -56,7 +42,7 @@ const StatGrid = ({ children, className }: StatGridProps) => (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">{children}</div>
 
     <motion.div
-      className="absolute bottom-0 left-0 h-px bg-neutral-50"
+      className="absolute bottom-0 left-0 h-px bg-body-subtle"
       initial={{ width: 0 }}
       transition={{
         duration: 1.2,
@@ -86,17 +72,12 @@ const StatBlock = ({
   description,
   children,
   className,
-  variant = "midnight",
 }: StatBlockProps) => (
   <Stack className={className} gap="sm">
-    <Typography as="h6" className="text-secondary" variant="bodyLG">
+    <Typography as="h6" className="" intent={"title"} variant="bodyLG">
       {title}
     </Typography>
-    <Typography
-      as="h6"
-      className={stickyStatBlockDescVariants({ variant })}
-      variant="headingXXS"
-    >
+    <Typography as="h6" intent={"subtle"} variant="headingXXS">
       {description}
     </Typography>
     {children}

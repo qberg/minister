@@ -5,7 +5,7 @@ const typographyVariants = cva("", {
   variants: {
     variant: {
       display:
-        "font-heading leading-none text-9xl font-normal tracking-normal whitespace-nowrap [html[lang=ta-IN]_&]:leading-[1.2] [html[lang=ta-IN]_&]:font-bold",
+        "font-heading leading-none text-9xl font-normal tracking-normal [html[lang=ta-IN]_&]:leading-[1.2] [html[lang=ta-IN]_&]:font-bold",
       headingXL: "font-heading text-6xl leading-none tracking-normal font-normal [html[lang=ta-IN]_&]:font-bold [html[lang=ta-IN]_&]:leading-[1.36]",
       headingLG:
         "font-heading text-5xl leading-none tracking-normal font-normal [html[lang=ta-IN]_&]:leading-[1.2] [html[lang=ta-IN]_&]:font-semibold",
@@ -27,7 +27,7 @@ const typographyVariants = cva("", {
       bodyLG: "font-body text-base tracking-tight leading-none font-normal [html[lang=ta-IN]_&]:leading-[1.25] [html[lang=ta-IN]_&]:tracking-[-0.01em]",
       bodyMD:
         "font-body text-sm tracking-[-0.01em] leading-[1.2] font-semibold",
-      bodySM: "font-body text-sm tracking-tight leading-none font-light",
+      bodySM: "font-body text-xs tracking-tight leading-none font-light",
     },
     intent: {
       title: "text-title",

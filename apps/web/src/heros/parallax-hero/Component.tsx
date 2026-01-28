@@ -21,16 +21,13 @@ const ParallaxHero: React.FC<ParallaxHeroProps> = ({ block }) => {
   const bgDisplayText = block.bgText;
 
   return (
-    <Box
-      as="section"
-      className="relative min-h-screen bg-foreground"
-      invert
-      padding="none"
-    >
+    <Box as="section" className="relative min-h-screen" padding="none">
       {bgImageSrc && <BackgroundImage priority src={bgImageSrc} />}
       <Stack className="relative z-10 mx-auto mt-24 lg:mt-[12vw]" gap="lg">
         <div className="whitespace-nowrap text-center">
-          <Typography as="h1">{block.title}</Typography>
+          <Typography as="h1" intent={"body"} variant="headingXL">
+            {block.title}
+          </Typography>
         </div>
 
         <Stack className="mt-0">
@@ -46,8 +43,9 @@ const ParallaxHero: React.FC<ParallaxHeroProps> = ({ block }) => {
                 <Typography
                   as="h5"
                   className="max-w-[72vw] text-pretty lg:max-w-[50vw]"
+                  intent={"body"}
                   key={item.id}
-                  variant="h6"
+                  variant="headingXS"
                 >
                   {item.para}
                 </Typography>
