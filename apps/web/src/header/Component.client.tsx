@@ -28,12 +28,12 @@ export const HeaderClient = ({ data }: HeaderClientProps) => {
         className={cn(
           "border-b transition-all duration-300 ease-in-out",
           isHero
-            ? "border-transparent"
+            ? "border-transparent bg-transparent"
             : "border-border border-primary bg-primary/50 shadow-sm backdrop-blur-md"
         )}
       >
         {/*branding*/}
-        <Link href={"/"}>
+        <Link href={"/home"}>
           <HeaderBrand>
             <Logo />
             <Typography

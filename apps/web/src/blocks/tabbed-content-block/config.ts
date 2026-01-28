@@ -1,4 +1,5 @@
 import type { Block } from "payload";
+import { scrollLabel } from "@/Fields/scroll-label";
 
 export const TabbedContentBlock: Block = {
   slug: "tab-content",
@@ -15,6 +16,7 @@ export const TabbedContentBlock: Block = {
       localized: true,
     },
 
+    scrollLabel,
     {
       name: "description",
       type: "textarea",

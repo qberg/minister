@@ -1,4 +1,5 @@
 import type { Block } from "payload";
+import { scrollLabel } from "@/Fields/scroll-label";
 
 export const TimelineBlock: Block = {
   slug: "timeline",
@@ -14,6 +15,8 @@ export const TimelineBlock: Block = {
       required: true,
       localized: true,
     },
+
+    scrollLabel,
 
     {
       name: "tagLine",

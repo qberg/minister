@@ -1,5 +1,6 @@
 import type { Block } from "payload";
 import { link } from "@/Fields/link";
+import { scrollLabel } from "@/Fields/scroll-label";
 
 export const CompositeGridBlock: Block = {
   slug: "comp-grid",
@@ -15,6 +16,7 @@ export const CompositeGridBlock: Block = {
       required: true,
       localized: true,
     },
+    scrollLabel,
     {
       name: "description",
       type: "textarea",

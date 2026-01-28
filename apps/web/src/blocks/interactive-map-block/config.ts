@@ -1,5 +1,6 @@
 import type { Block } from "payload";
 import { link } from "@/Fields/link";
+import { scrollLabel } from "@/Fields/scroll-label";
 
 export const InteractiveMapBlock: Block = {
   slug: "int-map",
@@ -16,6 +17,7 @@ export const InteractiveMapBlock: Block = {
       localized: true,
       defaultValue: "Real Results of Alandur",
     },
+    scrollLabel,
     {
       name: "description",
       type: "textarea",

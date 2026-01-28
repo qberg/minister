@@ -28,7 +28,7 @@ export const LayoutSpyWrapper = ({
     blocks.forEach((block, index) => {
       // Try to find a meaningful title from the block data
       // @ts-expect-error - Adjust based on your actual block fields
-      const rawTitle = block.scrollLabel || block.title || block.blockType;
+      const rawTitle = block?.scrollLabel || block?.heading || block.blockType;
 
       // Capitalize first letter if it's a blockType string
       let title = "Section";

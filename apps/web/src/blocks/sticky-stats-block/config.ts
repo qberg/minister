@@ -1,4 +1,5 @@
 import type { Block } from "payload";
+import { scrollLabel } from "@/Fields/scroll-label";
 
 export const StickyStatsBlock: Block = {
   slug: "sticky-stats",
@@ -11,6 +12,8 @@ export const StickyStatsBlock: Block = {
       required: true,
       label: "Background Image",
     },
+
+    scrollLabel,
 
     {
       name: "headline",

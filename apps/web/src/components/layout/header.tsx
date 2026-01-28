@@ -55,7 +55,7 @@ const HeaderContent = ({
 }) => (
   <div
     className={cn(
-      "mx-auto flex w-full items-center justify-between gap-4 rounded-full px-6 py-3 opacity-90 shadow-[0px_5px_16px_0px_rgba(0,0,0,0.28)] backdrop-blur-xs lg:px-6",
+      "mx-auto flex w-full items-center justify-between gap-2 rounded-full px-4 py-3 opacity-90 shadow-[0px_5px_16px_0px_rgba(0,0,0,0.28)] backdrop-blur-xs md:gap-4 md:px-6 lg:px-6",
       className
     )}
     ref={ref}

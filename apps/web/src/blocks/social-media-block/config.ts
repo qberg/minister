@@ -1,4 +1,5 @@
 import type { Block } from "payload";
+import { scrollLabel } from "@/Fields/scroll-label";
 
 export const SocialMediaBlock: Block = {
   slug: "social-media",
@@ -15,6 +16,8 @@ export const SocialMediaBlock: Block = {
       localized: true,
       defaultValue: "Follow T.M. Anbarasan",
     },
+
+    scrollLabel,
 
     {
       name: "socialLinks",

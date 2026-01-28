@@ -257,6 +257,7 @@ export interface Page {
     | (
         | {
             bgImg: number | Media;
+            scrollLabel?: string | null;
             /**
              * The text overlay on top of image
              */
@@ -294,6 +295,7 @@ export interface Page {
           }
         | {
             showHeading?: boolean | null;
+            scrollLabel?: string | null;
             heading?: string | null;
             /**
              * Which tab opens by default
@@ -374,6 +376,7 @@ export interface CutoutHero {
  */
 export interface CompositeGridBlock {
   heading: string;
+  scrollLabel?: string | null;
   description?: string | null;
   bgImg?: (number | null) | Media;
   items?:
@@ -413,6 +416,7 @@ export interface CompositeGridBlock {
  */
 export interface TimelineBlock {
   heading: string;
+  scrollLabel?: string | null;
   tagLine?: string | null;
   items?:
     | {
@@ -433,6 +437,7 @@ export interface TimelineBlock {
  */
 export interface TabbedContentBlock {
   heading: string;
+  scrollLabel?: string | null;
   description: string;
   bgImg?: (number | null) | Media;
   tabs?:
@@ -461,6 +466,7 @@ export interface TabbedContentBlock {
  */
 export interface InteractiveMapBlock {
   title?: string | null;
+  scrollLabel?: string | null;
   description?: string | null;
   /**
    * Summary mode shows a simplified view. Full mode allows deep linking.
@@ -491,6 +497,7 @@ export interface InteractiveMapBlock {
  */
 export interface SocialMediaBlock {
   heading?: string | null;
+  scrollLabel?: string | null;
   socialLinks?:
     | {
         platform: 'instagram' | 'twitter' | 'facebook' | 'youtube' | 'linkedin' | 'github';
@@ -845,6 +852,7 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               bgImg?: T;
+              scrollLabel?: T;
               headline?: T;
               variant?: T;
               title?: T;
@@ -882,6 +890,7 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               showHeading?: T;
+              scrollLabel?: T;
               heading?: T;
               defType?: T;
               showTags?: T;
@@ -946,6 +955,7 @@ export interface CutoutHeroSelect<T extends boolean = true> {
  */
 export interface CompositeGridBlockSelect<T extends boolean = true> {
   heading?: T;
+  scrollLabel?: T;
   description?: T;
   bgImg?: T;
   items?:
@@ -984,6 +994,7 @@ export interface CompositeGridBlockSelect<T extends boolean = true> {
  */
 export interface TimelineBlockSelect<T extends boolean = true> {
   heading?: T;
+  scrollLabel?: T;
   tagLine?: T;
   items?:
     | T
@@ -1003,6 +1014,7 @@ export interface TimelineBlockSelect<T extends boolean = true> {
  */
 export interface TabbedContentBlockSelect<T extends boolean = true> {
   heading?: T;
+  scrollLabel?: T;
   description?: T;
   bgImg?: T;
   tabs?:
@@ -1030,6 +1042,7 @@ export interface TabbedContentBlockSelect<T extends boolean = true> {
  */
 export interface InteractiveMapBlockSelect<T extends boolean = true> {
   title?: T;
+  scrollLabel?: T;
   description?: T;
   mode?: T;
   headline?: T;
@@ -1052,6 +1065,7 @@ export interface InteractiveMapBlockSelect<T extends boolean = true> {
  */
 export interface SocialMediaBlockSelect<T extends boolean = true> {
   heading?: T;
+  scrollLabel?: T;
   socialLinks?:
     | T
     | {

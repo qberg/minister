@@ -1,4 +1,5 @@
 import type { Block } from "payload";
+import { scrollLabel } from "@/Fields/scroll-label";
 
 export const LatestUpdatesBlock: Block = {
   slug: "latest-updates",
@@ -9,6 +10,8 @@ export const LatestUpdatesBlock: Block = {
       defaultValue: false,
       label: "Show the Heading",
     },
+
+    scrollLabel,
     {
       name: "heading",
       type: "text",

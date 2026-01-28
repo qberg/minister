@@ -2,30 +2,32 @@
 
 import { useScrollSpy } from "@repo/design-system/components/ui/scroll-spy";
 import { cn } from "@repo/design-system/lib/utils";
-import { Link } from "@repo/i18n/navigation";
 import { Menu, X } from "lucide-react";
 import {
   AnimatePresence,
-  type MotionValue,
   motion,
   type PanInfo,
   useScroll,
   useSpring,
   useTransform,
 } from "motion/react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Header as HeaderData } from "@/payload-types";
 import type { AnimeScrollSectionData } from "@/types";
+import { CMSLink } from "./cms-link";
 
-// --- Configuration ---
 const CONFIG = {
-  MINORS_PER_SECTION: 4,
   THUMB_WIDTH: 6,
-  TOAST_DURATION: 1000,
+  TOTAL_TICKS: 40,
+  TOAST_DURATION: 1200,
   ANIMATION: {
     SPRING: { stiffness: 300, damping: 30, restDelta: 0.01 } as const,
-    APPEAR: { delay: 2, type: "spring", stiffness: 300, damping: 10 } as const,
-    LABEL: { type: "spring", stiffness: 400, damping: 20 } as const,
+    APPEAR: {
+      initial: { opacity: 0, y: 20, scale: 0.95 },
+      animate: { opacity: 1, y: 0, scale: 1 },
+      exit: { opacity: 0, y: 20, scale: 0.95 },
+      transition: { type: "spring", stiffness: 300, damping: 25 },
+    } as const,
     MENU: {
       open: {
         opacity: 1,
@@ -36,7 +38,6 @@ const CONFIG = {
           stiffness: 300,
           damping: 25,
           staggerChildren: 0.05,
-          delayChildren: 0.1,
         },
       },
       closed: {
@@ -46,137 +47,53 @@ const CONFIG = {
         transition: { type: "spring", stiffness: 400, damping: 30 },
       },
     } as const,
-    ITEM: {
-      open: { opacity: 1, y: 0 },
-      closed: { opacity: 0, y: 10 },
-    } as const,
   },
 };
 
-// --- Custom Hooks ---
-
-/**
- * Manages the visibility of the label toast based on active section changes.
- */
-function useSectionToast(activeValue: string | null) {
-  const [isToastActive, setIsToastActive] = useState(false);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    if (!activeValue) {
-      return;
-    }
-
-    setIsToastActive(true);
-
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
-
-    timerRef.current = setTimeout(() => {
-      setIsToastActive(false);
-    }, CONFIG.TOAST_DURATION);
-
-    return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-    };
-  }, [activeValue]);
-
-  return isToastActive;
-}
-
-/**
- * Handles the bidirectional relationship between scroll progress and drag gestures.
- */
-function useScrollSync(trackRef: React.RefObject<HTMLDivElement | null>) {
-  const { scrollYProgress } = useScroll();
-
-  // Smooth out the raw scroll progress
-  const smoothProgress = useSpring(scrollYProgress, CONFIG.ANIMATION.SPRING);
-
-  // Map progress to CSS values for the thumb
-  const xPercent = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
-  const xMotion = useTransform(smoothProgress, [0, 1], ["0%", "-100%"]);
-
-  const handleDrag = useCallback(
-    (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-      if (!trackRef.current) {
-        return;
-      }
-
-      const trackRect = trackRef.current.getBoundingClientRect();
-      const availableWidth = trackRect.width - CONFIG.THUMB_WIDTH;
-      const newX = info.point.x - trackRect.left;
-
-      // Calculate percentage (clamped 0-1)
-      const progress = Math.max(0, Math.min(1, newX / availableWidth));
-
-      const totalScrollable =
-        document.documentElement.scrollHeight - window.innerHeight;
-
-      window.scrollTo({
-        top: totalScrollable * progress,
-        behavior: "instant",
-      });
-    },
-    [trackRef]
-  );
-
-  return { smoothProgress, xPercent, xMotion, handleDrag };
-}
-
 // --- Sub-Components ---
 
-const ScrollLabel = ({
-  isVisible,
+const ScrollCard = ({
   title,
-  leftPercent,
+  isVisible,
 }: {
-  isVisible: boolean;
   title: string;
-  leftPercent: number;
+  isVisible: boolean;
 }) => (
-  <div
-    className="-top-16 -translate-x-1/2 pointer-events-none absolute z-20 flex w-80 justify-center"
-    style={{ left: `${leftPercent}%` }}
-  >
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          className="relative flex flex-col items-center"
-          exit={{ opacity: 0, y: 10, scale: 0.8 }}
-          initial={{ opacity: 0, y: 10, scale: 0.8 }}
-          transition={CONFIG.ANIMATION.LABEL}
-        >
-          <div className="rounded-lg bg-zinc-900 px-3 py-1.5 font-bold text-xs text-zinc-100 shadow-xl dark:bg-zinc-100 dark:text-zinc-900">
+  <AnimatePresence>
+    {isVisible && (
+      <motion.div
+        animate={{ opacity: 1, y: -12, scale: 1 }}
+        className="absolute bottom-full left-0 w-full"
+        exit={{ opacity: 0, y: 4, scale: 0.95 }}
+        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      >
+        <div className="flex w-full flex-col items-center justify-center rounded-xl bg-primary p-3 shadow-xl ring-1 ring-white/10 md:rounded-2xl">
+          <div className="text-pretty font-heading font-medium text-[12px] text-primary-foreground leading-[1.1] md:text-[14px]">
             {title}
           </div>
-          <div className="-mt-1 h-2 w-2 rotate-45 bg-zinc-900 dark:bg-zinc-100" />
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </div>
+        </div>
+      </motion.div>
+    )}
+  </AnimatePresence>
 );
 
-const RulerTicks = ({ count }: { count: number }) => {
-  const ticks = useMemo(() => Array.from({ length: count }), [count]);
+const Ticks = () => {
+  const ticks = useMemo(() => [...Array(CONFIG.TOTAL_TICKS)], []);
 
   return (
-    <div className="flex items-center justify-between gap-1">
+    <div className="pointer-events-none absolute inset-0 flex items-center justify-between">
       {ticks.map((_, i) => {
         const isMajor = i % 5 === 0;
         return (
-          <div
+          <motion.div
+            animate={{ opacity: isMajor ? 0.8 : 0.2 }}
             className={cn(
-              "transition-colors duration-300",
-              isMajor
-                ? "h-[18px] w-0.5 bg-secondary opacity-80"
-                : "h-[15px] w-[1.5px] bg-secondary opacity-20"
+              "rounded-full bg-secondary",
+              isMajor ? "h-[16px] w-[2px]" : "h-[10px] w-[1.5px]"
             )}
-            key={`tick-${i}`}
+            initial={{ opacity: 0.2 }}
+            key={i}
           />
         );
       })}
@@ -184,36 +101,6 @@ const RulerTicks = ({ count }: { count: number }) => {
   );
 };
 
-const DraggableThumb = ({
-  trackRef,
-  xPercent,
-  xMotion,
-  onDrag,
-  setDragState,
-}: {
-  trackRef: React.RefObject<HTMLDivElement | null>;
-  xPercent: MotionValue<string>;
-  xMotion: MotionValue<string>;
-  onDrag: (
-    event: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo
-  ) => void;
-  setDragState: (isDragging: boolean) => void;
-}) => (
-  <motion.div
-    className="-translate-y-1/2 absolute top-1/2 z-10 h-6 w-1.5 cursor-grab rounded-full bg-[#FF4B4B] shadow-[0_0_15px_rgba(255,75,75,0.5)] active:cursor-grabbing"
-    drag="x"
-    dragConstraints={trackRef}
-    dragElastic={0}
-    dragMomentum={false}
-    onDrag={onDrag}
-    onDragEnd={() => setDragState(false)}
-    onDragStart={() => setDragState(true)}
-    style={{ left: xPercent, x: xMotion }}
-  />
-);
-
-// --- Menu panel ---
 const MenuPanel = ({
   isOpen,
   navItems,
@@ -226,36 +113,36 @@ const MenuPanel = ({
   if (!navItems) {
     return null;
   }
-
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
           animate="open"
-          className="absolute right-4 bottom-full mb-2 w-64 origin-bottom-right rounded-2xl bg-primary"
+          className="absolute right-4 bottom-full mb-4 w-64 origin-bottom-right overflow-hidden rounded-2xl bg-primary shadow-2xl ring-1 ring-white/10"
           exit="closed"
           initial="closed"
           variants={CONFIG.ANIMATION.MENU}
         >
-          <nav className="flex flex-col gap-1">
-            {navItems.map((item) => {
-              const link = item.link;
-              if (!link) {
-                return null;
-              }
-
-              return (
-                <motion.div key={item.id} variants={CONFIG.ANIMATION.ITEM}>
-                  <Link
-                    className="block rounded-xl px-4 py-3 font-medium text-primary-foreground/80 text-sm transition-colors hover:bg-primary-foreground/10 hover:text-primary-foreground"
-                    href={link.url || "#"}
+          <nav className="flex flex-col p-2">
+            {navItems.map((item) => (
+              <motion.div
+                key={item.id}
+                variants={{
+                  open: { opacity: 1, x: 0 },
+                  closed: { opacity: 0, x: 10 },
+                }}
+              >
+                <CMSLink {...item.link}>
+                  <button
+                    className="block rounded-xl px-4 py-3 font-medium text-primary-foreground/90 text-sm transition-all hover:bg-white/10 hover:pl-6"
                     onClick={onClose}
+                    type="button"
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              );
-            })}
+                    {item.link.label}
+                  </button>
+                </CMSLink>
+              </motion.div>
+            ))}
           </nav>
         </motion.div>
       )}
@@ -274,111 +161,186 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
   const { activeValue } = useScrollSpy();
   const trackRef = useRef<HTMLDivElement>(null);
 
-  // Local State
+  // -- State --
   const [isDragging, setIsDragging] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [ghostX, setGhostX] = useState<number | null>(null);
 
-  // Custom Hook Logic
-  const isToastActive = useSectionToast(activeValue);
-  const { xPercent, xMotion, handleDrag } = useScrollSync(trackRef);
+  // New: Toast State
+  const [isToastVisible, setIsToastVisible] = useState(false);
+  const toastTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Derived State
+  // -- Scroll Logic --
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, CONFIG.ANIMATION.SPRING);
+  const xPercent = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
+
+  // -- Toast Effect: Trigger on Section Change --
+  useEffect(() => {
+    // Don't show toast for Hero (start) or Footer (end)
+    if (!activeValue || activeValue === "hero" || activeValue === "footer") {
+      setIsToastVisible(false);
+      return;
+    }
+
+    setIsToastVisible(true);
+
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+    }
+
+    toastTimerRef.current = setTimeout(() => {
+      setIsToastVisible(false);
+    }, CONFIG.TOAST_DURATION);
+
+    return () => {
+      if (toastTimerRef.current) {
+        clearTimeout(toastTimerRef.current);
+      }
+    };
+  }, [activeValue]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!trackRef.current || isDragging) {
+      setGhostX(null);
+      return;
+    }
+    const rect = trackRef.current.getBoundingClientRect();
+    const relativeX = e.clientX - rect.left;
+    const clamped = Math.max(0, Math.min(relativeX, rect.width));
+    setGhostX(clamped);
+  };
+
+  const handleTrackClick = (e: React.MouseEvent) => {
+    if (!trackRef.current || isDragging) {
+      return;
+    }
+    const rect = trackRef.current.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+    const totalHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo({ top: totalHeight * ratio, behavior: "instant" });
+  };
+
+  const handleDrag = (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => {
+    if (!trackRef.current) {
+      return;
+    }
+    const rect = trackRef.current.getBoundingClientRect();
+    const currentX = info.point.x - rect.left;
+    const ratio = Math.max(0, Math.min(1, currentX / rect.width));
+    const totalHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo({ top: totalHeight * ratio, behavior: "instant" });
+  };
+
+  // -- Derived Data --
   const activeSection = sections.find((s) => s.id === activeValue);
-  const activeIndex = sections.findIndex((s) => s.id === activeValue);
-  const activeTitle = activeSection?.title || "Browsing";
-  const shouldShowLabel = isDragging || isHovering || isToastActive;
+  const activeTitle = activeSection?.title || "Home";
+  const isFooter = activeValue === "footer";
 
-  const maxIndex = sections.length - 1;
-
-  const totalTicks =
-    (sections.length - 1) * (CONFIG.MINORS_PER_SECTION + 1) + 1;
-
-  const labelPositionPercent =
-    activeIndex >= 0 && maxIndex > 0 ? (activeIndex / maxIndex) * 100 : 0;
+  // Logic: Show Card if (Dragging OR Hovering OR Toast Timer is Active)
+  const showCard = isDragging || isHovering || isToastVisible;
 
   return (
-    <div className="-translate-x-1/2 fixed bottom-6 left-1/2 z-9999 flex w-[80vw] items-stretch justify-center gap-2 md:bottom-4 md:left-[90%] md:w-auto">
-      <motion.div
-        animate={{ opacity: 1, scale: 1 }}
-        className="flex w-[60vw] items-center rounded-2xl bg-primary 4xl:px-8 px-6 sxl:px-8 4xl:py-4 py-4 sxl:py-6 text-primary-foreground md:w-[280px]"
-        initial={{ opacity: 0, scale: 0.8 }}
-        style={{ transformOrigin: "bottom center" }}
-        transition={CONFIG.ANIMATION.APPEAR}
-      >
-        <div
-          aria-label="Scroll navigation"
-          aria-valuemax={sections.length - 1}
-          aria-valuemin={0}
-          aria-valuenow={activeIndex}
-          aria-valuetext={activeTitle}
-          className="group relative w-full cursor-grab active:cursor-grabbing"
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-          ref={trackRef}
-          role="slider"
+    <AnimatePresence>
+      {!isFooter && (
+        <motion.div
+          className="-translate-x-1/2 fixed bottom-2 left-1/2 z-[9999] flex items-end gap-3 md:bottom-6 md:left-[85%] md:w-auto"
+          key="scroll-spy-container"
+          {...CONFIG.ANIMATION.APPEAR}
         >
-          <ScrollLabel
-            isVisible={shouldShowLabel}
-            leftPercent={labelPositionPercent}
-            title={activeTitle}
-          />
+          {/* Scroll Bar Pill Container */}
+          <motion.div
+            className="relative flex h-[45px] w-[60vw] items-center rounded-xl bg-primary px-3 shadow-2xl ring-1 ring-white/10 md:h-[60px] md:w-[280px] md:rounded-2xl md:px-6"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => {
+              setIsHovering(false);
+              setGhostX(null);
+            }}
+            onMouseMove={handleMouseMove}
+          >
+            {/* The Toast Card */}
+            <ScrollCard isVisible={!!showCard} title={activeTitle} />
 
-          <RulerTicks count={totalTicks} />
+            <div
+              className="relative h-[20px] w-full cursor-pointer"
+              onClick={handleTrackClick}
+              ref={trackRef}
+            >
+              <Ticks />
 
-          <DraggableThumb
-            onDrag={handleDrag}
-            setDragState={setIsDragging}
-            trackRef={trackRef}
-            xMotion={xMotion}
-            xPercent={xPercent}
-          />
-        </div>
-      </motion.div>
+              <AnimatePresence>
+                {ghostX !== null && !isDragging && (
+                  <motion.div
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="-translate-y-1/2 absolute top-1/2 h-4 w-1.5 rounded-full bg-[#FF4B4B]/30"
+                    exit={{ opacity: 0, scale: 0 }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    style={{ left: ghostX, x: "-50%" }}
+                  />
+                )}
+              </AnimatePresence>
 
-      {/* mobile hamburger*/}
-      <div className="relative block md:hidden">
-        <MenuPanel
-          isOpen={isMenuOpen}
-          navItems={navItems}
-          onClose={() => setIsMenuOpen(false)}
-        />
-        {/* Toggle Button */}
-        <motion.button
-          animate={{ opacity: 1, scale: 1 }}
-          aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
-          className={cn(
-            "flex aspect-square h-full items-center justify-center rounded-2xl shadow-2xl outline-none transition-colors duration-200",
-            "bg-primary text-primary-foreground",
-            "hover:cursor-pointer"
-          )}
-          initial={{ opacity: 0, scale: 0.8 }}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          transition={{ ...CONFIG.ANIMATION.APPEAR, delay: 2.1 }}
-        >
-          <AnimatePresence mode="wait">
-            {isMenuOpen ? (
               <motion.div
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                initial={{ rotate: -90, opacity: 0 }}
-                key="close"
-              >
-                <X className="h-6 w-6" />
-              </motion.div>
-            ) : (
-              <motion.div
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                initial={{ rotate: 90, opacity: 0 }}
-                key="menu"
-              >
-                <Menu className="h-6 w-6" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.button>
-      </div>
-    </div>
+                className="-translate-y-1/2 absolute top-1/2 z-20 h-6 w-1.5 cursor-grab rounded-full bg-[#FF4B4B] shadow-[0_0_15px_rgba(255,75,75,0.6)] active:cursor-grabbing"
+                drag="x"
+                dragConstraints={trackRef}
+                dragElastic={0}
+                dragMomentum={false}
+                onDrag={handleDrag}
+                onDragEnd={() => setIsDragging(false)}
+                onDragStart={() => setIsDragging(true)}
+                style={{ left: xPercent, x: "-50%" }}
+              />
+            </div>
+          </motion.div>
+
+          {/* Mobile Hamburger */}
+          <div className="relative block md:hidden">
+            <MenuPanel
+              isOpen={isMenuOpen}
+              navItems={navItems}
+              onClose={() => setIsMenuOpen(false)}
+            />
+            <motion.button
+              className={cn(
+                "flex h-[45px] w-[45px] items-center justify-center rounded-xl shadow-2xl outline-none transition-colors",
+                "bg-primary text-primary-foreground ring-1 ring-white/10 hover:bg-primary/90"
+              )}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              whileTap={{ scale: 0.9 }}
+            >
+              <AnimatePresence mode="wait">
+                {isMenuOpen ? (
+                  <motion.div
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    initial={{ rotate: -90, opacity: 0 }}
+                    key="close"
+                  >
+                    <X className="h-6 w-6" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    initial={{ rotate: 90, opacity: 0 }}
+                    key="menu"
+                  >
+                    <Menu className="h-5 w-5 text-secondary/75" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
