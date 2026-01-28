@@ -35,7 +35,7 @@ function CommandInput({
       <CommandPrimitive.Input
         ref={ref}
         className={cn(
-          "flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-gray-400 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex h-12 w-full rounded-md bg-transparent py-3 text-xs outline-none placeholder:text-gray-400 disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
         {...props}

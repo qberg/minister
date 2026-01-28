@@ -62,7 +62,7 @@ export function ZoneCombobox({
               Loading zones...
             </span>
           ) : (
-            <span className="truncate font-body font-normal">
+            <span className="truncate font-body font-normal text-body-subtle text-xs">
               {selectedLabel}
             </span>
           )}

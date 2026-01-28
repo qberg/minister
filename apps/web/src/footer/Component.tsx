@@ -72,7 +72,7 @@ export async function Footer({ locale = "ta-IN" }: Props) {
             </Typography>
           </div>
 
-          <div className="flex gap-1 lg:gap-4">
+          <div className="flex gap-2 lg:gap-4">
             {footerData.socialLinks?.map((link) => {
               const config = platformConfig[link.platform];
               if (!config) {
@@ -89,7 +89,9 @@ export async function Footer({ locale = "ta-IN" }: Props) {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <Icon className={cn("h-[2vw] w-[2vw]", extraClass)} />
+                  <Icon
+                    className={cn("h-5 w-5 lg:h-[2vw] lg:w-[2vw]", extraClass)}
+                  />
                 </Link>
               );
             })}
@@ -151,7 +153,7 @@ export async function Footer({ locale = "ta-IN" }: Props) {
         </div>
       </div>
 
-      <div className="relative z-10 mt-auto flex justify-between gap-4 border-t-1 border-t-neutral-50/40 4xl:pt-10 pt-4 lg:pt-6">
+      <div className="relative z-10 mt-auto flex flex-col gap-2 border-t-1 border-t-neutral-50/40 4xl:pt-10 pt-2 md:pt-4 lg:flex-row lg:justify-between lg:gap-4 lg:pt-6">
         <div className="flex-1">
           <Typography as="span" intent="subtle" variant="bodySM">
             {t("trademark")}
@@ -171,7 +173,7 @@ export async function Footer({ locale = "ta-IN" }: Props) {
             />
           </span>
         </div>
-        <div className="flex flex-1 justify-end gap-2 md:gap-4">
+        <div className="flex flex-1 gap-2 md:justify-end md:gap-4">
           <Link href="/legal/privacy-policy">
             <Typography as="span" intent="subtle" variant="bodySM">
               {t("ppLabel")}
