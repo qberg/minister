@@ -14,7 +14,7 @@ module.exports = {
         NODE_ENV: "production",
         PORT: 3000,
         HOSTNAME: "0.0.0.0",
-        NODE_OPTIONS: "--max-old-space-size=768",
+        NODE_OPTIONS: "--max-old-space-size=800",
         PAYLOAD_SECRET: process.env.PAYLOAD_SECRET,
       },
 
@@ -25,8 +25,6 @@ module.exports = {
       restart_delay: 4000,
 
       kill_timeout: 10_000,
-      wait_ready: true,
-      listen_timeout: 10_000,
 
       // === Logging ===
       error_file: "/var/log/pm2/web-error.log",
