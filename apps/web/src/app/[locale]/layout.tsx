@@ -8,6 +8,7 @@ import { getMessages } from "@repo/i18n/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { ConsoleBranding } from "@/components/console-branding";
 import {
   anek_tamil,
   dm_sans,
@@ -22,6 +23,24 @@ export const metadata: Metadata = {
     template: "%s | T M Anbarasan",
   },
 };
+
+const TITLE_TEXT = `
+░▒▓██████████████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓███████▓▒░ ░▒▓██████▓▒░  
+░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░     
+░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░     
+░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░
+
+
+Build simple,thoughtful software
+
+VISIT US AT: https://minsky.in
+`;
+
+// biome-ignore lint: console for branding
+console.log(TITLE_TEXT);
 
 export default async function RootLayout({
   children,
@@ -44,6 +63,7 @@ export default async function RootLayout({
   return (
     <html className={`${enFontClasses} ${taFontClasses}`} lang={locale}>
       <body className="antialiased">
+        <ConsoleBranding text={TITLE_TEXT} />
         <ViewTransitions>
           <LenisScroll>
             <NextIntlClientProvider locale={locale} messages={messages}>
