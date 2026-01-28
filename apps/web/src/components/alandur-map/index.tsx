@@ -67,7 +67,7 @@ export function AlandurMap({
             isActive={activeZoneSlug === zone.slug}
             key={zone.slug}
             name={getName(zone.slug)}
-            onHover={(n, e) => setHoveredName(n)}
+            onHover={(n, _e) => setHoveredName(n)}
             onLeave={() => setHoveredName(null)}
             onSelect={onZoneSelect}
             slug={zone.slug}

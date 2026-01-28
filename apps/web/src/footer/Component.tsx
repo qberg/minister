@@ -1,14 +1,19 @@
 import { Box } from "@repo/design-system/components/layout/box";
 import { Typography } from "@repo/design-system/components/ui/typography";
 import Image from "next/image";
+import type { TypedLocale } from "payload";
 import BackgroundImage from "@/components/background-image";
 import { CMSLink } from "@/components/cms-link";
 import { getCachedGlobal } from "@/lib/get-globals";
 import { getMediaUrl } from "@/lib/payload-media-utils";
 import type { Footer as FooterData } from "@/payload-types";
 
-export async function Footer() {
-  const footerData: FooterData = await getCachedGlobal("footer", 1)();
+type Props = {
+  locale?: TypedLocale;
+};
+
+export async function Footer({ locale = "ta-IN" }: Props) {
+  const footerData: FooterData = await getCachedGlobal("footer", locale, 1)();
 
   const bgImageSrc = getMediaUrl(footerData.bgImg);
 

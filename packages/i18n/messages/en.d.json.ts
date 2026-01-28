@@ -4,6 +4,24 @@
 declare const messages: {
   "HomePage": {
     "title": "Test"
+  },
+  "Header": {
+    "name": "T. M. Anbarasan"
+  },
+  "IntMap": {
+    "heading_default": "All Impact on Alandur",
+    "heading_zone": "Impact on {zone}",
+    "placeholder": "Select a ward/village",
+    "search_label": "Search for the ward/village...",
+    "empty_label": "No zone found.",
+    "wards_heading": "Wards",
+    "village_heading": "Village & Other Areas",
+    "stat_label_one": "Amount Spent",
+    "stat_label_two": "Development Activities",
+    "stat_label_three": "Issues Addressed",
+    "perspective_card_label": "Spent",
+    "simple_card_label": "Amount Spent",
+    "cta_label": "Know More"
   }
 };
 export default messages;

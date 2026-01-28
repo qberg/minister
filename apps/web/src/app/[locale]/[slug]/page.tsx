@@ -68,7 +68,7 @@ export default async function SlugPage({ params }: Props) {
 
   const page = await queryPageBySlug({ slug, locale });
 
-  const headerData: HeaderData = await getCachedGlobal("header", 1)();
+  const headerData: HeaderData = await getCachedGlobal("header", locale, 1)();
 
   if (!page) {
     notFound();
@@ -86,7 +86,7 @@ export default async function SlugPage({ params }: Props) {
         hasHero={Boolean(hasHero)}
         headerData={headerData}
       >
-        <Header />
+        <Header locale={locale} />
         {hasHero && (
           <ScrollSpyContent className="relative" value="hero">
             <HeroRenderer heroes={page.hero} locale={locale} />
@@ -96,7 +96,7 @@ export default async function SlugPage({ params }: Props) {
         {hasLayout && <BlockRenderer blocks={page.layout} locale={locale} />}
 
         <ScrollSpyContent className="relative" value="footer">
-          <Footer />
+          <Footer locale={locale} />
         </ScrollSpyContent>
       </LayoutSpyWrapper>
     </main>

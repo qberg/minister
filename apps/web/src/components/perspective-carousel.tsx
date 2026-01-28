@@ -28,6 +28,7 @@ type Props = {
   loop?: boolean;
   autoplay?: boolean;
   spaceBetween?: number;
+  label?: string;
 };
 
 export function PerspectiveCarousel({
@@ -37,6 +38,7 @@ export function PerspectiveCarousel({
   showNavigation = true,
   loop = true,
   autoplay = false,
+  label = "Spent",
 }: Props) {
   const limitedIssues = issues.slice(0, 8);
 
@@ -134,7 +136,7 @@ export function PerspectiveCarousel({
       >
         {limitedIssues.map((issue) => (
           <SwiperSlide className="!h-auto" key={issue.id}>
-            <IssueCard data={issue} />
+            <IssueCard data={issue} label={label} />
           </SwiperSlide>
         ))}
       </Swiper>

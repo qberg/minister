@@ -4,6 +4,7 @@ import { Box } from "@repo/design-system/components/layout/box";
 import { Stack } from "@repo/design-system/components/layout/stack";
 import { Button } from "@repo/design-system/components/ui/button";
 import { Typography } from "@repo/design-system/components/ui/typography";
+import { useTranslations } from "@repo/i18n";
 import { Link } from "@repo/i18n/navigation";
 import { parseAsString, useQueryState } from "nuqs";
 import type { TypedLocale } from "payload";
@@ -107,6 +108,12 @@ function InteractiveMapBlock({ locale, block }: Props) {
     : "/real-results-alandur";
   const knowMoreHref = activeSlug ? `${baseLink}?zone=${activeSlug}` : baseLink;
 
+  const t = useTranslations("IntMap");
+
+  const headingText = activeSlug
+    ? t("heading_zone", { zone: zoneNameLookup[activeSlug] })
+    : t("heading_default");
+
   return (
     <Box as="section" className="relative" invert overflow="hidden">
       <Stack className="relative z-10">
@@ -178,30 +185,26 @@ function InteractiveMapBlock({ locale, block }: Props) {
         <Stack className="">
           <AnimatedHeading
             className="text-primary leading-[120%]"
-            text={
-              activeSlug
-                ? `Impact on ${zoneNameLookup[activeSlug]}`
-                : "All Impact on Alandur"
-            }
+            text={headingText}
           />
 
           <div className="relative grid grid-cols-1 gap-2 overflow-hidden rounded-2xl bg-black md:grid-cols-3">
             <BackgroundImage src="/images/stat-bg-dot.png" />
             <AnimatedStat
               isLoading={isLoadingStats}
-              label="Amount Spent"
+              label={t("stat_label_one")}
               type="currency"
               value={stats?.totalAmount || 0}
             />
             <AnimatedStat
               isLoading={isLoadingStats}
-              label="Development Activities"
+              label={t("stat_label_two")}
               value={stats?.totalActivities || 0}
             />
 
             <AnimatedStat
               isLoading={isLoadingStats}
-              label="Issues Addressed"
+              label={t("stat_label_three")}
               value={stats?.totalIssues || 0}
             />
           </div>
@@ -211,6 +214,7 @@ function InteractiveMapBlock({ locale, block }: Props) {
               <PerspectiveCarousel
                 autoplay={true}
                 issues={stats.issuesBreakdown}
+                label={t("perspective_card_label")}
                 showNavigation={true}
                 showPagination={true}
                 spaceBetween={40}
@@ -227,7 +231,7 @@ function InteractiveMapBlock({ locale, block }: Props) {
                 className="your-button-classes"
                 href={knowMoreHref || "/real-results-alandur"}
               >
-                Know More
+                {t("cta_label")}
               </Link>
             </Button>
           </div>
@@ -236,7 +240,11 @@ function InteractiveMapBlock({ locale, block }: Props) {
         {mode === "full" && (
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             {stats?.issuesBreakdown.map((issue) => (
-              <SimpleIssueCard data={issue} key={issue.id} />
+              <SimpleIssueCard
+                data={issue}
+                key={issue.id}
+                label={t("simple_card_label")}
+              />
             ))}
           </div>
         )}

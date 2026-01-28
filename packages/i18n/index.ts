@@ -10,6 +10,7 @@ export {
   NextIntlClientProvider,
   useLocale,
   useMessages,
+  useTranslations,
 } from "next-intl";
 export type { Locale } from "./config";
 export {

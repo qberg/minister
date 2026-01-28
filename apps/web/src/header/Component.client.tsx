@@ -3,6 +3,7 @@
 import { useScrollSpy } from "@repo/design-system/components/ui/scroll-spy";
 import { Typography } from "@repo/design-system/components/ui/typography";
 import { cn } from "@repo/design-system/lib/utils";
+import { useTranslations } from "@repo/i18n";
 import { Link } from "@repo/i18n/navigation";
 import { CMSLink } from "@/components/cms-link";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -20,6 +21,7 @@ type HeaderClientProps = {
 };
 
 export const HeaderClient = ({ data }: HeaderClientProps) => {
+  const t = useTranslations("Header");
   const { activeValue } = useScrollSpy();
   const isHero = activeValue === "hero";
   return (
@@ -41,7 +43,7 @@ export const HeaderClient = ({ data }: HeaderClientProps) => {
               className="text-surface-muted"
               variant="headingSM"
             >
-              T. M. Anbarasan
+              {t("name")}
             </Typography>
           </HeaderBrand>
         </Link>
@@ -57,7 +59,7 @@ export const HeaderClient = ({ data }: HeaderClientProps) => {
           ))}
 
           {/* Desktop actions */}
-          <div>
+          <div className="-mt-[6px]">
             <LanguageSwitcher />
           </div>
         </HeaderNav>

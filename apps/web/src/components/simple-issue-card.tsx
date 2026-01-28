@@ -5,9 +5,10 @@ import { formatCurrency } from "@/utils";
 
 type Props = {
   data: IssueCardStat;
+  label?: string;
 };
 
-export function SimpleIssueCard({ data }: Props) {
+export function SimpleIssueCard({ data, label = "Amount Spent" }: Props) {
   const hasImage = !!data.imageSrc;
   return (
     <div className="theme-dark relative aspect-[1.75/1] overflow-hidden rounded-lg p-6">
@@ -36,7 +37,7 @@ export function SimpleIssueCard({ data }: Props) {
         </div>
         <div className="flex flex-col items-center gap-2">
           <Typography as={"p"} variant={"bodyLG"}>
-            Amount Spent
+            {label}
           </Typography>
 
           <Typography as={"p"} variant={"brandHeading"}>

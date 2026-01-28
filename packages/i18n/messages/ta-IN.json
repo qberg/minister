@@ -1,5 +1,28 @@
 {
   "HomePage": {
     "title": "T M Anbarasan"
+  },
+  "Header": {
+    "name": "தா. மோ. அன்பரசன்"
+  },
+  "IntMap": {
+    "heading_default": "ஆலந்தூரில் ஏற்படுத்திய மாற்றங்கள்",
+    "heading_zone": "{zone} பகுதியில் ஏற்படுத்திய மாற்றங்கள்",
+
+    "placeholder": "ஒரு வார்டு / கிராமத்தை தேர்ந்தெடுக்கவும்",
+    "search_label": "வார்டு / கிராமம் தேடவும்",
+    "empty_label": "பகுதி கிடைக்கவில்லை",
+
+    "wards_heading": "வார்டுகள்",
+    "village_heading": "கிராமங்கள் மற்றும் பிற பகுதிகள்",
+
+    "stat_label_one": "செலவிடப்பட்ட தொகை",
+    "stat_label_two": "நடைமுறைப்படுத்தப்பட்ட திட்டங்கள்",
+    "stat_label_three": "தீர்க்கப்பட்ட சிக்கல்கள்",
+
+    "perspective_card_label": "செலவிடப்பட்ட தொகை",
+    "simple_card_label": "செலவிடப்பட்ட தொகை",
+
+    "cta_label": "மேலும் அறிய"
   }
 }

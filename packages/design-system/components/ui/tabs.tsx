@@ -19,7 +19,7 @@ const tabsListVariants = cva(
         pill: "",
       },
       size: {
-        lg: "gap-8",
+        lg: "gap-2 md:gap-8",
         md: "gap-2",
         sm: "gap-1.5",
         xs: "gap-1",
@@ -65,9 +65,9 @@ const tabsTriggerVariants = cva(
       {
         variant: "button",
         size: "lg",
-        className: "py-3 px-6 lg:py-4 lg:px-8 4xl:py-8 4xl:px-16",
+        className: "py-2 md:py-3 px-2.5 md:px-6 lg:py-4 lg:px-8 4xl:py-8 4xl:px-16",
       },
-      { variant: "button", size: "md", className: "py-2.5 px-3" },
+      { variant: "button", size: "md", className: "py-2.5 px-0 md:px-3" },
       { variant: "button", size: "sm", className: "py-2 px-2.5" },
       { variant: "button", size: "xs", className: "py-1.5 px-2" },
 

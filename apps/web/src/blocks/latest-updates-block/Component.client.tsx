@@ -87,11 +87,11 @@ const LatestUpdatesClient = ({ block, tags, initialData, locale }: Props) => {
       <Stack className="relative z-10">
         {/* content type tabs*/}
         <Tabs
-          className="mx-auto inline-flex"
+          className="mx-auto w-full overflow-x-auto md:w-auto [&::-webkit-scrollbar]:hidden"
           onValueChange={handleTypeChange}
           value={currentType}
         >
-          <TabsList size="lg" variant="button">
+          <TabsList className="w-max min-w-full" size="lg" variant="button">
             {block.enabled.map((type) => (
               <TabsTrigger key={type} value={type}>
                 <Typography as="p" className="uppercase" variant="bodyMD">
@@ -105,11 +105,11 @@ const LatestUpdatesClient = ({ block, tags, initialData, locale }: Props) => {
         {/*Tag filters*/}
         {block.showTags && tags.length > 0 && (
           <Tabs
-            className="inline-flex"
+            className="mx-auto w-full overflow-x-auto md:w-auto [&::-webkit-scrollbar]:hidden"
             onValueChange={handleTagChange}
             value={currentTag}
           >
-            <TabsList size="lg" variant="line">
+            <TabsList className="w-max min-w-full" size="lg" variant="line">
               <TabsTrigger key="all" value="all">
                 <Typography as="p" className="uppercase" variant="bodyMD">
                   All

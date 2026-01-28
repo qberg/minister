@@ -112,11 +112,11 @@ function SocialMediaBlock({ block }: Props) {
 
         {/* Platform Tabs */}
         <Tabs
-          className="mx-auto flex overflow-x-auto"
+          className="mx-auto w-full overflow-x-auto pb-1 md:w-auto [&::-webkit-scrollbar]:hidden"
           onValueChange={setSelectedPlatform}
           value={activeSocial?.platform || ""}
         >
-          <TabsList size="lg" variant="button">
+          <TabsList className="w-max min-w-full" size="lg" variant="button">
             {socialLinks.map((social) => (
               <TabsTrigger key={social.platform} value={social.platform}>
                 <span className="text-sm uppercase">{social.platform}</span>

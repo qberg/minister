@@ -95,7 +95,10 @@ const HeaderNav = ({
   ref?: React.Ref<HTMLDivElement>;
 }) => (
   <nav
-    className={cn("flex items-center 4xl:gap-10 gap-8", className)}
+    className={cn(
+      "flex items-center justify-center 4xl:gap-10 gap-8",
+      className
+    )}
     ref={ref}
     {...props}
   >

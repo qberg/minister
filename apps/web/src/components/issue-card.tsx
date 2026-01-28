@@ -120,6 +120,7 @@ type Props = {
   className?: string;
   theme?: CardTheme;
   overlayType?: "gradient" | "solid";
+  label?: string;
 };
 
 export function IssueCard({
@@ -127,6 +128,7 @@ export function IssueCard({
   className,
   theme,
   overlayType = "gradient",
+  label,
 }: Props) {
   const hasImage = !!data.imageSrc;
   const resolvedTheme = (theme || data.color || "neutral") as CardTheme;
@@ -168,7 +170,7 @@ export function IssueCard({
 
         <div className="mt-1 flex items-baseline gap-2">
           <span className="font-bold text-[10px] uppercase tracking-wider opacity-80">
-            Spent
+            {label}
           </span>
           <span className="font-bold font-times-new-roman text-3xl tracking-tight drop-shadow-sm">
             {formatCurrency(data.totalAmount)}

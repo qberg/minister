@@ -14,6 +14,7 @@ import {
   PopoverTrigger,
 } from "@repo/design-system/components/ui/popover";
 import { cn } from "@repo/design-system/lib/utils";
+import { useTranslations } from "@repo/i18n";
 import { Check, ChevronsUpDown } from "lucide-react";
 import React from "react";
 import type { MapZoneOption } from "@/types";
@@ -33,11 +34,12 @@ export function ZoneCombobox({
 }: Props) {
   const [open, setOpen] = React.useState(false);
 
+  const t = useTranslations("IntMap");
+  const placeholder = t("placeholder");
+
   const selectedLabel = React.useMemo(
-    () =>
-      zones.find((z) => z.slug === activeSlug)?.name ||
-      "Select a ward/village...",
-    [zones, activeSlug]
+    () => zones.find((z) => z.slug === activeSlug)?.name || placeholder,
+    [zones, activeSlug, placeholder]
   );
 
   return (
@@ -60,7 +62,7 @@ export function ZoneCombobox({
               Loading zones...
             </span>
           ) : (
-            <span className="truncate font-dm-sans font-normal">
+            <span className="truncate font-body font-normal">
               {selectedLabel}
             </span>
           )}
@@ -70,12 +72,12 @@ export function ZoneCombobox({
 
       <PopoverContent align="center" className="mt-1 w-full p-0">
         <Command>
-          <CommandInput placeholder="Search ward or village..." />
+          <CommandInput placeholder={t("search_label")} />
           <CommandList>
-            <CommandEmpty>No zone found.</CommandEmpty>
+            <CommandEmpty>{t("empty_label")}</CommandEmpty>
 
             {/* Group: Wards */}
-            <CommandGroup heading="Wards">
+            <CommandGroup heading={t("wards_heading")}>
               {zones
                 .filter((z) => z.type === "ward")
                 .map((zone) => (
@@ -99,7 +101,7 @@ export function ZoneCombobox({
             </CommandGroup>
 
             {/* Group: Villages/Others */}
-            <CommandGroup heading="Villages & Other Areas">
+            <CommandGroup heading={t("village_heading")}>
               {zones
                 .filter((z) => z.type !== "ward")
                 .map((zone) => (
