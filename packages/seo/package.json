@@ -7,6 +7,7 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
+    "lodash": "^4.6.2",
     "lodash.merge": "^4.6.2",
     "react": "catalog:",
     "schema-dts": "^1.1.5"

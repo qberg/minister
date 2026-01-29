@@ -30,6 +30,22 @@ declare const messages: {
     "creatorTag": "Developed by",
     "ppLabel": "Privacy Policy",
     "termsLabel": "Terms and Conditions"
+  },
+  "WordsPreloader": {
+    "words": [
+      "வணக்கம்",         
+      "Welcome",
+      "T. M. Anbarasan",
+      "Leadership",
+      "சேவை",            
+      "Development",
+      "மக்கள்",           
+      "Progress",
+      "நம்பிக்கை",        
+      "Vision",
+      "தமிழகம்",
+      "For the People"
+    ]
   }
 };
 export default messages;

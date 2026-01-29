@@ -32,5 +32,21 @@
     "creatorTag": "உருவாக்கியது",
     "ppLabel": "தனியுரிமைக் கொள்கை",
     "termsLabel": "விதிமுறைகள் மற்றும் நிபந்தனைகள்"
+  },
+  "WordsPreloader": {
+    "words": [
+      "வணக்கம்",         
+      "Welcome",
+      "T. M. Anbarasan",
+      "Leadership",
+      "சேவை",            
+      "Development",
+      "மக்கள்",           
+      "Progress",
+      "நம்பிக்கை",        
+      "Vision",
+      "தமிழகம்",       
+      "For the People"
+    ]
   }
 }

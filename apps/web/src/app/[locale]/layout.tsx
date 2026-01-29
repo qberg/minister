@@ -5,6 +5,8 @@ import { LenisScroll } from "@repo/design-system/components/ui/lenis-scroll";
 import { hasLocale, NextIntlClientProvider } from "@repo/i18n";
 import { routing } from "@repo/i18n/routing";
 import { getMessages } from "@repo/i18n/server";
+import { createMetadata, defaultViewport } from "@repo/seo";
+import { PersonJsonLd } from "@repo/seo/json-ld";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -16,13 +18,10 @@ import {
   times_new_roman,
 } from "@/lib/fonts";
 
-export const metadata: Metadata = {
-  description: "TMA, grassroots leader of Tamil Nadu.",
-  title: {
-    default: "T M Anbarasan",
-    template: "%s | T M Anbarasan",
-  },
-};
+export const metadata: Metadata = createMetadata({
+  metadataBase: new URL("https://alandur.minsky.dev"),
+});
+export const viewport = defaultViewport;
 
 const TITLE_TEXT = `
 ░▒▓██████████████▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓███████▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
@@ -63,6 +62,7 @@ export default async function RootLayout({
   return (
     <html className={`${enFontClasses} ${taFontClasses}`} lang={locale}>
       <body className="antialiased">
+        <PersonJsonLd />
         <ConsoleBranding text={TITLE_TEXT} />
         <ViewTransitions>
           <LenisScroll>

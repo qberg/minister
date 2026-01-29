@@ -1,25 +1,25 @@
-import type { Thing, WithContext } from "schema-dts";
+import type { Person, WithContext } from "schema-dts";
 
-type JsonLdProps = {
-  code: WithContext<Thing>;
-};
+export function PersonJsonLd() {
+  const data: WithContext<Person> = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "T M Anbarasan",
+    jobTitle: "Minister for MSME",
+    nationality: "Indian",
+    url: "https://alandur.minsky.dev",
+    sameAs: [
+      "https://twitter.com/thamoanbarasan",
+      "https://facebook.com/thamoanbarasan",
+      "https://en.wikipedia.org/wiki/T._M._Anbarasan",
+    ],
+  };
 
-const escapeJsonForHtml = (json: string): string =>
-  json
-    .replace(/</g, "\\u003c")
-    .replace(/>/g, "\\u003e")
-    .replace(/&/g, "\\u0026")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-
-export const JsonLd = ({ code }: JsonLdProps) => (
-  <script
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD requires escaped HTML for structured data
-    dangerouslySetInnerHTML={{
-      __html: escapeJsonForHtml(JSON.stringify(code)),
-    }}
-    type="application/ld+json"
-  />
-);
-
-export type { Thing, WithContext } from "schema-dts";
+  return (
+    <script
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is safe here
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      type="application/ld+json"
+    />
+  );
+}

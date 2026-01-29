@@ -9,7 +9,7 @@ import { BlockRenderer } from "@/blocks/block-renderer";
 import { LayoutSpyWrapper } from "@/components/layout/spy-wrapper";
 import { LivePreviewListener } from "@/components/live-preview-listener";
 import { HomePreloaderCurtain } from "@/components/loaders/home-preloader-curtain";
-import VerticalTiles from "@/components/loaders/vertical-tiles";
+import { WordsPreloader } from "@/components/loaders/words-preloader";
 import { Footer } from "@/footer/Component";
 import { Header } from "@/header/Component";
 import { HeroRenderer } from "@/heros/hero-renderer";
@@ -107,7 +107,7 @@ export default async function SlugPage({ params }: Props) {
   }
 
   if (!isDraft) {
-    return <VerticalTiles>{content}</VerticalTiles>;
+    return <WordsPreloader>{content}</WordsPreloader>;
   }
 
   return content;
