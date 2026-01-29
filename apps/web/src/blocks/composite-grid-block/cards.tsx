@@ -3,7 +3,6 @@ import { Typography } from "@repo/design-system/components/ui/typography";
 import { cn } from "@repo/design-system/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
-import AnimatedPattern from "@/components/animated-pattern";
 import { CMSLink } from "@/components/cms-link";
 import type { CompositeGridBlock as CompositeGridBlockProps } from "@/payload-types";
 
@@ -52,8 +51,7 @@ const ImageCard = ({ data, position, ...props }: CardProps) => {
 
 const ContentCard = ({ data, position, ...props }: CardProps) => (
   <div className={cn("bg-foreground", cardVariants({ position }))} {...props}>
-    <AnimatedPattern className="absolute bottom-0 left-0 w-full" />
-    <div className="relative z-10 flex h-full flex-col justify-center gap-8 4xl:p-12 p-6 lg:p-8">
+    <div className="relative z-20 flex h-full flex-col justify-center gap-8 4xl:p-12 p-6 lg:p-8">
       <Typography as="h4" className="text-secondary" variant="headingSM">
         {data.contentCard?.title}
       </Typography>

@@ -254,7 +254,7 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
     <AnimatePresence>
       {!isFooter && (
         <motion.div
-          className="-translate-x-1/2 fixed bottom-2 left-1/2 z-9999 flex items-end gap-3 md:bottom-6 md:left-[85%] md:w-auto"
+          className="-translate-x-1/2 fixed bottom-2 left-1/2 z-9999 flex items-end gap-3 md:bottom-4 md:left-[86%] md:w-auto"
           key="scroll-spy-container"
           {...CONFIG.ANIMATION.APPEAR}
         >

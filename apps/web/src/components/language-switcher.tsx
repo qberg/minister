@@ -50,7 +50,7 @@ export function LanguageSwitcher() {
         return (
           <button
             className={cn(
-              "relative z-10 flex cursor-pointer items-center justify-center rounded-full px-2 py-1.5 font-medium text-[10px] transition-colors duration-200 md:min-w-[60px] md:px-3 md:text-sm",
+              "relative z-10 flex cursor-pointer items-center justify-center rounded-full px-2 py-1.5 font-medium text-[8px] transition-colors duration-200 md:min-w-[60px] md:px-3 md:text-[14px]",
               isActive
                 ? "text-surface-muted"
                 : "text-surface-muted/75 hover:text-slate-200",

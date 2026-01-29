@@ -7,6 +7,7 @@ import { Typography } from "@repo/design-system/components/ui/typography";
 import { cn } from "@repo/design-system/lib/utils";
 import { useTranslations } from "@repo/i18n";
 import { Link } from "@repo/i18n/navigation";
+import Image from "next/image";
 import { parseAsString, useQueryState } from "nuqs";
 import type { TypedLocale } from "payload";
 import { useEffect, useMemo, useState } from "react";
@@ -127,6 +128,17 @@ function InteractiveMapBlock({ locale, block }: Props) {
         overflow="hidden"
       >
         {mode === "full" && <BackgroundImage src="/map-bg.png" />}
+        {mode === "summary" && (
+          <div className="absolute top-20 left-0 aspect-square w-[75%] md:top-16 md:w-[50%]">
+            <Image
+              alt="Bg Pattern"
+              className="object-contain"
+              fill
+              loading="lazy"
+              src={"/pattern.svg"}
+            />
+          </div>
+        )}
         <Stack
           className={cn("relative z-10", mode === "full" ? "mt-[6vw]" : "")}
         >

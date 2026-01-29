@@ -67,7 +67,7 @@ function CutoutHero({ block }: Props) {
         variants={containerVariants}
       >
         {/* Content Column */}
-        <div className="lxl:mt-[3vw] flex w-full flex-col 4xl:gap-8 gap-4 lxl:gap-6 sxl:gap-5 md:mt-[2.5vw] md:w-[45%] lg:gap-3">
+        <div className="lxl:mt-[3vw] sxl:mt-[2.5vw] flex w-full flex-col 4xl:gap-8 gap-4 lxl:gap-6 sxl:gap-5 md:mt-[1vw] md:w-[45%] lg:gap-3">
           {/* Portraits - Staggered Fade Up */}
           {portraits && portraits.length !== 0 && (
             <motion.div variants={fadeUpVariants}>
@@ -87,7 +87,12 @@ function CutoutHero({ block }: Props) {
 
           {desc && (
             <motion.div variants={fadeUpVariants}>
-              <Typography as="p" intent={"subtle"} variant="headingXS">
+              <Typography
+                as="p"
+                className="pr-4"
+                intent={"subtle"}
+                variant="headingXS"
+              >
                 {desc}
               </Typography>
             </motion.div>

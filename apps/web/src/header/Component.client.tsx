@@ -40,8 +40,16 @@ export const HeaderClient = ({ data }: HeaderClientProps) => {
             <Logo />
             <Typography
               as="h1"
-              className="text-surface-muted"
+              className="hidden whitespace-nowrap text-surface-muted md:block"
               variant="headingSM"
+            >
+              {t("name")}
+            </Typography>
+
+            <Typography
+              as="h1"
+              className="whitespace-nowrap text-surface-muted md:hidden"
+              variant="headingXS"
             >
               {t("name")}
             </Typography>
