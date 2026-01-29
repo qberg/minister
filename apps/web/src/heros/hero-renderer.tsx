@@ -3,6 +3,7 @@ import type { Page } from "@/payload-types";
 import CutoutHero from "./cutout-hero/Component";
 import MinimalHero from "./minimal-hero/Component";
 import ParallaxHero from "./parallax-hero/Component";
+import { VideoHero } from "./video-hero/Component";
 
 type HeroRendererProps = {
   heroes: Page["hero"];
@@ -23,6 +24,8 @@ export function HeroRenderer({ heroes, locale }: HeroRendererProps) {
       return <CutoutHero block={heroBlock} locale={locale} />;
     case "minimal-hero":
       return <MinimalHero block={heroBlock} locale={locale} />;
+    case "video-hero":
+      return <VideoHero block={heroBlock} locale={locale} />;
     default:
       return null;
   }

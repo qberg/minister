@@ -15,6 +15,7 @@ import { createSlugField } from "@/Fields/slug";
 import { CutoutHero } from "@/heros/cutout-hero/config";
 import { MinimalHero } from "@/heros/minimal-hero/config";
 import { ParallaxHero } from "@/heros/parallax-hero/config";
+import { VideoHero } from "@/heros/video-hero/config";
 import { PopulatePublishDateHook } from "@/hooks/populate-publish-date";
 import { generatePreviewPath } from "@/utils/generate-preview-path";
 
@@ -75,7 +76,7 @@ export const Pages: CollectionConfig<"pages"> = {
               type: "blocks",
               minRows: 0,
               maxRows: 1,
-              blocks: [ParallaxHero, CutoutHero, MinimalHero],
+              blocks: [ParallaxHero, CutoutHero, MinimalHero, VideoHero],
             },
           ],
           label: "Hero",

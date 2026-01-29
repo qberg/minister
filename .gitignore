@@ -280,3 +280,7 @@ packages/database/generated
 .source
 
 old.md
+
+
+public/sw.js
+public/sw.js.map

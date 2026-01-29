@@ -32,6 +32,7 @@
     "@repo/i18n": "workspace:*",
     "@repo/next-config": "workspace:*",
     "@repo/seo": "workspace:*",
+    "@serwist/next": "^9.5.0",
     "@t3-oss/env-nextjs": "0.13.8",
     "class-variance-authority": "^0.7.1",
     "cross-env": "^7.0.3",
@@ -52,6 +53,7 @@
     "react-dom": "catalog:",
     "react-twitter-embed": "^4.0.4",
     "react-use-measure": "^2.1.7",
+    "serwist": "^9.5.0",
     "sharp": "0.34.2",
     "swiper": "^12.0.3",
     "zod": "catalog:"

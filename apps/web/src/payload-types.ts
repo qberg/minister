@@ -251,6 +251,7 @@ export interface Page {
             blockName?: string | null;
             blockType: 'minimal-hero';
           }
+        | VideoHero
       )[]
     | null;
   layout?:
@@ -369,6 +370,43 @@ export interface CutoutHero {
   id?: string | null;
   blockName?: string | null;
   blockType: 'cutout-hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoHero".
+ */
+export interface VideoHero {
+  title: string;
+  desc: string;
+  link: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    url?: string | null;
+    /**
+     * Optional: Add # to scroll to a section (e.g., "team" for #team)
+     */
+    anchor?: string | null;
+    label: string;
+  };
+  portraits?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  bgVideo?: (number | null) | Media;
+  /**
+   * If left empty, the Desktop video will be used.
+   */
+  mobileBgVideo?: (number | null) | Media;
+  cutout?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'video-hero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -844,6 +882,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        'video-hero'?: T | VideoHeroSelect<T>;
       };
   layout?:
     | T
@@ -946,6 +985,35 @@ export interface CutoutHeroSelect<T extends boolean = true> {
         v?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoHero_select".
+ */
+export interface VideoHeroSelect<T extends boolean = true> {
+  title?: T;
+  desc?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        anchor?: T;
+        label?: T;
+      };
+  portraits?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  bgVideo?: T;
+  mobileBgVideo?: T;
+  cutout?: T;
   id?: T;
   blockName?: T;
 }

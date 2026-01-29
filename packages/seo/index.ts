@@ -3,22 +3,15 @@ import type { Metadata, Viewport } from "next";
 
 export const defaultMetadata: Metadata = {
   title: {
-    default: "T M Anbarasan",
+    default: "T M Anbarasan | Minister for MSME & Grassroots Leader",
     template: "%s | T M Anbarasan",
   },
-  description: "Grassroots leader of Tamil Nadu.",
+  description:
+    "Official portal of T M Anbarasan, Minister for MSME, Tamil Nadu. Stay updated on grassroots initiatives, rural development projects, and public service news.",
   openGraph: {
     type: "website",
     locale: "ta_IN",
     siteName: "T M Anbarasan",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "T M Anbarasan",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",

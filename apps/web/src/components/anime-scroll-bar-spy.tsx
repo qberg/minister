@@ -248,11 +248,12 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
   const activeSection = sections.find((s) => s.id === activeValue);
   const activeTitle = activeSection?.title || "Home";
   const isFooter = activeValue === "footer";
+  const isHero = activeValue === "hero";
   const showCard = isDragging || isHovering || isToastVisible;
 
   return (
     <AnimatePresence>
-      {!isFooter && (
+      {!(isFooter || isHero) && (
         <motion.div
           className="-translate-x-1/2 fixed bottom-2 left-1/2 z-9999 flex items-end gap-3 md:bottom-4 md:left-[86%] md:w-auto"
           key="scroll-spy-container"
