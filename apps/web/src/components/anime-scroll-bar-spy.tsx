@@ -16,12 +16,13 @@ import type { Header as HeaderData } from "@/payload-types";
 import type { AnimeScrollSectionData } from "@/types";
 import { CMSLink } from "./cms-link";
 
+// --- Configuration ---
 const CONFIG = {
-  THUMB_WIDTH: 6,
+  THUMB_WIDTH: 6, // px
   TOTAL_TICKS: 40,
   TOAST_DURATION: 1200,
   ANIMATION: {
-    SPRING: { stiffness: 300, damping: 30, restDelta: 0.01 } as const,
+    SPRING: { stiffness: 300, damping: 30, restDelta: 0.001 } as const,
     APPEAR: {
       initial: { opacity: 0, y: 20, scale: 0.95 },
       animate: { opacity: 1, y: 0, scale: 1 },
@@ -50,7 +51,7 @@ const CONFIG = {
   },
 };
 
-// --- Sub-Components ---
+// --- Sub-Components (Unchanged Visuals) ---
 
 const ScrollCard = ({
   title,
@@ -79,8 +80,7 @@ const ScrollCard = ({
 );
 
 const Ticks = () => {
-  const ticks = useMemo(() => [...Array(CONFIG.TOTAL_TICKS)], []);
-
+  const ticks = useMemo(() => [...new Array(CONFIG.TOTAL_TICKS)], []);
   return (
     <div className="pointer-events-none absolute inset-0 flex items-center justify-between">
       {ticks.map((_, i) => {
@@ -90,7 +90,7 @@ const Ticks = () => {
             animate={{ opacity: isMajor ? 0.8 : 0.2 }}
             className={cn(
               "rounded-full bg-secondary",
-              isMajor ? "h-[16px] w-[2px]" : "h-[10px] w-[1.5px]"
+              isMajor ? "h-4 w-0.5" : "h-2.5 w-[1.5px]"
             )}
             initial={{ opacity: 0.2 }}
             key={i}
@@ -134,7 +134,7 @@ const MenuPanel = ({
               >
                 <CMSLink {...item.link}>
                   <button
-                    className="block rounded-xl px-4 py-3 font-medium text-primary-foreground/90 text-sm transition-all hover:bg-white/10 hover:pl-6"
+                    className="block w-full rounded-xl px-4 py-3 text-left font-medium text-primary-foreground/90 text-sm transition-all hover:bg-white/10 hover:pl-6"
                     onClick={onClose}
                     type="button"
                   >
@@ -166,40 +166,57 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [ghostX, setGhostX] = useState<number | null>(null);
-
-  // New: Toast State
   const [isToastVisible, setIsToastVisible] = useState(false);
   const toastTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // -- Scroll Logic --
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, CONFIG.ANIMATION.SPRING);
+
   const xPercent = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
 
-  // -- Toast Effect: Trigger on Section Change --
+  // -- Toast Effect --
   useEffect(() => {
-    // Don't show toast for Hero (start) or Footer (end)
     if (!activeValue || activeValue === "hero" || activeValue === "footer") {
       setIsToastVisible(false);
       return;
     }
-
     setIsToastVisible(true);
-
     if (toastTimerRef.current) {
       clearTimeout(toastTimerRef.current);
     }
-
     toastTimerRef.current = setTimeout(() => {
       setIsToastVisible(false);
     }, CONFIG.TOAST_DURATION);
-
     return () => {
       if (toastTimerRef.current) {
         clearTimeout(toastTimerRef.current);
       }
     };
   }, [activeValue]);
+
+  // -- Helpers --
+
+  // Helper to calculate scroll position from X coordinate
+  const scrollToX = (clientX: number) => {
+    if (!trackRef.current) {
+      return;
+    }
+
+    const rect = trackRef.current.getBoundingClientRect();
+    const relativeX = clientX - rect.left;
+
+    // Strict Clamping: 0 to Width
+    const clampedX = Math.max(0, Math.min(relativeX, rect.width));
+    const ratio = clampedX / rect.width;
+
+    const totalHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+
+    window.scrollTo({
+      top: totalHeight * ratio,
+      behavior: "instant", // Instant is crucial for "scrubbing" feel
+    });
+  };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!trackRef.current || isDragging) {
@@ -208,50 +225,36 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
     }
     const rect = trackRef.current.getBoundingClientRect();
     const relativeX = e.clientX - rect.left;
+
+    // Visual Clamp for Ghost
     const clamped = Math.max(0, Math.min(relativeX, rect.width));
     setGhostX(clamped);
   };
 
   const handleTrackClick = (e: React.MouseEvent) => {
-    if (!trackRef.current || isDragging) {
+    if (isDragging) {
       return;
     }
-    const rect = trackRef.current.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const ratio = Math.max(0, Math.min(1, clickX / rect.width));
-    const totalHeight =
-      document.documentElement.scrollHeight - window.innerHeight;
-    window.scrollTo({ top: totalHeight * ratio, behavior: "instant" });
+    scrollToX(e.clientX);
   };
 
   const handleDrag = (
     _: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) => {
-    if (!trackRef.current) {
-      return;
-    }
-    const rect = trackRef.current.getBoundingClientRect();
-    const currentX = info.point.x - rect.left;
-    const ratio = Math.max(0, Math.min(1, currentX / rect.width));
-    const totalHeight =
-      document.documentElement.scrollHeight - window.innerHeight;
-    window.scrollTo({ top: totalHeight * ratio, behavior: "instant" });
+    scrollToX(info.point.x);
   };
 
-  // -- Derived Data --
   const activeSection = sections.find((s) => s.id === activeValue);
   const activeTitle = activeSection?.title || "Home";
   const isFooter = activeValue === "footer";
-
-  // Logic: Show Card if (Dragging OR Hovering OR Toast Timer is Active)
   const showCard = isDragging || isHovering || isToastVisible;
 
   return (
     <AnimatePresence>
       {!isFooter && (
         <motion.div
-          className="-translate-x-1/2 fixed bottom-2 left-1/2 z-[9999] flex items-end gap-3 md:bottom-6 md:left-[85%] md:w-auto"
+          className="-translate-x-1/2 fixed bottom-2 left-1/2 z-9999 flex items-end gap-3 md:bottom-6 md:left-[85%] md:w-auto"
           key="scroll-spy-container"
           {...CONFIG.ANIMATION.APPEAR}
         >
@@ -265,16 +268,17 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
             }}
             onMouseMove={handleMouseMove}
           >
-            {/* The Toast Card */}
             <ScrollCard isVisible={!!showCard} title={activeTitle} />
 
+            {/* Track Area: This is the bounding box for calculations */}
             <div
-              className="relative h-[20px] w-full cursor-pointer"
+              className="relative h-5 w-full cursor-pointer touch-none"
               onClick={handleTrackClick}
               ref={trackRef}
             >
               <Ticks />
 
+              {/* Ghost Cursor */}
               <AnimatePresence>
                 {ghostX !== null && !isDragging && (
                   <motion.div
@@ -282,11 +286,13 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
                     className="-translate-y-1/2 absolute top-1/2 h-4 w-1.5 rounded-full bg-[#FF4B4B]/30"
                     exit={{ opacity: 0, scale: 0 }}
                     initial={{ opacity: 0, scale: 0 }}
+                    // Ghost X is pixels, so we center it manually
                     style={{ left: ghostX, x: "-50%" }}
                   />
                 )}
               </AnimatePresence>
 
+              {/* Draggable Thumb */}
               <motion.div
                 className="-translate-y-1/2 absolute top-1/2 z-20 h-6 w-1.5 cursor-grab rounded-full bg-[#FF4B4B] shadow-[0_0_15px_rgba(255,75,75,0.6)] active:cursor-grabbing"
                 drag="x"
@@ -296,12 +302,15 @@ export const AnimeScrollBarSpy = ({ sections, navItems }: Props) => {
                 onDrag={handleDrag}
                 onDragEnd={() => setIsDragging(false)}
                 onDragStart={() => setIsDragging(true)}
-                style={{ left: xPercent, x: "-50%" }}
+                style={{
+                  left: xPercent,
+                  x: "-50%",
+                }}
               />
             </div>
           </motion.div>
 
-          {/* Mobile Hamburger */}
+          {/* Mobile Hamburger (Unchanged) */}
           <div className="relative block md:hidden">
             <MenuPanel
               isOpen={isMenuOpen}
