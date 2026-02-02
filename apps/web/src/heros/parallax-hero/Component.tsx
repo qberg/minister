@@ -42,7 +42,7 @@ const ParallaxHero: React.FC<ParallaxHeroProps> = ({ block }) => {
               block.content.map((item) => (
                 <Typography
                   as="h5"
-                  className="max-w-[72vw] text-pretty lg:max-w-[50vw]"
+                  className="max-w-[72vw] text-pretty lg:max-w-[55vw]"
                   intent={"body"}
                   key={item.id}
                   variant="headingXS"
