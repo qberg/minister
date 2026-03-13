@@ -7,7 +7,7 @@ import type { Media } from "@/payload-types";
 
 export function getMediaUrl(
   media: number | Media | null | undefined,
-  fallback = "/images/fallback.png"
+  fallback = "/map-bg.png"
 ): string {
   if (typeof media !== "object" || media === null || !("url" in media)) {
     return fallback;

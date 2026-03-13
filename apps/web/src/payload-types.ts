@@ -73,10 +73,12 @@ export interface Config {
     articles: Article;
     'news-feat': NewsFeat;
     tags: Tag;
+    'survey-sub': SurveySub;
     issues: Issue;
     activities: Activity;
     'map-zones': MapZone;
     'vision-categories': VisionCategory;
+    'otp-verifications': OtpVerification;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -90,10 +92,12 @@ export interface Config {
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     'news-feat': NewsFeatSelect<false> | NewsFeatSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    'survey-sub': SurveySubSelect<false> | SurveySubSelect<true>;
     issues: IssuesSelect<false> | IssuesSelect<true>;
     activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
     'map-zones': MapZonesSelect<false> | MapZonesSelect<true>;
     'vision-categories': VisionCategoriesSelect<false> | VisionCategoriesSelect<true>;
+    'otp-verifications': OtpVerificationsSelect<false> | OtpVerificationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -323,6 +327,7 @@ export interface Page {
         | TabbedContentBlock
         | InteractiveMapBlock
         | SocialMediaBlock
+        | SurveyBlock
       )[]
     | null;
   slug?: string | null;
@@ -551,6 +556,64 @@ export interface SocialMediaBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SurveyBlock".
+ */
+export interface SurveyBlock {
+  /**
+   * Optional background image for the form section
+   */
+  bgImg?: (number | null) | Media;
+  /**
+   * Main heading for the survey form
+   */
+  title: string;
+  /**
+   * Subheading description
+   */
+  description?: string | null;
+  personalInfoTitle: string;
+  personalInfoDesc?: string | null;
+  nameLabel: string;
+  namePlaceholder?: string | null;
+  mobileLabel: string;
+  mobilePlaceholder?: string | null;
+  personalInfoCta: string;
+  otpTitle: string;
+  otpDesc?: string | null;
+  otpPlaceholder?: string | null;
+  otpCta: string;
+  resendOtpText?: string | null;
+  resendOtpCta?: string | null;
+  selectionsTitle: string;
+  selectionsDesc?: string | null;
+  mapZoneLabel: string;
+  mapZonePlaceholder?: string | null;
+  visionCategoryLabel: string;
+  visionCategoryPlaceholder?: string | null;
+  visionTextLabel: string;
+  visionTextPlaceholder?: string | null;
+  selectionsCta: string;
+  successTitle: string;
+  successDesc?: string | null;
+  successCta?: string | null;
+  successSecondaryText?: string | null;
+  errorNameRequired?: string | null;
+  errorNameTooShort?: string | null;
+  errorMobileRequired?: string | null;
+  errorMobileInvalid?: string | null;
+  errorOtpRequired?: string | null;
+  errorOtpInvalid?: string | null;
+  errorZoneRequired?: string | null;
+  errorCategoryRequired?: string | null;
+  loadingSendOtp?: string | null;
+  loadingVerifyOtp?: string | null;
+  loadingSubmit?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'survey';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles".
  */
 export interface Article {
@@ -622,6 +685,55 @@ export interface NewsFeat {
   createdAt: string;
 }
 /**
+ * OTP-verified survey submissions from citizens
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "survey-sub".
+ */
+export interface SurveySub {
+  id: number;
+  name: string;
+  mobile: string;
+  /**
+   * Automatically set to true after OTP verification
+   */
+  mobileVerified?: boolean | null;
+  mapZone: number | MapZone;
+  visionCategory: number | Issue;
+  vision?: string | null;
+  /**
+   * Timestamp of form submission
+   */
+  submittedAt: string;
+  /**
+   * IP address for security tracking
+   */
+  ipAddress?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "map-zones".
+ */
+export interface MapZone {
+  id: number;
+  /**
+   * The name shown in the tooltip and header (e.g., "Ward 160" or "Iyyappanthangal")
+   */
+  name: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  type: 'panchayat' | 'ward';
+  /**
+   * Approximate population
+   */
+  population?: number | null;
+  areaSqKm?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "issues".
  */
@@ -658,33 +770,37 @@ export interface Activity {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "map-zones".
- */
-export interface MapZone {
-  id: number;
-  /**
-   * The name shown in the tooltip and header (e.g., "Ward 160" or "Iyyappanthangal")
-   */
-  name: string;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  type: 'panchayat' | 'ward';
-  /**
-   * Approximate population
-   */
-  population?: number | null;
-  areaSqKm?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "vision-categories".
  */
 export interface VisionCategory {
   id: number;
   name: string;
   description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * OTP verification records with rate limiting and attempt tracking
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "otp-verifications".
+ */
+export interface OtpVerification {
+  id: number;
+  mobile: string;
+  otpHash: string;
+  expiresAt: string;
+  verified?: boolean | null;
+  attempts: number;
+  maxAttempts: number;
+  /**
+   * User is blocked from requesting new OTPs until this time
+   */
+  blockedUntil?: string | null;
+  /**
+   * IP address for security tracking
+   */
+  ipAddress?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -737,6 +853,10 @@ export interface PayloadLockedDocument {
         value: number | Tag;
       } | null)
     | ({
+        relationTo: 'survey-sub';
+        value: number | SurveySub;
+      } | null)
+    | ({
         relationTo: 'issues';
         value: number | Issue;
       } | null)
@@ -751,6 +871,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'vision-categories';
         value: number | VisionCategory;
+      } | null)
+    | ({
+        relationTo: 'otp-verifications';
+        value: number | OtpVerification;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -961,6 +1085,7 @@ export interface PagesSelect<T extends boolean = true> {
         'tab-content'?: T | TabbedContentBlockSelect<T>;
         'int-map'?: T | InteractiveMapBlockSelect<T>;
         'social-media'?: T | SocialMediaBlockSelect<T>;
+        survey?: T | SurveyBlockSelect<T>;
       };
   slug?: T;
   slugLock?: T;
@@ -1163,6 +1288,54 @@ export interface SocialMediaBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SurveyBlock_select".
+ */
+export interface SurveyBlockSelect<T extends boolean = true> {
+  bgImg?: T;
+  title?: T;
+  description?: T;
+  personalInfoTitle?: T;
+  personalInfoDesc?: T;
+  nameLabel?: T;
+  namePlaceholder?: T;
+  mobileLabel?: T;
+  mobilePlaceholder?: T;
+  personalInfoCta?: T;
+  otpTitle?: T;
+  otpDesc?: T;
+  otpPlaceholder?: T;
+  otpCta?: T;
+  resendOtpText?: T;
+  resendOtpCta?: T;
+  selectionsTitle?: T;
+  selectionsDesc?: T;
+  mapZoneLabel?: T;
+  mapZonePlaceholder?: T;
+  visionCategoryLabel?: T;
+  visionCategoryPlaceholder?: T;
+  visionTextLabel?: T;
+  visionTextPlaceholder?: T;
+  selectionsCta?: T;
+  successTitle?: T;
+  successDesc?: T;
+  successCta?: T;
+  successSecondaryText?: T;
+  errorNameRequired?: T;
+  errorNameTooShort?: T;
+  errorMobileRequired?: T;
+  errorMobileInvalid?: T;
+  errorOtpRequired?: T;
+  errorOtpInvalid?: T;
+  errorZoneRequired?: T;
+  errorCategoryRequired?: T;
+  loadingSendOtp?: T;
+  loadingVerifyOtp?: T;
+  loadingSubmit?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles_select".
  */
 export interface ArticlesSelect<T extends boolean = true> {
@@ -1200,6 +1373,22 @@ export interface TagsSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "survey-sub_select".
+ */
+export interface SurveySubSelect<T extends boolean = true> {
+  name?: T;
+  mobile?: T;
+  mobileVerified?: T;
+  mapZone?: T;
+  visionCategory?: T;
+  vision?: T;
+  submittedAt?: T;
+  ipAddress?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1254,6 +1443,22 @@ export interface MapZonesSelect<T extends boolean = true> {
 export interface VisionCategoriesSelect<T extends boolean = true> {
   name?: T;
   description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "otp-verifications_select".
+ */
+export interface OtpVerificationsSelect<T extends boolean = true> {
+  mobile?: T;
+  otpHash?: T;
+  expiresAt?: T;
+  verified?: T;
+  attempts?: T;
+  maxAttempts?: T;
+  blockedUntil?: T;
+  ipAddress?: T;
   updatedAt?: T;
   createdAt?: T;
 }

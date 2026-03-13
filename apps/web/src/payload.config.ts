@@ -11,7 +11,9 @@ import { Issues } from "./collections/Issues";
 import { MapZones } from "./collections/MapZones";
 import { Media } from "./collections/Media";
 import { NewspaperFeatuers } from "./collections/NewspaperFeatures";
+import { OTPVerifications } from "./collections/OTPVerifications";
 import { Pages } from "./collections/Pages";
+import { SurveySubmissions } from "./collections/SurveySubmissions";
 import { Tags } from "./collections/Tags";
 import { Users } from "./collections/Users";
 import { VisionCategories } from "./collections/VisionCategories";
@@ -65,10 +67,12 @@ export default buildConfig({
     Articles,
     NewspaperFeatuers,
     Tags,
+    SurveySubmissions,
     Issues,
     Activities,
     MapZones,
     VisionCategories,
+    OTPVerifications,
   ],
   globals: [Header, Footer],
   editor: lexicalEditor(),

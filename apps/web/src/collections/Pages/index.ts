@@ -8,6 +8,7 @@ import { InteractiveMapBlock } from "@/blocks/interactive-map-block/config";
 import { LatestUpdatesBlock } from "@/blocks/latest-updates-block/config";
 import { SocialMediaBlock } from "@/blocks/social-media-block/config";
 import { StickyStatsBlock } from "@/blocks/sticky-stats-block/config";
+import { SurveyFormBlock } from "@/blocks/survey-form-block/config";
 import { TabbedContentBlock } from "@/blocks/tabbed-content-block/config";
 import { TimelineBlock } from "@/blocks/timeline-block/config";
 import { createPublishedDateField } from "@/Fields/published-date";
@@ -94,6 +95,7 @@ export const Pages: CollectionConfig<"pages"> = {
                 TabbedContentBlock,
                 InteractiveMapBlock,
                 SocialMediaBlock,
+                SurveyFormBlock,
               ],
             },
           ],

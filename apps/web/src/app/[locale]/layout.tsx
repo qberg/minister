@@ -2,6 +2,7 @@ import { ViewTransitions } from "next-view-transitions";
 import type React from "react";
 import "./styles.css";
 import { LenisScroll } from "@repo/design-system/components/ui/lenis-scroll";
+import { Toaster } from "@repo/design-system/components/ui/sonner";
 import { hasLocale, NextIntlClientProvider } from "@repo/i18n";
 import { routing } from "@repo/i18n/routing";
 import { getMessages } from "@repo/i18n/server";
@@ -38,9 +39,6 @@ Build simple,thoughtful software
 VISIT US AT: https://minsky.in
 `;
 
-// biome-ignore lint: console for branding
-console.log(TITLE_TEXT);
-
 export default async function RootLayout({
   children,
   params,
@@ -62,6 +60,7 @@ export default async function RootLayout({
   return (
     <html className={`${enFontClasses} ${taFontClasses}`} lang={locale}>
       <body className="antialiased">
+        <Toaster />
         <PersonJsonLd />
         <ConsoleBranding text={TITLE_TEXT} />
         <ViewTransitions>

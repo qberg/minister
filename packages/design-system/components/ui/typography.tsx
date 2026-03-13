@@ -14,7 +14,7 @@ const typographyVariants = cva("", {
       headingSM:
         "font-heading text-3xl leading-none tracking-normal font-normal [html[lang=ta-IN]_&]:leading-[1.2] [html[lang=ta-IN]_&]:font-semibold",
       headingXS:
-        "font-body text-2xl leading-[1.1] tracking-normal font-normal [html[lang=ta-IN]_&]:leading-[1.25] [html[lang=ta-IN]_&]:tracking-[-0.01em]",
+        "font-body text-2xl leading-[1.1] tracking-normal font-normal [html[lang=ta-IN]_&]:leading-[1.25] [html[lang=ta-IN]_&]:tracking-[-0em]",
       headingXXS:
         "font-body text-xl leading-[1.1] tracking-normal font-medium [html[lang=ta-IN]_&]:leading-[1.2] [html[lang=ta-IN]_&]:font-bold",
 

@@ -17,7 +17,8 @@
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test",
-    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
+    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
+    "test:otp": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/otp-test.ts"
   },
   "dependencies": {
     "@number-flow/react": "^0.5.10",
@@ -34,6 +35,7 @@
     "@repo/seo": "workspace:*",
     "@serwist/next": "^9.5.0",
     "@t3-oss/env-nextjs": "0.13.8",
+    "@tanstack/react-form": "^1.28.0",
     "class-variance-authority": "^0.7.1",
     "cross-env": "^7.0.3",
     "csv-parse": "^6.1.0",
@@ -55,8 +57,11 @@
     "react-use-measure": "^2.1.7",
     "serwist": "^9.5.0",
     "sharp": "0.34.2",
+    "sonner": "^2.0.7",
     "swiper": "^12.0.3",
-    "zod": "catalog:"
+    "valibot": "^1.2.0",
+    "zod": "catalog:",
+    "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",

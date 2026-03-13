@@ -3,7 +3,6 @@
 import { ScrollSpy } from "@repo/design-system/components/ui/scroll-spy";
 import type { Header as HeaderData, Page } from "@/payload-types";
 import type { AnimeScrollSectionData } from "@/types";
-import { AnimeScrollBarSpy } from "../anime-scroll-bar-spy";
 
 type Props = {
   blocks: Page["layout"];
@@ -53,7 +52,7 @@ export const LayoutSpyWrapper = ({
 
   return (
     <ScrollSpy defaultValue={defaultActive} offset={500}>
-      <AnimeScrollBarSpy navItems={headerData?.navItems} sections={sections} />
+      {/*<AnimeScrollBarSpy navItems={headerData?.navItems} sections={sections} /> */}
       <div className="relative w-full">{children}</div>
     </ScrollSpy>
   );

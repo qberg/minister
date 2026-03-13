@@ -67,7 +67,7 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
         </Typography>
       </motion.div>
 
-      <div className="relative aspect-[0.85/1] w-full max-w-[72vw] overflow-hidden rounded-lg bg-neutral-9000 lg:max-w-[55vw]">
+      <div className="relative aspect-[0.77/1] w-full max-w-[74vw] overflow-hidden rounded-lg bg-neutral-9000 md:aspect-[0.85/1] lg:max-w-[55vw]">
         <motion.div
           className="h-full w-full"
           style={{

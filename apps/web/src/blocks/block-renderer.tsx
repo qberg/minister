@@ -1,11 +1,13 @@
+import config from "@payload-config";
 import { ScrollSpyContent } from "@repo/design-system/components/ui/scroll-spy";
-import type { TypedLocale } from "payload";
+import { getPayload, type TypedLocale } from "payload";
 import type { Page } from "@/payload-types";
 import { CompositeGridBlock } from "./composite-grid-block/Component";
 import InteractiveMapBlock from "./interactive-map-block/Component";
 import { LatestUpdatesBlock } from "./latest-updates-block/Component";
 import SocialMediaBlock from "./social-media-block/Component";
 import StickyStatsBlock from "./sticky-stats-block/Component";
+import { SurveyFormBlock } from "./survey-form-block/Component";
 import { TabbedContentBlock } from "./tabbed-content-block/Component";
 import { TimelineBlock } from "./timeline-block/Component";
 
@@ -22,12 +24,40 @@ const blockComponents = {
   timeline: TimelineBlock,
   "int-map": InteractiveMapBlock,
   "social-media": SocialMediaBlock,
+  survey: SurveyFormBlock,
 };
 
-export function BlockRenderer({ locale, blocks }: BlockRendererProps) {
+export async function BlockRenderer({ locale, blocks }: BlockRendererProps) {
   if (!blocks || blocks.length === 0) {
     return null;
   }
+
+  const payload = await getPayload({ config });
+
+  const [mapZonesReq, issuesReq] = await Promise.all([
+    payload.find({
+      collection: "map-zones",
+      limit: 100,
+      pagination: false,
+      locale,
+    }),
+    payload.find({
+      collection: "issues",
+      limit: 100,
+      pagination: false,
+      locale,
+    }),
+  ]);
+
+  const mapZones = mapZonesReq.docs.map((d) => ({
+    id: d.id,
+    label: d.name || `Zone ${d.id}`,
+  }));
+
+  const visionCategories = issuesReq.docs.map((d) => ({
+    id: d.id,
+    label: d.name || `Category ${d.id}`,
+  }));
 
   return (
     <>
@@ -46,8 +76,19 @@ export function BlockRenderer({ locale, blocks }: BlockRendererProps) {
             key={block.id || index}
             value={sectionId}
           >
-            {/* @ts-expect-error there may be some mismatch between the expected types here */}
-            <BlockComponent block={block} locale={locale || "ta-IN"} />
+            {block.blockType === "survey" ? (
+              <SurveyFormBlock
+                block={block}
+                locale={locale || "ta-IN"}
+                mapZones={mapZones}
+                visionCategories={visionCategories}
+              />
+            ) : (
+              <>
+                {/* @ts-expect-error there may be some mismatch between the expected types here */}
+                <BlockComponent block={block} locale={locale || "ta-IN"} />
+              </>
+            )}
           </ScrollSpyContent>
         );
       })}
