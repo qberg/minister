@@ -10,6 +10,7 @@ import StickyStatsBlock from "./sticky-stats-block/Component";
 import { SurveyFormBlock } from "./survey-form-block/Component";
 import { TabbedContentBlock } from "./tabbed-content-block/Component";
 import { TimelineBlock } from "./timeline-block/Component";
+import { GalleryBlock } from "./gallery-block/Component";
 
 type BlockRendererProps = {
   blocks: Page["layout"];
@@ -25,6 +26,7 @@ const blockComponents = {
   "int-map": InteractiveMapBlock,
   "social-media": SocialMediaBlock,
   survey: SurveyFormBlock,
+  "gallery": GalleryBlock,
 };
 
 export async function BlockRenderer({ locale, blocks }: BlockRendererProps) {

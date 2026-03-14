@@ -19,6 +19,7 @@ import { ParallaxHero } from "@/heros/parallax-hero/config";
 import { VideoHero } from "@/heros/video-hero/config";
 import { PopulatePublishDateHook } from "@/hooks/populate-publish-date";
 import { generatePreviewPath } from "@/utils/generate-preview-path";
+import { GalleryBlock } from "@/blocks/gallery-block/config";
 
 export const Pages: CollectionConfig<"pages"> = {
   slug: "pages",
@@ -68,6 +69,12 @@ export const Pages: CollectionConfig<"pages"> = {
     },
 
     {
+      name: "addFooter",
+      type: "checkbox",
+      defaultValue: true,
+    },
+
+    {
       type: "tabs",
       tabs: [
         {
@@ -96,6 +103,7 @@ export const Pages: CollectionConfig<"pages"> = {
                 InteractiveMapBlock,
                 SocialMediaBlock,
                 SurveyFormBlock,
+                GalleryBlock,
               ],
             },
           ],

@@ -15,6 +15,16 @@ export function getMediaUrl(
   return media.url as string;
 }
 
+export function getMediaSize(
+  media: number | Media | null | undefined,
+  fallback = {width: 100, height: 100 }
+): {width: number; height: number} {
+  if (typeof media !== "object" || media === null || !("url" in media)) {
+    return fallback;
+  }
+  return {width: media.width ?? fallback.width, height: media.height ?? fallback.height};
+}
+
 export function getBlurDataUrl(
   media: Media | null | undefined
 ): string | undefined {
