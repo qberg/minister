@@ -2,7 +2,7 @@
   "name": "turbo-forge",
   "private": true,
   "scripts": {
-    "dev": "turbo dev",
+    "dev": "NODE_OPTIONS=--max-old-space-size=4096 turbo dev",
     "build": "turbo build",
     "build:production": "turbo build && pnpm run copy:standalone",
     "check": "npx ultracite@latest check",
