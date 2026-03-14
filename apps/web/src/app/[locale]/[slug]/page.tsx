@@ -95,9 +95,11 @@ export default async function SlugPage({ params }: Props) {
 
         {hasLayout && <BlockRenderer blocks={page.layout} locale={locale} />}
 
-        <ScrollSpyContent className="relative" value="footer">
-          <Footer locale={locale} />
-        </ScrollSpyContent>
+        {page.addFooter && (
+          <ScrollSpyContent className="relative" value="footer">
+            <Footer locale={locale} />
+          </ScrollSpyContent>
+        )}
       </LayoutSpyWrapper>
     </main>
   );

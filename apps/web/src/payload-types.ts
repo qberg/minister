@@ -231,6 +231,7 @@ export interface Page {
    * Brief summary. Used as SEO description fallback.
    */
   excerpt?: string | null;
+  addFooter?: boolean | null;
   hero?:
     | (
         | {
@@ -328,6 +329,7 @@ export interface Page {
         | InteractiveMapBlock
         | SocialMediaBlock
         | SurveyBlock
+        | GalleryBlock
       )[]
     | null;
   slug?: string | null;
@@ -611,6 +613,23 @@ export interface SurveyBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'survey';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  galleryImage?:
+    | {
+        image: number | Media;
+        location: string;
+        title?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -994,6 +1013,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   excerpt?: T;
+  addFooter?: T;
   hero?:
     | T
     | {
@@ -1086,6 +1106,7 @@ export interface PagesSelect<T extends boolean = true> {
         'int-map'?: T | InteractiveMapBlockSelect<T>;
         'social-media'?: T | SocialMediaBlockSelect<T>;
         survey?: T | SurveyBlockSelect<T>;
+        gallery?: T | GalleryBlockSelect<T>;
       };
   slug?: T;
   slugLock?: T;
@@ -1331,6 +1352,22 @@ export interface SurveyBlockSelect<T extends boolean = true> {
   loadingSendOtp?: T;
   loadingVerifyOtp?: T;
   loadingSubmit?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock_select".
+ */
+export interface GalleryBlockSelect<T extends boolean = true> {
+  galleryImage?:
+    | T
+    | {
+        image?: T;
+        location?: T;
+        title?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
