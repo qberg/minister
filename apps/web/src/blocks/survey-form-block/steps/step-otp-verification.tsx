@@ -88,7 +88,9 @@ export function StepOtpVerification({ block }: Props) {
   }, [form, setOTP]);
 
   const handleResendOtp = async () => {
-    if (resendCountdown > 0 || !personalInfo?.mobile) return;
+    if (resendCountdown > 0 || !personalInfo?.mobile) {
+      return;
+    }
 
     const toastId = toast.loading("Resending code...");
     const res = await sendOTPAction(personalInfo.mobile);
@@ -110,7 +112,7 @@ export function StepOtpVerification({ block }: Props) {
       {/* 1. Context Header */}
       <div className="space-y-2 text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-md">
-          <Typography className="text-neutral-400 text-sm" variant="body">
+          <Typography className="text-neutral-400 text-sm" variant="bodySM">
             Sent to{" "}
             <span className="font-mono text-white tracking-wide">
               +91 {personalInfo?.mobile}

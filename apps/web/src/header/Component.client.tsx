@@ -18,14 +18,15 @@ import type { Header as HeaderData } from "@/payload-types";
 
 type HeaderClientProps = {
   data: HeaderData;
+  hasGallery: boolean;
 };
 
-export const HeaderClient = ({ data }: HeaderClientProps) => {
+export const HeaderClient = ({ data, hasGallery }: HeaderClientProps) => {
   const t = useTranslations("Header");
   const { activeValue } = useScrollSpy();
   const isHero = activeValue === "hero";
   return (
-    <Header className="text-background" hideOnScroll sticky>
+    <Header className="text-background" hideOnScroll={!hasGallery} sticky>
       <HeaderContent
         className={cn(
           "border-b transition-all duration-300 ease-in-out",

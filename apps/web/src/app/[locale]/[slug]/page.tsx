@@ -77,6 +77,10 @@ export default async function SlugPage({ params }: Props) {
   const hasHero = page.hero && page.hero.length > 0;
   const hasLayout = page.layout && page.layout.length > 0;
 
+  const hasGallery = page.layout?.some(
+    (block) => block.blockType === "gallery"
+  );
+
   const content = (
     <main>
       {isDraft && <LivePreviewListener />}
@@ -86,7 +90,7 @@ export default async function SlugPage({ params }: Props) {
         hasHero={Boolean(hasHero)}
         headerData={headerData}
       >
-        <Header locale={locale} />
+        <Header hasGallery={hasGallery} locale={locale} />
         {hasHero && (
           <ScrollSpyContent className="relative" value="hero">
             <HeroRenderer heroes={page.hero} locale={locale} />

@@ -27,7 +27,7 @@ export async function Footer({ locale = "ta-IN" }: Props) {
 
   const platformConfig: Record<
     string,
-    { Icon: React.ElementType; extraClass?: string }
+    { Icon: React.ElementType<{ className?: string }>; extraClass?: string }
   > = {
     youtube: {
       Icon: YouTubeIcon,
@@ -46,6 +46,7 @@ export async function Footer({ locale = "ta-IN" }: Props) {
       extraClass: "scale-100",
     },
   };
+
   return (
     <Box
       as="footer"
