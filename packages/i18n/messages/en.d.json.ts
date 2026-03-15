@@ -33,19 +33,35 @@ declare const messages: {
   },
   "WordsPreloader": {
     "words": [
-      "வணக்கம்",         
+      "வணககம",
       "Welcome",
       "T. M. Anbarasan",
       "Leadership",
-      "சேவை",            
+      "சவ",
       "Development",
-      "மக்கள்",           
+      "மககள",
       "Progress",
-      "நம்பிக்கை",        
+      "நமபகக",
       "Vision",
-      "தமிழகம்",
+      "தமழகம",
       "For the People"
     ]
+  },
+  "ActivitiesTable": {
+    "heading_default": "Detailed Works",
+    "heading_zone": "Detailed Works {zone}",
+    "col_no": "No.",
+    "col_name": "Activity Name",
+    "col_amount": "Amount Spent",
+    "col_type": "Work Type",
+    "col_ward": "Ward/Panchayat",
+    "col_scheme": "Scheme Name",
+    "col_year": "Year",
+    "filter_type_placeholder": "Select a Category",
+    "pagination_of": "of",
+    "pagination_items": "items",
+    "limit_label": "Show",
+    "no_results": "No activities found."
   }
 };
 export default messages;
