@@ -9,7 +9,7 @@ function GalleryCanvasInner() {
     <Canvas
       frameloop="always"
       gl={{ toneMapping: 0 }}
-      style={{ background: "black" }}
+      style={{ background: "white" }}
     >
       <Suspense fallback={null}>
         <GalleryScene />

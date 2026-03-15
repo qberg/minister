@@ -5,22 +5,24 @@ import { useThree } from "@react-three/fiber";
 import type * as THREE from "three";
 import {
   selectIsMobile,
+  selectItems,
   useGalleryScrollStore,
 } from "@/store/gallery-scroll.store";
+import { GalleryImagePlane } from "./gallery-image-plane";
 
 const DESKTOP_HALF_VH = 50; // camera sees -50 to +50 vertically = 100vh
 const MOBILE_HALF_VH = 37.5; // camera sees -37.5 to +37.5 vertically = 75vh
 
 export function GalleryScene() {
+  const items = useGalleryScrollStore(selectItems);
   return (
     <>
       <OrthographicCamera far={100} makeDefault near={-100} />
       <CameraRig />
 
-      <mesh>
-        <planeGeometry args={[33, 50]} />
-        <meshBasicMaterial color="white" />
-      </mesh>
+      {items.map((_, index) => (
+        <GalleryImagePlane index={index} key={index} />
+      ))}
     </>
   );
 }

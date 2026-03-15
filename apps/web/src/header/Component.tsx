@@ -5,10 +5,11 @@ import { HeaderClient } from "./Component.client";
 
 type Props = {
   locale?: TypedLocale;
+  hasGallery?: boolean;
 };
 
-export async function Header({ locale }: Props) {
+export async function Header({ locale, hasGallery = false }: Props) {
   const headerData: HeaderData = await getCachedGlobal("header", locale, 1)();
 
-  return <HeaderClient data={headerData} />;
+  return <HeaderClient data={headerData} hasGallery={hasGallery} />;
 }
