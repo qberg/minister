@@ -161,4 +161,8 @@
     --text-highlight: var(--color-yellow-400); /* #D7A647 */
     --color-body-subtle: var(--color-neutral-200);
   }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
