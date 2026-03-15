@@ -59,7 +59,7 @@ const Box = <T extends BoxElement = "div">({
         boxVariants({ padding, borderWidth, invert, overflow }),
         className
       )}
-      ref={ref}
+      ref={ref as React.Ref<HTMLElement>}
       {...props}
     />
   );

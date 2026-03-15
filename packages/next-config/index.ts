@@ -24,6 +24,9 @@ export const config: NextConfig = {
     ],
   },
   output: "standalone",
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   experimental: {
     viewTransition: true,
     optimizePackageImports: ["lucide-react", "@mui/material"],

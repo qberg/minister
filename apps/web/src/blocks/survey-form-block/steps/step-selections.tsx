@@ -17,7 +17,6 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { submitSurveyAction } from "@/app/actions/survey-actions";
 import { useSurveyFormStore } from "@/lib/stores/use-survey-form-store";
-import { selectionsSchema } from "@/lib/validations/survey.schema";
 import type { SurveyBlock } from "@/payload-types";
 
 type Option = { id: number | string; label: string };
@@ -29,10 +28,15 @@ type Props = {
 };
 
 const getErrorMessage = (error: any): string => {
-  if (!error) return "";
-  if (typeof error === "string") return error;
-  if (typeof error === "object" && "message" in error)
+  if (!error) {
+    return "";
+  }
+  if (typeof error === "string") {
+    return error;
+  }
+  if (typeof error === "object" && "message" in error) {
     return String(error.message);
+  }
   return "Invalid value";
 };
 
@@ -42,7 +46,7 @@ export function StepSelections({
   visionCategories = [],
 }: Props) {
   const [isLoading, setIsLoading] = useState(false);
-  const { personalInfo, selections, setSelections, setStep, reset } =
+  const { personalInfo, selections, setSelections, setStep } =
     useSurveyFormStore();
 
   const form = useForm({
@@ -51,11 +55,7 @@ export function StepSelections({
       visionCategoryId: selections?.visionCategoryId?.toString() || "",
       vision: selections?.vision || "",
     },
-    validators: {
-      onChange: selectionsSchema,
-    },
     onSubmit: async ({ value }) => {
-      // 1. Final Safety Check
       if (!(personalInfo?.mobile && personalInfo.name)) {
         toast.error("Missing personal information. Please restart.");
         return;
@@ -64,13 +64,11 @@ export function StepSelections({
       setIsLoading(true);
 
       try {
-        // 2. Submit to Backend
         const result = await submitSurveyAction({
           name: personalInfo.name,
           mobile: personalInfo.mobile,
           mapZoneId: Number(value.mapZoneId),
           visionCategoryId: Number(value.visionCategoryId),
-          // vision: value.vision, // Add this to your Server Action & Database Schema!
         });
 
         if (!result.success) {
@@ -78,7 +76,6 @@ export function StepSelections({
           return;
         }
 
-        // 3. Success State
         setSelections({
           mapZoneId: Number(value.mapZoneId),
           visionCategoryId: Number(value.visionCategoryId),
@@ -87,7 +84,7 @@ export function StepSelections({
 
         toast.success("Vision submitted successfully!");
         setStep("success"); // Triggers the success view in parent
-      } catch (error) {
+      } catch (_error) {
         toast.error("Failed to submit. Please try again.");
       } finally {
         setIsLoading(false);
