@@ -2,7 +2,7 @@
 
 import { useLenis } from "lenis/react";
 import dynamic from "next/dynamic";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGalleryScrollStore } from "@/store/gallery-scroll.store";
 import type { GalleryImageItem } from "@/types";
 import { GalleryBackground } from "./gallery-background";
@@ -26,6 +26,8 @@ export function GalleryCanvas({ items }: GalleryCanvasProps) {
   const setActiveIndex = useGalleryScrollStore((s) => s.setActiveIndex);
   const setVelocity = useGalleryScrollStore((s) => s.setVelocity);
 
+  const [windowHeight, setWindowHeight] = useState<number>(0);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollPerItemRef = useRef<number>(800);
   const lastScrollRef = useRef<number>(0);
@@ -38,23 +40,55 @@ export function GalleryCanvas({ items }: GalleryCanvasProps) {
   const hasInitializedScrollRef = useRef(false);
 
   useEffect(() => {
-    scrollPerItemRef.current = window.innerHeight * SCROLL_PER_ITEM;
-  }, []);
-
-  useEffect(() => {
     setItems(items);
   }, [items, setItems]);
 
+  // ── THE FIX: Robust Resize Teleportation ─────────────────────────
   useEffect(() => {
-    const update = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, [setIsMobile]);
+    const handleResize = () => {
+      const currentHeight = window.innerHeight;
 
+      // 1. Grab our exact mathematical position BEFORE the layout changes
+      const currentVirtualIndex = useGalleryScrollStore.getState().virtualIndex;
+
+      // 2. Update the physical metrics
+      setWindowHeight(currentHeight);
+      scrollPerItemRef.current = currentHeight * SCROLL_PER_ITEM;
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+
+      // 3. Teleport the scrollbar to match the new coordinates
+      if (lenisRef.current && containerRef.current && items.length > 0) {
+        const el = containerRef.current;
+        const containerTop =
+          lenisRef.current.scroll + el.getBoundingClientRect().top;
+
+        const singleCopyPx = items.length * (currentHeight * SCROLL_PER_ITEM);
+        const scrollable = singleCopyPx - currentHeight;
+
+        // Calculate the exact percentage (p) of the current scroll
+        const maxIndex = Math.max(1, items.length - 1);
+        const p = currentVirtualIndex / maxIndex;
+
+        // Find the matching pixel offset in the middle copy
+        const targetScroll = containerTop + singleCopyPx + p * scrollable;
+
+        // Instantly jump the browser to this pixel so the user sees zero visual disruption
+        lenisRef.current.scrollTo(targetScroll, { immediate: true });
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [items.length, setIsMobile]);
+
+  // ── Initial Mount Jump ───────────────────────────────────────────
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (!(lenisRef.current && containerRef.current)) return;
+      if (!(lenisRef.current && containerRef.current)) {
+        return;
+      }
       const el = containerRef.current;
       const rect = el.getBoundingClientRect();
       const offsetTop = lenisRef.current.scroll + rect.top;
@@ -64,10 +98,13 @@ export function GalleryCanvas({ items }: GalleryCanvasProps) {
     return () => clearTimeout(timeout);
   }, [items.length]);
 
+  // ── The Core Loop ────────────────────────────────────────────────
   useLenis((lenis) => {
     lenisRef.current = lenis;
     const el = containerRef.current;
-    if (!el || isJumping.current) return;
+    if (!el || isJumping.current) {
+      return;
+    }
 
     const { scroll } = lenis;
 
@@ -86,7 +123,9 @@ export function GalleryCanvas({ items }: GalleryCanvasProps) {
     const relativeScroll = scroll - middleStart;
     const scrollable = singleCopyPx - window.innerHeight;
 
-    if (scrollable <= 0) return;
+    if (scrollable <= 0) {
+      return;
+    }
 
     const p = relativeScroll / scrollable;
     const virtualIndex = p * (items.length - 1);
@@ -120,14 +159,23 @@ export function GalleryCanvas({ items }: GalleryCanvasProps) {
     }
   });
 
-  const totalHeight = items.length * scrollPerItemRef.current * 3;
+  const totalHeight =
+    windowHeight === 0
+      ? "300vh"
+      : items.length * windowHeight * SCROLL_PER_ITEM * 3;
 
   return (
-    <div ref={containerRef} style={{ height: `${totalHeight}px` }}>
-      <div className="sticky top-0 flex h-screen flex-col md:block">
-        {/* Canvas — 75vh mobile, full screen desktop */}
-        <div className="relative h-[75vh] md:h-screen">
-          <GalleryBackground />
+    <div
+      ref={containerRef}
+      style={{
+        height:
+          typeof totalHeight === "number" ? `${totalHeight}px` : totalHeight,
+      }}
+    >
+      <div className="relative sticky top-0 flex h-dvh flex-col md:block md:h-screen">
+        <GalleryBackground />
+
+        <div className="relative h-[75dvh] md:h-screen">
           <GalleryCanvasInner />
 
           <div className="pointer-events-none absolute inset-0 hidden md:block">
@@ -135,7 +183,7 @@ export function GalleryCanvas({ items }: GalleryCanvasProps) {
           </div>
         </div>
 
-        <div className="flex h-[25vh] items-center bg-black md:hidden">
+        <div className="z-10 flex h-[25dvh] items-center md:hidden">
           <GalleryText />
         </div>
       </div>
