@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
 import { useGalleryScrollStore } from "@/store/gallery-scroll.store";
 import type { GalleryImageItem } from "@/types";
+import { GalleryBackground } from "./gallery-background";
 import { GalleryText } from "./gallery-text";
 
 const GalleryCanvasInner = dynamic(() => import("./gallery-canvas-inner"), {
@@ -34,6 +35,7 @@ export function GalleryCanvas({ items }: GalleryCanvasProps) {
     scrollTo: (v: number, o?: { immediate?: boolean }) => void;
     scroll: number;
   } | null>(null);
+  const hasInitializedScrollRef = useRef(false);
 
   useEffect(() => {
     scrollPerItemRef.current = window.innerHeight * SCROLL_PER_ITEM;
@@ -68,6 +70,14 @@ export function GalleryCanvas({ items }: GalleryCanvasProps) {
     if (!el || isJumping.current) return;
 
     const { scroll } = lenis;
+
+    if (!hasInitializedScrollRef.current) {
+      lastScrollRef.current = scroll;
+      lastTimeRef.current = performance.now();
+      hasInitializedScrollRef.current = true;
+      return;
+    }
+
     const rect = el.getBoundingClientRect();
     const offsetTop = scroll + rect.top;
     const singleCopyPx = items.length * scrollPerItemRef.current;
@@ -84,7 +94,7 @@ export function GalleryCanvas({ items }: GalleryCanvasProps) {
     const now = performance.now();
     const dt = now - lastTimeRef.current;
     const dScroll = scroll - lastScrollRef.current;
-    const velocity = dt > 0 ? dScroll / dt : 0;
+    const velocity = dt > 0 ? Math.max(-2, Math.min(2, dScroll / dt)) : 0;
     lastScrollRef.current = scroll;
     lastTimeRef.current = now;
 
@@ -114,23 +124,17 @@ export function GalleryCanvas({ items }: GalleryCanvasProps) {
 
   return (
     <div ref={containerRef} style={{ height: `${totalHeight}px` }}>
-      {/*
-        Desktop: canvas is full screen sticky, text overlays it absolutely
-        Mobile: canvas takes 75vh sticky, text sits in remaining 25vh below
-        Both share the same sticky scroll container so they move together
-      */}
       <div className="sticky top-0 flex h-screen flex-col md:block">
         {/* Canvas — 75vh mobile, full screen desktop */}
         <div className="relative h-[75vh] md:h-screen">
+          <GalleryBackground />
           <GalleryCanvasInner />
 
-          {/* Desktop text — absolute overlay inside canvas container */}
           <div className="pointer-events-none absolute inset-0 hidden md:block">
             <GalleryText />
           </div>
         </div>
 
-        {/* Mobile text — 25vh zone below canvas */}
         <div className="flex h-[25vh] items-center bg-black md:hidden">
           <GalleryText />
         </div>

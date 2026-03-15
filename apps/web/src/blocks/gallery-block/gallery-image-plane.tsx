@@ -8,6 +8,8 @@ import {
   selectItems,
   useGalleryScrollStore,
 } from "@/store/gallery-scroll.store";
+import "@/blocks/gallery-block/gallery-shader-material-ext";
+import type { GalleryShaderMaterial } from "./gallery-shader-material";
 
 type GalleryImagePlaneProps = {
   index: number;
@@ -40,7 +42,7 @@ export function GalleryImagePlane({ index }: GalleryImagePlaneProps) {
 
   const prevTCenteredRef = useRef<number | null>(null);
   const meshRef = useRef<THREE.Mesh>(null);
-  const materialRef = useRef<THREE.MeshBasicMaterial>(null);
+  const materialRef = useRef<InstanceType<typeof GalleryShaderMaterial>>(null);
 
   // basically aspect ratio
   const { planeWidth, planeHeight } = useMemo(() => {
@@ -55,11 +57,7 @@ export function GalleryImagePlane({ index }: GalleryImagePlaneProps) {
     };
   }, [item]);
 
-  // same URL = same texture object, no duplicate uploads
-  //const texture = useTexture(item?.image.url ?? "");
-  const texture = useTexture(
-    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop&crossOrigin=anonymous"
-  );
+  const texture = useTexture(item?.image.url ?? "");
 
   useEffect(() => {
     texture.colorSpace = THREE.SRGBColorSpace;
@@ -71,6 +69,12 @@ export function GalleryImagePlane({ index }: GalleryImagePlaneProps) {
     },
     [texture]
   );
+
+  useEffect(() => {
+    if (!materialRef.current) return;
+    materialRef.current.uVelocity = 0;
+    materialRef.current.uOpacity = 1;
+  }, []);
 
   ////////////////////////////////////////////////////////////////////
   // PHYSICS
@@ -115,7 +119,12 @@ export function GalleryImagePlane({ index }: GalleryImagePlaneProps) {
         SMOOTH_TIME,
         delta
       );
-      damp(materialRef.current, "opacity", targetOpacity, SMOOTH_TIME, delta);
+      const { velocity } = useGalleryScrollStore.getState();
+      const safeVelocity =
+        useGalleryScrollStore.getState().items.length > 0 ? velocity : 0;
+      damp(materialRef.current, "uVelocity", safeVelocity, SMOOTH_TIME, delta);
+
+      damp(materialRef.current, "uOpacity", targetOpacity, SMOOTH_TIME, delta);
     }
   });
 
@@ -125,12 +134,15 @@ export function GalleryImagePlane({ index }: GalleryImagePlaneProps) {
 
   return (
     <mesh position={[0, 0, 0]} ref={meshRef}>
-      <planeGeometry args={[planeWidth, planeHeight]} />
-      <meshBasicMaterial
-        map={texture}
+      <planeGeometry args={[planeWidth, planeHeight, 1, 32]} />
+      <galleryShaderMaterial
         ref={materialRef}
         toneMapped={false}
         transparent
+        uBowStrength={0.75}
+        uOpacity={1}
+        uTexture={texture}
+        uVelocity={0}
       />
     </mesh>
   );
