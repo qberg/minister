@@ -11,6 +11,7 @@ import Image from "next/image";
 import { parseAsString, useQueryState } from "nuqs";
 import type { TypedLocale } from "payload";
 import { useEffect, useMemo, useState } from "react";
+import type { IssueOption } from "@/app/actions/get-issues";
 import { getMapStats } from "@/app/actions/get-map-stats";
 import { getMapZones } from "@/app/actions/map";
 import { AlandurMap } from "@/components/alandur-map";
@@ -24,14 +25,16 @@ import { PerspectiveCarousel } from "@/components/perspective-carousel";
 import { SimpleIssueCard } from "@/components/simple-issue-card";
 import type { InteractiveMapBlock as InteractiveMapBlockProps } from "@/payload-types";
 import type { AllImpactStats, MapZoneOption } from "@/types";
+import { ActivitiesSection } from "./activities-section";
 
 type Props = {
   locale: TypedLocale;
   block: InteractiveMapBlockProps;
+  issueOptions: IssueOption[];
 };
 
 // biome-ignore lint: need
-function InteractiveMapBlock({ locale, block }: Props) {
+function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
   const heading = block.headline;
   const title = block.title;
   const description = block.description;
@@ -269,15 +272,25 @@ function InteractiveMapBlock({ locale, block }: Props) {
           )}
 
           {mode === "full" && (
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-              {stats?.issuesBreakdown.map((issue) => (
-                <SimpleIssueCard
-                  data={issue}
-                  key={issue.id}
-                  label={t("simple_card_label")}
-                />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+                {stats?.issuesBreakdown.map((issue) => (
+                  <SimpleIssueCard
+                    data={issue}
+                    key={issue.id}
+                    label={t("simple_card_label")}
+                  />
+                ))}
+              </div>
+              <ActivitiesSection
+                activeZoneSlug={activeSlug}
+                issueOptions={issueOptions}
+                locale={locale}
+                zoneName={
+                  activeSlug ? (zoneNameLookup[activeSlug] ?? null) : null
+                }
+              />
+            </>
           )}
         </Stack>
       </Box>

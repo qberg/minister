@@ -1,7 +1,7 @@
 import { useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { damp, damp3 } from "maath/easing";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import {
   selectIsMobile,
@@ -17,7 +17,10 @@ type GalleryImagePlaneProps = {
 
 // this is the image height, will be 50vh in md and above, in mobile it will
 // be whatever 75vh/2 will be
-const PLANE_HEIGHT = 50;
+const FRUSTUM_DESKTOP = 100;
+const FRUSTUM_MOBILE = 75;
+const PLANE_HEIGHT_PCT_DESKTOP = 50;
+const PLANE_HEIGHT_PCT_MOBILE = 40;
 
 const SPREAD_X = 98;
 const SPREAD_Y = 60;
@@ -45,17 +48,44 @@ export function GalleryImagePlane({ index }: GalleryImagePlaneProps) {
   const materialRef = useRef<InstanceType<typeof GalleryShaderMaterial>>(null);
 
   // basically aspect ratio
-  const { planeWidth, planeHeight } = useMemo(() => {
+  const [planeDims, setPlaneDims] = useState(() => {
+    const frustumHeight = isMobile ? FRUSTUM_MOBILE : FRUSTUM_DESKTOP;
+    const planePct = isMobile
+      ? PLANE_HEIGHT_PCT_MOBILE
+      : PLANE_HEIGHT_PCT_DESKTOP;
+    const heightInUnits = frustumHeight * (planePct / 100);
     if (!item) {
-      return { planeWidth: 33, planeHeight: PLANE_HEIGHT };
+      return {
+        planeWidth: heightInUnits * (2 / 3),
+        planeHeight: heightInUnits,
+      };
     }
-    const aspectRatio = item.width / item.height;
-
     return {
-      planeWidth: PLANE_HEIGHT * aspectRatio,
-      planeHeight: PLANE_HEIGHT,
+      planeWidth: heightInUnits * (item.width / item.height),
+      planeHeight: heightInUnits,
     };
-  }, [item]);
+  });
+
+  useEffect(() => {
+    const frustumHeight = isMobile ? FRUSTUM_MOBILE : FRUSTUM_DESKTOP;
+    const planePct = isMobile
+      ? PLANE_HEIGHT_PCT_MOBILE
+      : PLANE_HEIGHT_PCT_DESKTOP;
+    const heightInUnits = frustumHeight * (planePct / 100);
+    if (!item) {
+      setPlaneDims({
+        planeWidth: heightInUnits * (2 / 3),
+        planeHeight: heightInUnits,
+      });
+      return;
+    }
+    setPlaneDims({
+      planeWidth: heightInUnits * (item.width / item.height),
+      planeHeight: heightInUnits,
+    });
+  }, [item, isMobile]);
+
+  const { planeWidth, planeHeight } = planeDims;
 
   const texture = useTexture(item?.image.url ?? "");
 
@@ -71,7 +101,9 @@ export function GalleryImagePlane({ index }: GalleryImagePlaneProps) {
   );
 
   useEffect(() => {
-    if (!materialRef.current) return;
+    if (!materialRef.current) {
+      return;
+    }
     materialRef.current.uVelocity = 0;
     materialRef.current.uOpacity = 1;
   }, []);
@@ -80,12 +112,16 @@ export function GalleryImagePlane({ index }: GalleryImagePlaneProps) {
   // PHYSICS
   ///////////////////////////////////////////////////////////////////
   useFrame((_, delta) => {
-    if (!(meshRef.current && materialRef.current)) return;
+    if (!(meshRef.current && materialRef.current)) {
+      return;
+    }
 
     const { virtualIndex, items: storeItems } =
       useGalleryScrollStore.getState();
     const N = storeItems.length;
-    if (N === 0) return;
+    if (N === 0) {
+      return;
+    }
 
     const rawT = (((index - virtualIndex) % N) + N) % N;
     const tCentered = rawT > N / 2 ? rawT - N : rawT;
@@ -140,7 +176,9 @@ export function GalleryImagePlane({ index }: GalleryImagePlaneProps) {
         toneMapped={false}
         transparent
         uBowStrength={0.75}
+        uMediaRes={[item.width, item.height]}
         uOpacity={1}
+        uPlaneRes={[planeWidth, planeHeight]}
         uTexture={texture}
         uVelocity={0}
       />

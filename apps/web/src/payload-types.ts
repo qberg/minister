@@ -1561,6 +1561,27 @@ export interface Header {
           anchor?: string | null;
           label: string;
         };
+        /**
+         * Icon shown in the mobile bottom navigation bar
+         */
+        icon?:
+          | (
+              | 'house'
+              | 'user'
+              | 'map'
+              | 'bar-chart-2'
+              | 'newspaper'
+              | 'globe'
+              | 'info'
+              | 'star'
+              | 'building-2'
+              | 'trophy'
+            )
+          | null;
+        /**
+         * Keep it under 8 characters. Falls back to full label if empty.
+         */
+        mobileLabel?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -1628,6 +1649,8 @@ export interface HeaderSelect<T extends boolean = true> {
               anchor?: T;
               label?: T;
             };
+        icon?: T;
+        mobileLabel?: T;
         id?: T;
       };
   updatedAt?: T;

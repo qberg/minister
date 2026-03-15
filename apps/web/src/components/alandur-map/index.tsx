@@ -61,6 +61,7 @@ export function AlandurMap({
         viewBox="0 0 1441 1040"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>Map</title>
         {ZONES.map((zone) => (
           <MapPath
             d={zone.d}

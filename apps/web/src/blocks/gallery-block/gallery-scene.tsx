@@ -2,6 +2,7 @@
 
 import { OrthographicCamera } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
+import { useLayoutEffect } from "react";
 import type * as THREE from "three";
 import {
   selectIsMobile,
@@ -17,8 +18,15 @@ export function GalleryScene() {
   const items = useGalleryScrollStore(selectItems);
   return (
     <>
-      <OrthographicCamera far={100} makeDefault near={-100} />
+      <OrthographicCamera far={100} makeDefault manual near={-100} />
       <CameraRig />
+
+      {/*
+      <mesh position={[0, 0, 10]}>
+        <planeGeometry args={[20, 20]} />
+        <meshBasicMaterial color="red" />
+      </mesh>
+      */}
 
       {items.map((_, index) => (
         <GalleryImagePlane index={index} key={index} />
@@ -31,17 +39,20 @@ function CameraRig() {
   const { camera, size } = useThree();
   const isMobile = useGalleryScrollStore(selectIsMobile);
 
-  const halfVH = isMobile ? MOBILE_HALF_VH : DESKTOP_HALF_VH;
+  useLayoutEffect(() => {
+    const halfVH = isMobile ? MOBILE_HALF_VH : DESKTOP_HALF_VH;
+    const aspect = size.width / size.height;
+    const halfVW = halfVH * aspect;
 
-  const aspect = size.width / size.height;
-  const halfVW = halfVH * aspect;
+    const ortho = camera as THREE.OrthographicCamera;
 
-  const ortho = camera as THREE.OrthographicCamera;
-  ortho.left = -halfVW;
-  ortho.right = halfVW;
-  ortho.top = halfVH;
-  ortho.bottom = -halfVH;
-  ortho.updateProjectionMatrix();
+    ortho.left = -halfVW;
+    ortho.right = halfVW;
+    ortho.top = halfVH;
+    ortho.bottom = -halfVH;
+
+    ortho.updateProjectionMatrix();
+  }, [camera, size.width, size.height, isMobile]);
 
   return null;
 }
