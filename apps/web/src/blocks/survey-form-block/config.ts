@@ -46,7 +46,6 @@ export const SurveyFormBlock: Block = {
       ],
     },
 
-    // Step 1: Personal Info
     {
       type: "collapsible",
       label: "Step 1: Personal Info",
@@ -56,7 +55,7 @@ export const SurveyFormBlock: Block = {
           type: "text",
           localized: true,
           required: true,
-          defaultValue: "Verify Your Mobile Number",
+          defaultValue: "Provide Your Mobile Number",
         },
         {
           name: "personalInfoDesc",
@@ -96,15 +95,17 @@ export const SurveyFormBlock: Block = {
           type: "text",
           localized: true,
           required: true,
-          defaultValue: "Send OTP",
+          defaultValue: "Next Step",
         },
       ],
     },
 
-    // Step 2: OTP Verification
     {
       type: "collapsible",
       label: "Step 2: OTP Verification",
+      admin: {
+        hidden: true,
+      },
       fields: [
         {
           name: "otpTitle",

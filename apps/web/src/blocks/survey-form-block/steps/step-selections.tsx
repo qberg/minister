@@ -13,10 +13,11 @@ import { cn } from "@repo/design-system/lib/utils";
 import { useForm } from "@tanstack/react-form";
 import { Check, Loader2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { submitSurveyAction } from "@/app/actions/survey-actions";
 import { useSurveyFormStore } from "@/lib/stores/use-survey-form-store";
+import { getErrorMessage } from "@/lib/survey-utils";
 import type { SurveyBlock } from "@/payload-types";
 
 type Option = { id: number | string; label: string };
@@ -25,19 +26,6 @@ type Props = {
   block: SurveyBlock;
   mapZones?: Option[];
   visionCategories?: Option[];
-};
-
-const getErrorMessage = (error: any): string => {
-  if (!error) {
-    return "";
-  }
-  if (typeof error === "string") {
-    return error;
-  }
-  if (typeof error === "object" && "message" in error) {
-    return String(error.message);
-  }
-  return "Invalid value";
 };
 
 export function StepSelections({
@@ -60,9 +48,7 @@ export function StepSelections({
         toast.error("Missing personal information. Please restart.");
         return;
       }
-
       setIsLoading(true);
-
       try {
         const result = await submitSurveyAction({
           name: personalInfo.name,
@@ -70,41 +56,24 @@ export function StepSelections({
           mapZoneId: Number(value.mapZoneId),
           visionCategoryId: Number(value.visionCategoryId),
         });
-
         if (!result.success) {
           toast.error(result.message);
           return;
         }
-
         setSelections({
           mapZoneId: Number(value.mapZoneId),
           visionCategoryId: Number(value.visionCategoryId),
           vision: value.vision,
         });
-
-        toast.success("Vision submitted successfully!");
-        setStep("success"); // Triggers the success view in parent
-      } catch (_error) {
+        toast.success("Vision submitted!");
+        setStep("success");
+      } catch {
         toast.error("Failed to submit. Please try again.");
       } finally {
         setIsLoading(false);
       }
     },
   });
-
-  useEffect(() => {
-    const unsubscribe = form.store.subscribe(() => {
-      const { values } = form.state;
-      setSelections({
-        mapZoneId: values.mapZoneId ? Number(values.mapZoneId) : 0,
-        visionCategoryId: values.visionCategoryId
-          ? Number(values.visionCategoryId)
-          : 0,
-        vision: values.vision,
-      });
-    });
-    return () => unsubscribe();
-  }, [form, setSelections]);
 
   return (
     <motion.form
@@ -234,7 +203,7 @@ export function StepSelections({
 
             <div className="relative">
               <Textarea
-                className={cn("min-h-[120px] w-full resize-none")}
+                className={cn("min-h-[120px] w-full resize-none text-body")}
                 id={field.name}
                 name={field.name}
                 onBlur={field.handleBlur}
@@ -288,7 +257,6 @@ export function StepSelections({
                   key="loading"
                 >
                   <Loader2 className="h-5 w-5 animate-spin" />
-                  <span>{block.loadingSubmit || "Submitting..."}</span>
                 </motion.div>
               ) : (
                 <motion.div

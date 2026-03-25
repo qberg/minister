@@ -28,24 +28,6 @@ export async function submitSurveyAction(data: {
       };
     }
 
-    const verifiedOTP = await payload.find({
-      collection: "otp-verifications",
-      where: {
-        mobile: { equals: data.mobile },
-        verified: { equals: true },
-      },
-      limit: 1,
-      overrideAccess: true,
-    });
-
-    if (verifiedOTP.docs.length === 0) {
-      return {
-        success: false,
-        message:
-          "Mobile number not verified. Please complete OTP verification.",
-      };
-    }
-
     const headerStore = await headers();
     const ip =
       headerStore.get("x-forwarded-for") ||
@@ -57,7 +39,7 @@ export async function submitSurveyAction(data: {
       data: {
         name: data.name,
         mobile: data.mobile,
-        mobileVerified: true,
+        mobileVerified: false,
         mapZone: data.mapZoneId,
         visionCategory: data.visionCategoryId,
         vision: data.vision || "My vision",

@@ -25,6 +25,7 @@ function Textarea({
   "border",
   "px-5",
   "py-4",
+        "text-body",
   "focus-visible:ring-[3px]",
   "aria-invalid:ring-[3px]",
   "text-sm",

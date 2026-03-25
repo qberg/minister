@@ -5,7 +5,6 @@ import { Typography } from "@repo/design-system/components/ui/typography";
 import { cn } from "@repo/design-system/lib/utils";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import type { TypedLocale } from "payload";
-import { useMemo, useState } from "react";
 import useMeasure from "react-use-measure";
 import BackgroundImage from "@/components/background-image";
 import { getMediaUrl } from "@/lib/payload-media-utils";
@@ -15,9 +14,9 @@ import {
 } from "@/lib/stores/use-survey-form-store";
 import type { SurveyBlock } from "@/payload-types";
 import { SurveyStepper } from "./stepper";
-import { StepOtpVerification } from "./steps/step-otp-verification";
 import { StepPersonalInfo } from "./steps/step-personal-info";
 import { StepSelections } from "./steps/step-selections";
+import { StepSuccess } from "./steps/step-success";
 
 const iosSpring = {
   type: "spring",
@@ -59,9 +58,7 @@ type Props = {
 };
 
 export function SurveyFormBlock({ block, mapZones, visionCategories }: Props) {
-  const { currentStep } = useSurveyFormStore();
-
-  const [direction, setDirection] = useState(0);
+  const { currentStep, direction } = useSurveyFormStore();
 
   const [ref, bounds] = useMeasure();
 
@@ -72,30 +69,22 @@ export function SurveyFormBlock({ block, mapZones, visionCategories }: Props) {
       key: "personal-info" as SurveyStep,
       title: block.personalInfoTitle,
       description: block.personalInfoDesc,
-      label: "Verify Identity",
-    },
-    {
-      key: "otp-verification" as SurveyStep,
-      title: block.otpTitle,
-      description: block.otpDesc,
-      label: "Verify Identity",
+      label: "Personal Info",
     },
     {
       key: "selections" as SurveyStep,
       title: block.selectionsTitle,
       description: block.selectionsDesc,
-      label: "Verify Identity",
+      label: "Your Vision",
     },
   ];
 
   const currentStepIndex = stepConfig.findIndex((s) => s.key === currentStep);
 
-  const ActiveStepComponent = useMemo(() => {
+  function renderStep() {
     switch (currentStep) {
       case "personal-info":
         return <StepPersonalInfo block={block} />;
-      case "otp-verification":
-        return <StepOtpVerification block={block} />;
       case "selections":
         return (
           <StepSelections
@@ -105,11 +94,11 @@ export function SurveyFormBlock({ block, mapZones, visionCategories }: Props) {
           />
         );
       case "success":
-        return <div>Success</div>;
+        return <StepSuccess block={block} />;
       default:
         return null;
     }
-  }, [currentStep, block]);
+  }
 
   return (
     <Box
@@ -163,7 +152,7 @@ export function SurveyFormBlock({ block, mapZones, visionCategories }: Props) {
                   }}
                   variants={variants}
                 >
-                  {ActiveStepComponent}
+                  {renderStep()}
                 </motion.div>
               </AnimatePresence>
             </MotionConfig>
