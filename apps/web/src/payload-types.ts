@@ -745,6 +745,10 @@ export interface MapZone {
   slugLock?: boolean | null;
   type: 'panchayat' | 'ward';
   /**
+   * Shown in the map tooltip on hover
+   */
+  image?: (number | null) | Media;
+  /**
    * Approximate population
    */
   population?: number | null;
@@ -1468,6 +1472,7 @@ export interface MapZonesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   type?: T;
+  image?: T;
   population?: T;
   areaSqKm?: T;
   updatedAt?: T;

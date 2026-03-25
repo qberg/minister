@@ -1,55 +1,55 @@
 {
   "HomePage": {
-    "title": "T M Anbarasan"
+    "title": "தா. மோ. அன்பரசன்"
   },
   "Header": {
-    "name": "த. ம. அனபரசன"
+    "name": "தா. மோ. அன்பரசன்"
   },
   "IntMap": {
-    "heading_default": "ஆலநதரல ஏறபடததய மறறஙகள",
-    "heading_zone": "{zone} பகதயல ஏறபடததய மறறஙகள",
+    "heading_default": "ஆலந்தூரில் ஏற்படுத்திய மாற்றங்கள்",
+    "heading_zone": "{zone} பகுதியில் ஏற்படுத்திய மாற்றங்கள்",
 
-    "placeholder": "ஒர வரட / கரமதத தரநதடககவம",
-    "search_label": "வரட / கரமம தடவம",
-    "empty_label": "பகத கடககவலல",
+    "placeholder": "ஒரு வார்டு / கிராமத்தை தேர்ந்தெடுக்கவும்",
+    "search_label": "வார்டு / கிராமம் தேடவும்",
+    "empty_label": "பகுதி கிடைக்கவில்லை",
 
-    "wards_heading": "வரடகள",
-    "village_heading": "கரமஙகள மறறம பற பகதகள",
+    "wards_heading": "வார்டுகள்",
+    "village_heading": "கிராமங்கள் மற்றும் பிற பகுதிகள்",
 
-    "stat_label_one": "சலவடபபடட தக",
-    "stat_label_two": "நடமறபபடததபபடட தடடஙகள",
-    "stat_label_three": "தரககபபடட சககலகள",
+    "stat_label_one": "செலவிடப்பட்ட தொகை",
+    "stat_label_two": "நடைமுறைப்படுத்தப்பட்ட திட்டங்கள்",
+    "stat_label_three": "தீர்க்கப்பட்ட சிக்கல்கள்",
 
-    "perspective_card_label": "சலவடபபடட தக",
-    "simple_card_label": "சலவடபபடட தக",
+    "perspective_card_label": "செலவிடப்பட்ட தொகை",
+    "simple_card_label": "செலவிடப்பட்ட தொகை",
 
-    "cta_label": "மலம அறய"
+    "cta_label": "மேலும் அறிய"
   },
   "Footer": {
-    "contacts": "தடரபகள",
-    "sitemap": "பககஙகள",
-    "trademark": "© 2025 த. ம. அனபரசன. அனதத அநதரபபககம சரககபபடடளளத.",
-    "creatorTag": "உரவககயத",
-    "ppLabel": "தனயரமக களக",
-    "termsLabel": "வதமறகள மறறம நபநதனகள"
+    "contacts": "தொடர்புகள்",
+    "sitemap": "பக்கங்கள்",
+    "trademark": "© 2025 தா. மோ. அன்பரசன். அனைத்து அந்தர்ப்பாக்கம் சேர்க்கப்பட்டுள்ளது.",
+    "creatorTag": "உருவாக்கியது",
+    "ppLabel": "தனியுரிமைக் கொள்கை",
+    "termsLabel": "விதிமுறைகள் மற்றும் நிபந்தனைகள்"
   },
   "WordsPreloader": {
     "words": [
-      "வணககம",
+      "வணக்கம்",         
       "Welcome",
       "T. M. Anbarasan",
       "Leadership",
-      "சவ",
+      "சேவை",            
       "Development",
-      "மககள",
+      "மக்கள்",           
       "Progress",
-      "நமபகக",
+      "நம்பிக்கை",        
       "Vision",
-      "தமழகம",
+      "தமிழகம்",       
       "For the People"
     ]
   },
-  "ActivitiesTable": {
+    "ActivitiesTable": {
     "heading_default": "Detailed Works",
     "heading_zone": "Detailed Works {zone}",
     "col_no": "No.",
@@ -66,4 +66,3 @@
     "no_results": "No activities found."
   }
 }
-

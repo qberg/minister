@@ -21,7 +21,7 @@ export function LenisScroll({ children }: { children: React.ReactNode }) {
         autoResize: true,
         overscroll: true,
         autoRaf: true,
-        anchors: true,
+        anchors: false,
         autoToggle: false,
         allowNestedScroll: false,
 

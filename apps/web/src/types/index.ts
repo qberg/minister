@@ -58,7 +58,7 @@ export type MapZoneData = {
   d: string;
 };
 
-export type MapZoneOption = Pick<MapZone, "name" | "slug" | "type">;
+export type MapZoneOption = Pick<MapZone, "name" | "slug" | "type" | "image">;
 
 export type RawImpactAggregateRow = {
   issueId: number;

@@ -10,11 +10,12 @@ const OFFSET = 15;
 
 type Props = {
   text: string;
+  image: string | null;
   mouseX: MotionValue<number>;
   mouseY: MotionValue<number>;
 };
 
-function Tooltip({ text, mouseX, mouseY }: Props) {
+function Tooltip({ text, image, mouseX, mouseY }: Props) {
   const springConfig = {
     damping: 30,
     stiffness: 300,
@@ -49,7 +50,7 @@ function Tooltip({ text, mouseX, mouseY }: Props) {
           alt="Zone Image"
           className="object-cover"
           fill
-          src="/images/about-bg-2.png"
+          src={image ?? "/images/about-bg-2.png"}
           unoptimized
         />
       </div>

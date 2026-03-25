@@ -11,6 +11,7 @@ type Props = {
   activeZoneSlug: string | null;
   onZoneSelect: (slug: string) => void;
   zoneNames?: Record<string, string>;
+  zoneImages?: Record<string, string>;
   className?: string;
 };
 
@@ -18,10 +19,12 @@ export function AlandurMap({
   activeZoneSlug,
   onZoneSelect,
   zoneNames = {},
+  zoneImages = {},
   className,
 }: Props) {
   // --- Tooltip & Interaction Logic ---
   const [hoveredName, setHoveredName] = useState<string | null>(null);
+  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -32,6 +35,8 @@ export function AlandurMap({
   };
 
   const getName = (slug: string) => zoneNames[slug] || slug.replace(/-/g, " ");
+
+  console.log("Image:", hoveredImage);
 
   return (
     <div
@@ -51,7 +56,12 @@ export function AlandurMap({
     >
       <AnimatePresence>
         {hoveredName && (
-          <Tooltip mouseX={mouseX} mouseY={mouseY} text={hoveredName} />
+          <Tooltip
+            image={hoveredImage}
+            mouseX={mouseX}
+            mouseY={mouseY}
+            text={hoveredName}
+          />
         )}
       </AnimatePresence>
 
@@ -68,8 +78,14 @@ export function AlandurMap({
             isActive={activeZoneSlug === zone.slug}
             key={zone.slug}
             name={getName(zone.slug)}
-            onHover={(n, _e) => setHoveredName(n)}
-            onLeave={() => setHoveredName(null)}
+            onHover={(n) => {
+              setHoveredName(n);
+              setHoveredImage(zoneImages[zone.slug] ?? null);
+            }}
+            onLeave={() => {
+              setHoveredName(null);
+              setHoveredImage(null);
+            }}
             onSelect={onZoneSelect}
             slug={zone.slug}
             type={zone.type}

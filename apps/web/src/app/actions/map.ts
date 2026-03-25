@@ -19,6 +19,7 @@ export async function getMapZones(
         name: true,
         slug: true,
         type: true,
+        image: true,
       },
     });
 
@@ -26,6 +27,7 @@ export async function getMapZones(
       name: doc.name,
       slug: doc.slug,
       type: doc.type,
+      image: doc.image,
     }));
   } catch (error) {
     // biome-ignore lint: needed for debugging

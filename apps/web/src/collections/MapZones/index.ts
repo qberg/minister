@@ -52,6 +52,16 @@ export const MapZones: CollectionConfig<"map-zones"> = {
     },
 
     {
+      name: "image",
+      type: "upload",
+      relationTo: "media",
+      label: "Zone Preview Image",
+      admin: {
+        description: "Shown in the map tooltip on hover",
+      },
+    },
+
+    {
       type: "row",
       fields: [
         {

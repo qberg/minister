@@ -23,6 +23,7 @@ import { buildHref } from "@/components/cms-link";
 import Heading from "@/components/heading";
 import { PerspectiveCarousel } from "@/components/perspective-carousel";
 import { SimpleIssueCard } from "@/components/simple-issue-card";
+import { getMediaUrl } from "@/lib/payload-media-utils";
 import type { InteractiveMapBlock as InteractiveMapBlockProps } from "@/payload-types";
 import type { AllImpactStats, MapZoneOption } from "@/types";
 import { ActivitiesSection } from "./activities-section";
@@ -103,6 +104,16 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
     return lookup;
   }, [zones]);
 
+  const zoneImageLookup = useMemo(() => {
+    const lookup: Record<string, string> = {};
+    for (const z of zones) {
+      if (z.slug) {
+        lookup[z.slug] = getMediaUrl(z.image);
+      }
+    }
+    return lookup;
+  }, [zones]);
+
   const handleZoneToggle = (slug: string) => {
     const nextSlug = slug === activeSlug ? null : slug;
     setActiveSlug(nextSlug);
@@ -177,6 +188,7 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
                   activeZoneSlug={activeSlug}
                   className="h-full w-full"
                   onZoneSelect={handleZoneToggle}
+                  zoneImages={zoneImageLookup}
                   zoneNames={zoneNameLookup}
                 />
               )}
