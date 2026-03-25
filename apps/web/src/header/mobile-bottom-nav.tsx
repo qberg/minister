@@ -37,7 +37,7 @@ export function MobileBottomNav({ navItems }: Props) {
   const pathname = usePathname();
   const { activeValue } = useScrollSpy();
   const isHomeActive = pathname === "/" || pathname === "/home";
-  const isHidden = activeValue === "footer" || activeValue === "hero";
+  const isHidden = activeValue === "footer";
 
   return (
     <nav

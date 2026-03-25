@@ -32,18 +32,18 @@ declare const messages: {
     "termsLabel": "Terms and Conditions"
   },
   "WordsPreloader": {
-    "words": [
-      "வணககம",
+       "words": [
+      "வணக்கம்",         
       "Welcome",
       "T. M. Anbarasan",
       "Leadership",
-      "சவ",
+      "சேவை",            
       "Development",
-      "மககள",
+      "மக்கள்",           
       "Progress",
-      "நமபகக",
+      "நம்பிக்கை",        
       "Vision",
-      "தமழகம",
+      "தமிழகம்",       
       "For the People"
     ]
   },

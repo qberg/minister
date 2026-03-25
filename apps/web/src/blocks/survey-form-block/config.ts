@@ -152,7 +152,7 @@ export const SurveyFormBlock: Block = {
     // Step 3: Selections
     {
       type: "collapsible",
-      label: "Step 3: Selections",
+      label: "Step 2: Selections",
       fields: [
         {
           name: "selectionsTitle",
@@ -220,7 +220,7 @@ export const SurveyFormBlock: Block = {
     // Step 4: Success
     {
       type: "collapsible",
-      label: "Step 4: Success Message",
+      label: "Step 3: Success Message",
       fields: [
         {
           name: "successTitle",
