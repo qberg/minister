@@ -172,7 +172,7 @@ export function StepPersonalInfo({ block }: Props) {
           <motion.button
             animate={{ opacity: 1, y: 0 }}
             className={cn(
-              "relative mx-auto w-full cursor-pointer overflow-hidden rounded-full py-4 font-body font-bold text-lg md:w-[50%]",
+              "relative mx-auto w-full cursor-pointer overflow-hidden rounded-full py-2 font-body font-bold text-lg md:w-[50%] md:py-3 2xl:py-4",
               "flex items-center justify-center gap-2 transition-all duration-300 ease-out",
               canSubmit
                 ? "bg-white/85 text-blue-950 shadow-accent/20 shadow-lg hover:bg-accent/90"
