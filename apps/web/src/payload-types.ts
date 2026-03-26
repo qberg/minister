@@ -278,10 +278,11 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            hls?: {
+            hls: {
               title?: string | null;
               tImg?: (number | null) | Media;
               wImg?: (number | null) | Media;
+              blkType: 'iBlk' | 'sBlk';
               sBlk?:
                 | {
                     title: string;
@@ -428,7 +429,7 @@ export interface CompositeGridBlock {
   bgImg?: (number | null) | Media;
   items?:
     | {
-        cardType: 'image' | 'content';
+        cardType: 'image' | 'content' | 'carousel';
         imageCard?: {
           image: number | Media;
         };
@@ -450,6 +451,27 @@ export interface CompositeGridBlock {
             label: string;
           };
         };
+        carouselCard?:
+          | {
+              title: string;
+              text: string;
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                /**
+                 * Optional: Add # to scroll to a section (e.g., "team" for #team)
+                 */
+                anchor?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -1072,6 +1094,7 @@ export interface PagesSelect<T extends boolean = true> {
                     title?: T;
                     tImg?: T;
                     wImg?: T;
+                    blkType?: T;
                     sBlk?:
                       | T
                       | {
@@ -1217,6 +1240,23 @@ export interface CompositeGridBlockSelect<T extends boolean = true> {
                     anchor?: T;
                     label?: T;
                   };
+            };
+        carouselCard?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    anchor?: T;
+                    label?: T;
+                  };
+              id?: T;
             };
         id?: T;
       };

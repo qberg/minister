@@ -116,8 +116,9 @@ const StickyStatsBlock = ({ block, locale }: StickyStatsBlockProps) => {
                     key={statBlock.id || `stat-${index}`}
                     title={statBlock.title}
                     variant={variant}
+                    blkType={block.hls?.blkType}
                   >
-                    <StatGrid>
+                    <StatGrid blkType={block.hls?.blkType}>
                       {statBlock.stats?.map((stat, statIndex) => (
                         <StatItem
                           index={statIndex}

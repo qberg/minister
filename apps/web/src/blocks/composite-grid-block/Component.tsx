@@ -7,11 +7,19 @@ import Heading from "@/components/heading";
 import { getMediaUrl } from "@/lib/payload-media-utils";
 import type { CompositeGridBlock as CompositeGridBlockProps } from "@/payload-types";
 import { ContentCard, ImageCard } from "./cards";
+import { Carousel } from "@/components/timeout-carousel";
 
 type Props = {
   locale?: TypedLocale;
   block: CompositeGridBlockProps;
 };
+
+// export type CarouselItem = NonNullable<CompositeGridBlockProps["items"]>[number] & {
+//   cardType: "carousel",
+//   carouselCard: NonNullable<NonNullable<CompositeGridBlockProps["items"]>[number]["carouselCard"]>
+// }
+
+export type CarouselCard = NonNullable<NonNullable<CompositeGridBlockProps["items"]>[number]["carouselCard"]>[number]
 
 const getPositionVariant = (index: number): "0" | "1" | "2" | "3" => {
   const position = index % 4;
@@ -22,6 +30,10 @@ export function CompositeGridBlock({ block }: Props) {
   const bgImageSrc = getMediaUrl(block.bgImg);
   const heading = block.heading;
   const description = block.description;
+
+  const carouselCards: CarouselCard[] = block.items?.filter(item => item.cardType === "carousel" && item.carouselCard?.length).flatMap(item => item.carouselCard ?? []) ?? []
+  const imageCards = block.items?.filter(item => item.cardType === "image")
+  const contentCards = block.items?.filter(item => item.cardType === "content")
 
   return (
     <Box as="section" className="theme-dark relative bg-surface">
@@ -43,7 +55,25 @@ export function CompositeGridBlock({ block }: Props) {
         )}
 
         <div className="grid grid-cols-1 4xl:gap-8 gap-6 md:auto-rows-fr lg:grid-cols-3 lg:grid-rows-3 lg:gap-4">
-          {block.items?.map((item, index) => {
+          {imageCards?.map((item, index) => {
+            return (
+              <ImageCard
+                data={item}
+                key={item.id || index}
+                position={getPositionVariant(index)}
+              />
+            )
+          })}
+          {contentCards?.map((item, index) => {
+            return (
+              <ContentCard
+                data={item}
+                key={item.id || index}
+                position={getPositionVariant(index)}
+              />
+            )
+          })}
+          {/* {block.items?.map((item, index) => {
             const key = item.id || index;
 
             switch (item.cardType) {
@@ -70,7 +100,8 @@ export function CompositeGridBlock({ block }: Props) {
                   </div>
                 );
             }
-          })}
+          })} */}
+          <Carousel array={carouselCards} />
         </div>
       </Stack>
     </Box>

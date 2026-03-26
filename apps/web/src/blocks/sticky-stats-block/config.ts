@@ -94,6 +94,17 @@ export const StickyStatsBlock: Block = {
           label: "Wide Image",
         },
         {
+          name: "blkType",
+          label: "Select Block Type",
+          type: "select",
+          required: true,
+          options: [
+            { label: "Impact Block", value: "iBlk" },
+            { label: "Stat Block", value: "sBlk" },
+          ],
+          defaultValue: "sBlk",
+        },
+        {
           name: "sBlk",
           type: "array",
           label: "Stat Block",
