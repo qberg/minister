@@ -75,7 +75,7 @@ export type IssueCardStat = {
   name: string;
   slug: string;
   activityCount: number;
-  totalAmount: number;
+  totalAmount?: number;
   imageSrc?: string | null;
   color?: string;
 };

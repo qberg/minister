@@ -26,10 +26,6 @@ const parseCost = (costStr: string): number => {
 const resolveIssueSlug = (rawType: string, rawTitle: string): string => {
   const text = `${rawType} ${rawTitle}`.toLowerCase();
 
-  if (text.includes("road") || text.includes("pavement")) {
-    return "roads";
-  }
-
   if (
     text.includes("water") ||
     text.includes("oht") ||
@@ -43,6 +39,8 @@ const resolveIssueSlug = (rawType: string, rawTitle: string): string => {
 
   if (
     text.includes("drain") ||
+    text.includes("கால்வாய்") ||
+    text. includes("வடிகால்") ||
     text.includes("culvert") ||
     text.includes("soak") ||
     text.includes("canal")
@@ -52,9 +50,13 @@ const resolveIssueSlug = (rawType: string, rawTitle: string): string => {
 
   if (
     text.includes("school") ||
+    text.includes("பள்ளி") ||
     text.includes("class") ||
     text.includes("education") ||
-    text.includes("anganwadi")
+    text.includes("anganwadi") || 
+    text.includes("அங்கன்வாடி") ||
+    text.includes("வகுப்பறை") || 
+    text.includes("நூலக")
   ) {
     return "education";
   }
@@ -62,13 +64,15 @@ const resolveIssueSlug = (rawType: string, rawTitle: string): string => {
   if (
     text.includes("toilet") ||
     text.includes("sanitary") ||
-    text.includes("latrine")
+    text.includes("latrine") ||
+    text.includes("கழிப்பிட")
   ) {
     return "toilets";
   }
 
   if (
     text.includes("park") ||
+    text.includes("பூங்கா") ||
     text.includes("green") ||
     text.includes("plantation") ||
     text.includes("nursery") ||
@@ -84,6 +88,22 @@ const resolveIssueSlug = (rawType: string, rawTitle: string): string => {
     text.includes("hut")
   ) {
     return "housing";
+  }
+  
+  if (
+    text.includes("gym") ||
+    text.includes("உடற்பயிற்சி")
+  ) {
+    return "gym"
+  }
+
+  if (
+    text.includes("road") ||
+    text.includes("சாலை") ||
+    text.includes("pavement") ||
+    text.includes("வேகத்தடை")
+  ) {
+    return "roads";
   }
 
   // Default catch-all for PDS, Libraries, Burial Grounds, etc.

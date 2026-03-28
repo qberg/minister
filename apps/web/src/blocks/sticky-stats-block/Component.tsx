@@ -21,11 +21,13 @@ const StickyStatsBlock = ({ block, locale }: StickyStatsBlockProps) => {
 
   const theme = variant === "light" ? "theme-light" : "theme-dark";
 
-  const tImg = block.hls?.tImg;
-  const tImgUrl = getMediaUrl(tImg, "/images/about-bg.png");
+  //const tImg = block.hls?.tImg;
+  //const tImgUrl = getMediaUrl(tImg, "/images/about-bg.png");
 
-  const wImg = block.hls?.wImg;
-  const wImgUrl = typeof wImg === "object" ? wImg?.url : null;
+  //const wImg = block.hls?.wImg;
+  //const wImgUrl = typeof wImg === "object" ? wImg?.url : null;
+
+  const decoImg = block.hls?.decoImages;
 
   return (
     <>
@@ -76,35 +78,38 @@ const StickyStatsBlock = ({ block, locale }: StickyStatsBlockProps) => {
           <div className="flex w-full flex-col gap-9 lg:flex-row lg:justify-between">
             {/* deco Images*/}
             <div className="flex w-full flex-col gap-4 lg:w-[33%] lg:gap-[25vw]">
-              {tImgUrl && (
-                <div className="relative aspect-[0.75/1] w-full overflow-hidden rounded-md lg:w-[90%]">
-                  <div className="absolute inset-0">
-                    <Image
-                      alt="Deco Image"
-                      className="object-cover"
-                      fill
-                      priority
-                      src={tImgUrl}
-                      unoptimized
-                    />
-                  </div>
+              {decoImg?.map((image, index) => (
+                <div key={index} className="flex w-full flex-col gap-4 lg:gap-[25vw]">
+                  {image.tImg && (
+                    <div className="relative aspect-[0.75/1] w-full overflow-hidden rounded-md lg:w-[90%]">
+                      <div className="absolute inset-0">
+                        <Image
+                          alt="Deco Image"
+                          className="object-cover"
+                          fill
+                          priority
+                          src={getMediaUrl(image.tImg, "/images/about-bg.png")}
+                          unoptimized
+                        />
+                      </div>
+                    </div>
+                  )}
+                  {image.wImg && (
+                    <div className="relative aspect-[1.75/1] w-full overflow-hidden rounded-md lg:w-[90%]">
+                      <div className="absolute inset-0">
+                        <Image
+                          alt="Deco Image"
+                          className="object-cover"
+                          fill
+                          priority
+                          src={getMediaUrl(image.wImg, "/images/about-bg.png")}
+                          unoptimized
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-
-              {wImgUrl && (
-                <div className="relative aspect-[1.75/1] w-full overflow-hidden rounded-md lg:w-[90%]">
-                  <div className="absolute inset-0">
-                    <Image
-                      alt="Deco Image"
-                      className="object-cover"
-                      fill
-                      priority
-                      src={wImgUrl}
-                      unoptimized
-                    />
-                  </div>
-                </div>
-              )}
+              ))}
             </div>
 
             {/* stat block*/}
@@ -112,7 +117,7 @@ const StickyStatsBlock = ({ block, locale }: StickyStatsBlockProps) => {
               <Stack>
                 {block.hls?.sBlk?.map((statBlock, index) => (
                   <StatBlock
-                    description={statBlock.desc}
+                    description={statBlock.desc??null}
                     key={statBlock.id || `stat-${index}`}
                     title={statBlock.title}
                     variant={variant}

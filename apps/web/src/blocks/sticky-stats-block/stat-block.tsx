@@ -64,7 +64,7 @@ StatGrid.displayName = "StatGrid";
 
 type StatBlockProps = {
   title: string;
-  description: string;
+  description: string | null;
   children: React.ReactNode;
   className?: string;
   variant?: StickyStatsVariant;
@@ -83,13 +83,13 @@ const StatBlock = ({
       <Typography as="h6" className="" intent={"title"} variant="bodyLG">
         {title}
       </Typography>
-      {blkType === 'sBlk' && (
+      {blkType === 'sBlk' && description && (
         <Typography as="h6" intent={"subtle"} variant="headingXXS">
           {description}
         </Typography>
       )}
       {children}
-      {blkType === 'iBlk' && (
+      {blkType === 'iBlk' && description && (
         <Typography as="h6" intent={"subtle"} variant="headingXXS">
           {description}
         </Typography>

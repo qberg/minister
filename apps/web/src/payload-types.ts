@@ -280,13 +280,18 @@ export interface Page {
               | null;
             hls: {
               title?: string | null;
-              tImg?: (number | null) | Media;
-              wImg?: (number | null) | Media;
+              decoImages?:
+                | {
+                    tImg?: (number | null) | Media;
+                    wImg?: (number | null) | Media;
+                    id?: string | null;
+                  }[]
+                | null;
               blkType: 'iBlk' | 'sBlk';
               sBlk?:
                 | {
                     title: string;
-                    desc: string;
+                    desc?: string | null;
                     stats?:
                       | {
                           v: string;
@@ -760,7 +765,7 @@ export interface SurveySub {
 export interface MapZone {
   id: number;
   /**
-   * The name shown in the tooltip and header (e.g., "Ward 160" or "Iyyappanthangal")
+   * The name shown in the tooltip and header (e.g., "Ward 160" or "Iyyapanthangal")
    */
   name: string;
   slug?: string | null;
@@ -775,6 +780,19 @@ export interface MapZone {
    */
   population?: number | null;
   areaSqKm?: number | null;
+  /**
+   * Amount Spent for this zone
+   */
+  totalAmount?: number | null;
+  totalActivities?: number | null;
+  totalIssues?: number | null;
+  issuesBreakdown?:
+    | {
+        issueType?: (number | null) | Issue;
+        activityCount?: number | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -804,7 +822,7 @@ export interface Issue {
 export interface Activity {
   id: number;
   title: string;
-  cost: number;
+  cost?: number | null;
   type?: (number | null) | Issue;
   zone?: (number | null) | MapZone;
   scheme?: string | null;
@@ -1092,8 +1110,13 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     title?: T;
-                    tImg?: T;
-                    wImg?: T;
+                    decoImages?:
+                      | T
+                      | {
+                          tImg?: T;
+                          wImg?: T;
+                          id?: T;
+                        };
                     blkType?: T;
                     sBlk?:
                       | T
@@ -1515,6 +1538,16 @@ export interface MapZonesSelect<T extends boolean = true> {
   image?: T;
   population?: T;
   areaSqKm?: T;
+  totalAmount?: T;
+  totalActivities?: T;
+  totalIssues?: T;
+  issuesBreakdown?:
+    | T
+    | {
+        issueType?: T;
+        activityCount?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

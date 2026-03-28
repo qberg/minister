@@ -20,6 +20,10 @@ export async function getMapZones(
         slug: true,
         type: true,
         image: true,
+        totalActivities: true,
+        totalAmount: true,
+        totalIssues: true,
+        issuesBreakdown: true,
       },
     });
 
@@ -28,6 +32,10 @@ export async function getMapZones(
       slug: doc.slug,
       type: doc.type,
       image: doc.image,
+      totalActivities: doc.totalActivities,
+      totalAmount: doc.totalAmount,
+      totalIssues: doc.totalIssues,
+      issuesBreakdown: doc.issuesBreakdown,
     }));
   } catch (error) {
     // biome-ignore lint: needed for debugging
