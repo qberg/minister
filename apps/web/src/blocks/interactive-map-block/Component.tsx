@@ -90,9 +90,7 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
       let statsData: AllImpactStats | null;
 
       if (activeSlug) {
-        console.log('zones', zones)
         const zone = zones.find((z) => z.slug === activeSlug);
-        console.log(zone)
         statsData = zone ? transformZoneToStats(zone) : null;
       } else {
         const issueMap = new Map<string, IssueCardStat>()
@@ -101,7 +99,6 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
         let totalIssues = 0;
 
         zones.forEach((zone) => {
-          console.log('zone', totalActivities, zone)
           const zoneStats = transformZoneToStats(zone);
           totalActivities += zoneStats.totalActivities;
           totalAmount += zoneStats.totalAmount;
@@ -126,7 +123,6 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
       }
 
       if (isMounted) {
-        console.log('statsData', statsData, activeSlug)
         setStats(statsData);
         setIsLoadingStats(false);
       }
@@ -197,8 +193,7 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
   const headingText = activeSlug
     ? t("heading_zone", { zone: zoneNameLookup[activeSlug] })
     : t("heading_default");
-
-  console.log('interactiveMapBlock', activeSlug, stats)
+    
   return (
     <>
       <Box

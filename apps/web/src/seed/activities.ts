@@ -98,6 +98,45 @@ const resolveIssueSlug = (rawType: string, rawTitle: string): string => {
   }
 
   if (
+    text.includes("culvert")
+  ) {
+    return "culvert"
+  }
+
+  if (
+    text.includes("water supply")
+  ) {
+    return "water-supply"
+  }
+
+  if (
+    text.includes("kitchen-shed")
+  ) {
+    return "kitchen-shed"
+  }
+
+  if (
+    text.includes("ration shop") 
+  ) {
+    return "ration-shop"
+  }
+
+  if (
+    text.includes("cc road") ||
+    text.includes("cc pavement") ||
+    text.includes("cement concrete road") ||
+    text.includes("cement concrete pavement")
+  ) {
+    return "cc-road"
+  }
+
+  if (
+    text.includes("bt road")
+  ) {
+    return "cc-road"
+  }
+
+  if (
     text.includes("road") ||
     text.includes("சாலை") ||
     text.includes("pavement") ||

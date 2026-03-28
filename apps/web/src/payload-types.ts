@@ -69,9 +69,11 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    documents: Document;
     pages: Page;
     articles: Article;
     'news-feat': NewsFeat;
+    announcements: Announcement;
     tags: Tag;
     'survey-sub': SurveySub;
     issues: Issue;
@@ -88,9 +90,11 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    documents: DocumentsSelect<false> | DocumentsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     'news-feat': NewsFeatSelect<false> | NewsFeatSelect<true>;
+    announcements: AnnouncementsSelect<false> | AnnouncementsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     'survey-sub': SurveySubSelect<false> | SurveySubSelect<true>;
     issues: IssuesSelect<false> | IssuesSelect<true>;
@@ -219,6 +223,28 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+  id: number;
+  /**
+   * Internal label (e.g., Resume - John Doe)
+   */
+  label: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -731,6 +757,40 @@ export interface NewsFeat {
   createdAt: string;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "announcements".
+ */
+export interface Announcement {
+  id: number;
+  /**
+   * Brief title or headline of the announcement
+   */
+  title: string;
+  linkType?: ('internal' | 'external') | null;
+  fileType?: ('image' | 'file') | null;
+  /**
+   * Link to the external site
+   */
+  externalLink?: string | null;
+  /**
+   * Upload the file
+   */
+  file?: (number | null) | Document;
+  /**
+   * Upload the image
+   */
+  image?: (number | null) | Media;
+  tags?: (number | null) | Tag;
+  publishedDate: string;
+  badge?: string | null;
+  /**
+   * Should this album be visible to the public?
+   */
+  isFeat?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * OTP-verified survey submissions from citizens
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -900,6 +960,10 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
+        relationTo: 'documents';
+        value: number | Document;
+      } | null)
+    | ({
         relationTo: 'pages';
         value: number | Page;
       } | null)
@@ -910,6 +974,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'news-feat';
         value: number | NewsFeat;
+      } | null)
+    | ({
+        relationTo: 'announcements';
+        value: number | Announcement;
       } | null)
     | ({
         relationTo: 'tags';
@@ -1049,6 +1117,24 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents_select".
+ */
+export interface DocumentsSelect<T extends boolean = true> {
+  label?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1464,6 +1550,24 @@ export interface NewsFeatSelect<T extends boolean = true> {
   tags?: T;
   publishedDate?: T;
   externalLink?: T;
+  isFeat?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "announcements_select".
+ */
+export interface AnnouncementsSelect<T extends boolean = true> {
+  title?: T;
+  linkType?: T;
+  fileType?: T;
+  externalLink?: T;
+  file?: T;
+  image?: T;
+  tags?: T;
+  publishedDate?: T;
+  badge?: T;
   isFeat?: T;
   updatedAt?: T;
   createdAt?: T;

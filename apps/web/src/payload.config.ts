@@ -20,6 +20,8 @@ import { VisionCategories } from "./collections/VisionCategories";
 import { Footer } from "./footer/config";
 import { Header } from "./header/config";
 import { s3Adapter } from "./storage/s3";
+import { Documents } from "./collections/Documents";
+import { Announcements } from "./collections/Announcements";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -63,9 +65,11 @@ export default buildConfig({
   collections: [
     Users,
     Media,
+    Documents,
     Pages,
     Articles,
     NewspaperFeatuers,
+    Announcements,
     Tags,
     SurveySubmissions,
     Issues,
