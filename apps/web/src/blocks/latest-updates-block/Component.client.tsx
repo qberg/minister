@@ -63,7 +63,6 @@ const LatestUpdatesClient = ({ block, tags, initialData, locale }: Props) => {
         limit: block.perPage,
       });
 
-      console.log('result', result.docs)
       setItems(result.docs);
 
       setHasNextPage(result.hasNextPage);
