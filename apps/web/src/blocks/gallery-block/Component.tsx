@@ -49,7 +49,7 @@ export function GalleryBlock({ block }: GalleryBlockProps) {
       const item: GalleryImageItem = {
         id: image.id ?? index,
         image,
-        title: entry.title ?? null,
+        caption: entry.caption ?? null,
         location: entry.location ?? null,
         width,
         height,

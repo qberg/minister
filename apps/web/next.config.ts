@@ -20,8 +20,13 @@ let nextConfig: NextConfig = {
       ".js": [".ts", ".tsx", ".js", ".jsx"],
       ".mjs": [".mts", ".mjs"],
     };
+    webpackConfig.resolve.alias = {
+      ...(webpackConfig.resolve.alias || {}),
+      canvas: false,
+    };
     return webpackConfig;
   },
+  
 };
 
 nextConfig = withNextIntl(nextConfig);

@@ -33,6 +33,9 @@ function mapToLatestUpdateItem(
       : null,
     newspaper: doc.newspaper,
     externalLink: doc.externalLink,
+    file: doc.file,
+    fileType: doc.fileType,
+    badge: doc.badge
   };
 }
 
@@ -75,6 +78,9 @@ export async function getLatestUpdates(
       image: true,
       tags: true,
       externalLink: true,
+      fileType: true,
+      file: true,
+      badge: true,
     },
   });
 

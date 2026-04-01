@@ -1,12 +1,13 @@
 import configPromise from "@payload-config";
 import { getPayload, type Payload } from "payload";
-import { testOTPFlow } from "./otp-test";
+// import { testOTPFlow } from "./otp-test";
+import { seedActivities } from "./activities";
 
 export const seed = async (payload: Payload): Promise<void> => {
   payload.logger.info("— Seeding database...");
 
-  //await seedActivities(payload);
-  await testOTPFlow(payload);
+  await seedActivities(payload);
+  // await testOTPFlow(payload);
 
   payload.logger.info("— Seed Complete.");
 };

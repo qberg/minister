@@ -119,7 +119,7 @@ export function SurveyFormBlock({ block, mapZones, visionCategories }: Props) {
           </Typography>
 
           <Typography as="p" intent="subtle" variant="headingXS">
-            {stepConfig[currentStepIndex]?.description || block.description}
+            {block.description}
           </Typography>
         </div>
 

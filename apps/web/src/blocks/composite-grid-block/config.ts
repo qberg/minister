@@ -41,6 +41,7 @@ export const CompositeGridBlock: Block = {
           options: [
             { label: "Image Card", value: "image" },
             { label: "Content Card", value: "content" },
+            { label: "Carousel", value: "carousel"},
           ],
           defaultValue: "image",
         },
@@ -64,6 +65,28 @@ export const CompositeGridBlock: Block = {
           type: "group",
           admin: {
             condition: (_, siblingData) => siblingData?.cardType === "content",
+          },
+          fields: [
+            {
+              name: "title",
+              type: "text",
+              localized: true,
+              required: true,
+            },
+            {
+              name: "text",
+              type: "textarea",
+              localized: true,
+              required: true,
+            },
+            link(),
+          ],
+        },
+        {
+          name: "carouselCard",
+          type: "array",
+          admin: {
+            condition: (_, siblingData) => siblingData?.cardType === "carousel",
           },
           fields: [
             {

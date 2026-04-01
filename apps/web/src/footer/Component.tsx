@@ -100,9 +100,9 @@ export async function Footer({ locale = "ta-IN" }: Props) {
         </div>
 
         {/*contact + about */}
-        <div className="flex w-full justify-between gap-2 lg:w-[45%]">
+        <div className="flex w-full justify-between gap-4 lg:w-[45%]">
           {footerData.contacts && (
-            <div className="flex max-w-[20ch] flex-col gap-2 sxl:gap-4 lg:max-w-[30ch]">
+            <div className="flex max-w-[20ch] flex-col gap-2 sxl:gap-4 lg:max-w-[25ch]">
               <Typography as="h4" intent={"body"} variant="bodyLG">
                 {t("contacts")}
               </Typography>

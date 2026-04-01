@@ -8,6 +8,7 @@ import type {
   IssueCardStat,
   RawImpactAggregateRow,
 } from "@/types";
+import { MapZonesSelect } from "@/payload-types";
 
 const DEFAULT_LOCALE: TypedLocale = "en";
 

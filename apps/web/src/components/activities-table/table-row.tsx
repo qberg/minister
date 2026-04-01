@@ -22,16 +22,16 @@ export function ActivitiesTableRow({ activity, index, locale }: Props) {
 
   return (
     <TableRow>
-      <TableCell className="text-body-subtle tabular-nums">{index}</TableCell>
-      <TableCell className="max-w-[30ch] whitespace-normal">
+      {/* <TableCell className="text-body-subtle tabular-nums">{index}</TableCell> */}
+      <TableCell className="max-w-[60ch] whitespace-normal px-4">
         {activity.title}
       </TableCell>
-      <TableCell className="tabular-nums">
+      {/* <TableCell className="tabular-nums">
         {formatCurrency(activity.cost)}
-      </TableCell>
+      </TableCell> */}
       <TableCell>{typeName}</TableCell>
       <TableCell>{zoneName}</TableCell>
-      <TableCell>{activity.scheme ?? "—"}</TableCell>
+      <TableCell className='max-w-[40ch] whitespace-normal'>{activity.scheme ?? "—"}</TableCell>
       <TableCell>{activity.financialYear ?? "—"}</TableCell>
     </TableRow>
   );

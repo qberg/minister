@@ -79,19 +79,35 @@ export const StickyStatsBlock: Block = {
           localized: true,
           defaultValue: "Key Highlights",
         },
-
         {
-          name: "tImg",
-          type: "upload",
-          relationTo: "media",
-          label: "Tall Image",
+          name: 'decoImages',
+          type: 'array',
+          fields: [
+            {
+              name: "tImg",
+              type: "upload",
+              relationTo: "media",
+              label: "Tall Image",
+            },
+
+            {
+              name: "wImg",
+              type: "upload",
+              relationTo: "media",
+              label: "Wide Image",
+            },
+          ]
         },
-
         {
-          name: "wImg",
-          type: "upload",
-          relationTo: "media",
-          label: "Wide Image",
+          name: "blkType",
+          label: "Select Block Type",
+          type: "select",
+          required: true,
+          options: [
+            { label: "Impact Block", value: "iBlk" },
+            { label: "Stat Block", value: "sBlk" },
+          ],
+          defaultValue: "sBlk",
         },
         {
           name: "sBlk",
@@ -109,7 +125,6 @@ export const StickyStatsBlock: Block = {
               name: "desc",
               type: "textarea",
               localized: true,
-              required: true,
             },
 
             {

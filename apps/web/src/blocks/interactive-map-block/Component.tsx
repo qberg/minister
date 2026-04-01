@@ -25,8 +25,10 @@ import { PerspectiveCarousel } from "@/components/perspective-carousel";
 import { SimpleIssueCard } from "@/components/simple-issue-card";
 import { getMediaUrl } from "@/lib/payload-media-utils";
 import type { InteractiveMapBlock as InteractiveMapBlockProps } from "@/payload-types";
-import type { AllImpactStats, MapZoneOption } from "@/types";
+import type { AllImpactStats, IssueCardStat, MapZoneOption } from "@/types";
 import { ActivitiesSection } from "./activities-section";
+import { IssueCard } from "@/components/issue-card";
+import { transformZoneToStats } from "./transformZoneToStats";
 
 type Props = {
   locale: TypedLocale;
@@ -79,7 +81,46 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
     const fetchStats = async () => {
       setIsLoadingStats(true);
 
-      const statsData = await getMapStats(activeSlug);
+      if (!zones || zones.length === 0) {
+        setStats(null)
+        setIsLoadingStats(false)
+        return;
+      }
+
+      let statsData: AllImpactStats | null;
+
+      if (activeSlug) {
+        const zone = zones.find((z) => z.slug === activeSlug);
+        statsData = zone ? transformZoneToStats(zone) : null;
+      } else {
+        const issueMap = new Map<string, IssueCardStat>()
+        let totalActivities = 0;
+        let totalAmount = 0;
+        let totalIssues = 0;
+
+        zones.forEach((zone) => {
+          const zoneStats = transformZoneToStats(zone);
+          totalActivities += zoneStats.totalActivities;
+          totalAmount += zoneStats.totalAmount;
+          totalIssues += zoneStats.totalIssues;
+          zoneStats.issuesBreakdown.forEach((issue) => {
+            if (issueMap.has(issue.id)) {
+              const existing = issueMap.get(issue.id)!;
+              existing.activityCount += issue.activityCount;
+            } else {
+              issueMap.set(issue.id, {...issue})
+            }
+          })
+        });
+        const allIssues = Array.from(issueMap.values())
+
+        statsData = {
+          totalActivities,
+          totalAmount,
+          totalIssues,
+          issuesBreakdown: allIssues,
+        }
+      }
 
       if (isMounted) {
         setStats(statsData);
@@ -92,7 +133,30 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
     return () => {
       isMounted = false;
     };
-  }, [activeSlug]);
+  }, [activeSlug, zones]);
+
+  // useEffect(() => {
+  //   let isMounted = true;
+
+  //   const fetchStats = async () => {
+  //     setIsLoadingStats(true);
+
+  //     console.log('activeSlug', activeSlug)
+  //     const statsData = await getMapStats(activeSlug);
+
+  //     if (isMounted) {
+  //       console.log('statsData', statsData, activeSlug)
+  //       setStats(statsData);
+  //       setIsLoadingStats(false);
+  //     }
+  //   };
+
+  //   fetchStats();
+
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [activeSlug]);
 
   const zoneNameLookup = useMemo(() => {
     const lookup: Record<string, string> = {};
@@ -129,7 +193,7 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
   const headingText = activeSlug
     ? t("heading_zone", { zone: zoneNameLookup[activeSlug] })
     : t("heading_default");
-
+    
   return (
     <>
       <Box
@@ -239,17 +303,20 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
                 label={t("stat_label_one")}
                 type="currency"
                 value={stats?.totalAmount || 0}
+                className="py-3"
               />
               <AnimatedStat
                 isLoading={isLoadingStats}
                 label={t("stat_label_two")}
                 value={stats?.totalActivities || 0}
+                className="py-2.5"
               />
 
               <AnimatedStat
                 isLoading={isLoadingStats}
                 label={t("stat_label_three")}
                 value={stats?.totalIssues || 0}
+                className="py-2.5"
               />
             </div>
             {/*issue cards max 8*/}
@@ -287,10 +354,12 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
             <>
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
                 {stats?.issuesBreakdown.map((issue) => (
-                  <SimpleIssueCard
+                  <IssueCard
                     data={issue}
                     key={issue.id}
                     label={t("simple_card_label")}
+                    className="aspect-[1.75/1]"
+                    variant="activities"
                   />
                 ))}
               </div>

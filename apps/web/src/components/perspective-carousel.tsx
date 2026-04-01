@@ -135,7 +135,7 @@ export function PerspectiveCarousel({
         }
       >
         {limitedIssues.map((issue) => (
-          <SwiperSlide className="!h-auto" key={issue.id}>
+          <SwiperSlide className="h-auto!" key={issue.id}>
             <IssueCard data={issue} label={label} />
           </SwiperSlide>
         ))}

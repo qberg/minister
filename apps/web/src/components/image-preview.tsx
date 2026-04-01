@@ -1,4 +1,5 @@
 "use client";
+
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Badge } from "@repo/design-system/components/ui/badge";
 import { useLockBodyScroll } from "@repo/design-system/hooks/use-lock-body-scroll";
@@ -6,22 +7,30 @@ import { X } from "lucide-react";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import Image from "next/image";
 import { Dialog } from "radix-ui";
-import { useState } from "react";
+import React, { useRef, useState } from "react";
+import { PdfPage } from "./pdf-page";
+import Title from "@/app/[locale]/_components/title";
+import { Typography } from "@repo/design-system/components/ui/typography";
 
 const MotionImage = motion.create(Image);
 
-type ImagePreviewProps = {
+type FilePreviewProps = {
   src?: string;
   tagLabel?: string;
   uniqueId?: string;
+  fileType?: "image" | "file";
+  title?: string;
 };
 
 export function ImagePreview({
   src,
   tagLabel,
   uniqueId = "",
-}: ImagePreviewProps) {
+  fileType,
+  title,
+}: FilePreviewProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const isPdf = fileType === "file";
 
   useLockBodyScroll(isOpen);
 
@@ -41,15 +50,25 @@ export function ImagePreview({
               layoutId={`image-dialog-${uniqueId}`}
               role="button"
             >
-              <MotionImage
-                alt="Newspaper clippings"
-                className="rounded-lg object-cover"
-                fill
-                layoutId={`image-${uniqueId}`}
-                priority
-                src={src}
-                unoptimized
-              />
+              {isPdf ? (
+                <div className="group relative flex p-2 aspect-square w-full items-center justify-center overflow-hidden">
+                  <div className="absolute inset-0 bg-[url(/images/about-bg.png)] bg-contain bg-center transition-transform duration-500 group-hover:scale-110"></div>
+                  <div className="absolute inset-0 bg-black/50"></div>
+                  <Typography as="h5" intent="highlight" variant="headingLG" className="text-center z-10 text-white">
+                    {title}
+                  </Typography>
+                </div>
+              ) : (
+                <MotionImage
+                  alt="Newspaper clippings"
+                  className="rounded-lg object-cover"
+                  fill
+                  layoutId={`image-${uniqueId}`}
+                  priority
+                  src={src}
+                  unoptimized
+                />
+              )}
               {tagLabel && (
                 <motion.div
                   className="absolute top-3 left-3 z-20"
@@ -89,16 +108,24 @@ export function ImagePreview({
                         exit={{ opacity: 0, scale: 0.95 }}
                         initial={{ opacity: 0, scale: 0.95 }}
                         layoutId={`image-dialog-${uniqueId}`}
+                        onWheel={(e) => e.stopPropagation()}
+                        data-lenis-prevent
                       >
-                        <MotionImage
-                          alt="newspaper clippings"
-                          className="select-none rounded-2xl object-cover"
-                          fill
-                          layoutId={`image-${uniqueId}`}
-                          sizes="100%"
-                          src={src}
-                          unoptimized
-                        />
+                        {isPdf ? (
+                          <div className="flex h-full w-full items-center justify-center bg-white overflow-auto">
+                            {isOpen && isPdf && <PdfPage url={src!} />}
+                          </div>
+                        ) : (
+                          <MotionImage
+                            alt="newspaper clippings"
+                            className="select-none rounded-2xl object-cover"
+                            fill
+                            layoutId={`image-${uniqueId}`}
+                            sizes="100%"
+                            src={src}
+                            unoptimized
+                          />
+                        )}
                         {tagLabel && (
                           <motion.div
                             className="absolute top-3 left-3"
@@ -112,7 +139,7 @@ export function ImagePreview({
                           <motion.button
                             animate={{ opacity: 1, scale: 1 }}
                             aria-label="Close dialog"
-                            className="absolute top-3 right-3 z-10 h-fit w-fit rounded-full border border-white/20 bg-white/20 p-[6px] backdrop-blur hover:bg-white/50 focus-visible:outline-none"
+                            className="absolute top-3 right-3 z-10 h-fit w-fit rounded-full border border-black/20 bg-black/20 p-[6px] backdrop-blur hover:bg-black/50 focus-visible:outline-none cursor-pointer"
                             exit={{ opacity: 0, scale: 0.8 }}
                             initial={{ opacity: 0, scale: 0.8 }}
                             type="button"

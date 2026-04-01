@@ -35,7 +35,6 @@ export const Activities: CollectionConfig<"activities"> = {
     {
       name: "cost",
       type: "number",
-      required: true,
       label: "Amount Spent",
     },
 

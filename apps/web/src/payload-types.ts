@@ -69,9 +69,11 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    documents: Document;
     pages: Page;
     articles: Article;
     'news-feat': NewsFeat;
+    announcements: Announcement;
     tags: Tag;
     'survey-sub': SurveySub;
     issues: Issue;
@@ -88,9 +90,11 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    documents: DocumentsSelect<false> | DocumentsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     'news-feat': NewsFeatSelect<false> | NewsFeatSelect<true>;
+    announcements: AnnouncementsSelect<false> | AnnouncementsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     'survey-sub': SurveySubSelect<false> | SurveySubSelect<true>;
     issues: IssuesSelect<false> | IssuesSelect<true>;
@@ -222,6 +226,28 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+  id: number;
+  /**
+   * Internal label (e.g., Resume - John Doe)
+   */
+  label: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -278,14 +304,20 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
-            hls?: {
+            hls: {
               title?: string | null;
-              tImg?: (number | null) | Media;
-              wImg?: (number | null) | Media;
+              decoImages?:
+                | {
+                    tImg?: (number | null) | Media;
+                    wImg?: (number | null) | Media;
+                    id?: string | null;
+                  }[]
+                | null;
+              blkType: 'iBlk' | 'sBlk';
               sBlk?:
                 | {
                     title: string;
-                    desc: string;
+                    desc?: string | null;
                     stats?:
                       | {
                           v: string;
@@ -428,7 +460,7 @@ export interface CompositeGridBlock {
   bgImg?: (number | null) | Media;
   items?:
     | {
-        cardType: 'image' | 'content';
+        cardType: 'image' | 'content' | 'carousel';
         imageCard?: {
           image: number | Media;
         };
@@ -450,6 +482,27 @@ export interface CompositeGridBlock {
             label: string;
           };
         };
+        carouselCard?:
+          | {
+              title: string;
+              text: string;
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                /**
+                 * Optional: Add # to scroll to a section (e.g., "team" for #team)
+                 */
+                anchor?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -623,7 +676,7 @@ export interface GalleryBlock {
     | {
         image: number | Media;
         location: string;
-        title?: string | null;
+        caption?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -704,6 +757,40 @@ export interface NewsFeat {
   createdAt: string;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "announcements".
+ */
+export interface Announcement {
+  id: number;
+  /**
+   * Brief title or headline of the announcement
+   */
+  title: string;
+  linkType?: ('internal' | 'external') | null;
+  fileType?: ('image' | 'file') | null;
+  /**
+   * Link to the external site
+   */
+  externalLink?: string | null;
+  /**
+   * Upload the file
+   */
+  file?: (number | null) | Document;
+  /**
+   * Upload the image
+   */
+  image?: (number | null) | Media;
+  tags?: (number | null) | Tag;
+  publishedDate: string;
+  badge?: string | null;
+  /**
+   * Should this album be visible to the public?
+   */
+  isFeat?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * OTP-verified survey submissions from citizens
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -738,7 +825,7 @@ export interface SurveySub {
 export interface MapZone {
   id: number;
   /**
-   * The name shown in the tooltip and header (e.g., "Ward 160" or "Iyyappanthangal")
+   * The name shown in the tooltip and header (e.g., "Ward 160" or "Iyyapanthangal")
    */
   name: string;
   slug?: string | null;
@@ -753,6 +840,19 @@ export interface MapZone {
    */
   population?: number | null;
   areaSqKm?: number | null;
+  /**
+   * Amount Spent for this zone
+   */
+  totalAmount?: number | null;
+  totalActivities?: number | null;
+  totalIssues?: number | null;
+  issuesBreakdown?:
+    | {
+        issueType?: (number | null) | Issue;
+        activityCount?: number | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -782,7 +882,7 @@ export interface Issue {
 export interface Activity {
   id: number;
   title: string;
-  cost: number;
+  cost?: number | null;
   type?: (number | null) | Issue;
   zone?: (number | null) | MapZone;
   scheme?: string | null;
@@ -860,6 +960,10 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
+        relationTo: 'documents';
+        value: number | Document;
+      } | null)
+    | ({
         relationTo: 'pages';
         value: number | Page;
       } | null)
@@ -870,6 +974,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'news-feat';
         value: number | NewsFeat;
+      } | null)
+    | ({
+        relationTo: 'announcements';
+        value: number | Announcement;
       } | null)
     | ({
         relationTo: 'tags';
@@ -1012,6 +1120,24 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents_select".
+ */
+export interface DocumentsSelect<T extends boolean = true> {
+  label?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
@@ -1070,8 +1196,14 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     title?: T;
-                    tImg?: T;
-                    wImg?: T;
+                    decoImages?:
+                      | T
+                      | {
+                          tImg?: T;
+                          wImg?: T;
+                          id?: T;
+                        };
+                    blkType?: T;
                     sBlk?:
                       | T
                       | {
@@ -1217,6 +1349,23 @@ export interface CompositeGridBlockSelect<T extends boolean = true> {
                     anchor?: T;
                     label?: T;
                   };
+            };
+        carouselCard?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    anchor?: T;
+                    label?: T;
+                  };
+              id?: T;
             };
         id?: T;
       };
@@ -1369,7 +1518,7 @@ export interface GalleryBlockSelect<T extends boolean = true> {
     | {
         image?: T;
         location?: T;
-        title?: T;
+        caption?: T;
         id?: T;
       };
   id?: T;
@@ -1401,6 +1550,24 @@ export interface NewsFeatSelect<T extends boolean = true> {
   tags?: T;
   publishedDate?: T;
   externalLink?: T;
+  isFeat?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "announcements_select".
+ */
+export interface AnnouncementsSelect<T extends boolean = true> {
+  title?: T;
+  linkType?: T;
+  fileType?: T;
+  externalLink?: T;
+  file?: T;
+  image?: T;
+  tags?: T;
+  publishedDate?: T;
+  badge?: T;
   isFeat?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1475,6 +1642,16 @@ export interface MapZonesSelect<T extends boolean = true> {
   image?: T;
   population?: T;
   areaSqKm?: T;
+  totalAmount?: T;
+  totalActivities?: T;
+  totalIssues?: T;
+  issuesBreakdown?:
+    | T
+    | {
+        issueType?: T;
+        activityCount?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

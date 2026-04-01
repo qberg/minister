@@ -31,7 +31,7 @@ export const MapZones: CollectionConfig<"map-zones"> = {
       label: "Display Name",
       admin: {
         description:
-          'The name shown in the tooltip and header (e.g., "Ward 160" or "Iyyappanthangal")',
+          'The name shown in the tooltip and header (e.g., "Ward 160" or "Iyyapanthangal")',
       },
     },
 
@@ -76,5 +76,46 @@ export const MapZones: CollectionConfig<"map-zones"> = {
         },
       ],
     },
+    {
+      type: "row",
+      fields: [
+        {
+          name: "totalAmount",
+          type: "number",
+          admin: { description: "Amount Spent for this zone" },
+        },
+        {
+          name: "totalActivities",
+          type: "number",
+          label: "Development Activities"
+        },
+        {
+          name: "totalIssues",
+          type: "number",
+          label: "Issues Addressed"
+        },
+      ],
+    },
+    {
+      name: 'issuesBreakdown',
+      type: 'array',
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'issueType',
+              type: 'relationship',
+              relationTo: 'issues',
+              hasMany: false,
+            },
+            {
+              name: 'activityCount',
+              type: 'number',
+            }
+          ]
+        }
+      ]
+    }
   ],
 };

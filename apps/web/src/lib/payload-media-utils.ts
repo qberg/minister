@@ -1,4 +1,5 @@
-import type { Media } from "@/payload-types";
+import type { Media, Document } from "@/payload-types";
+import { MediaPreview } from "@/types";
 
 /**
  * Media utility functions for Payload CMS
@@ -35,4 +36,14 @@ export function getThumbnailUrl(
   media: Media | null | undefined
 ): string | undefined {
   return media?.sizes?.thumbnail?.url || (media?.url as string);
+}
+
+export function getFileUrl(
+  file: number | Media | Document | null | undefined | MediaPreview,
+  fallback = ""
+): string {
+  if (typeof file !== "object" || file === null || !("url" in file)) {
+    return fallback;
+  }
+  return file.url as string;
 }

@@ -2,7 +2,9 @@ import type {
   Article,
   MapZone,
   Media,
+  Document,
   NewsFeat,
+  Announcement,
   Page,
   TabbedContentBlock,
   Tag,
@@ -24,14 +26,19 @@ export type LatestUpdatesBlockType = Extract<
   { blockType: "latest-updates" }
 >;
 
-export type LatestUpdatesCollections = NewsFeat | Article;
+export type LatestUpdatesCollections = Announcement | NewsFeat | Article;
 
 export type SelectedCollectionFields = Pick<
   LatestUpdatesCollections,
-  "id" | "title" | "publishedDate" | "newspaper" | "externalLink"
+  "id" | "title" | "publishedDate" | "externalLink"
 > & {
   image: Media | null;
   tags: Tag | null;
+  newspaper?: string | null;
+  linkType?: ('internal' | 'external') | null;
+  fileType?: ('image' | 'file') | null;
+  file?: (number | null) | Document;
+  badge?: string | null;
 };
 
 export type MediaPreview = Pick<Media, "url" | "alt"> & {
@@ -45,7 +52,10 @@ export type LatestUpdateItem = {
   publishedDate: string;
   image: MediaPreview | null;
   tags: TagPreview | null;
+  badge?: string | null;
   newspaper?: string | null;
+  fileType?: "image" | "file" | null,
+  file?: (number | null) | Document;
   externalLink?: string | null;
 };
 
@@ -75,7 +85,7 @@ export type IssueCardStat = {
   name: string;
   slug: string;
   activityCount: number;
-  totalAmount: number;
+  totalAmount?: number;
   imageSrc?: string | null;
   color?: string;
 };
@@ -94,7 +104,7 @@ export type AnimeScrollSectionData = {
 export type GalleryImageItem = {
   id: string | number;
   image: Media;
-  title?: string | null;
+  caption?: string | null;
   location?: string | null;
   width: number;
   height: number;

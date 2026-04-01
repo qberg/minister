@@ -57,6 +57,7 @@
     "radix-ui": "^1.4.3",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "react-pdf": "^7.0.0",
     "react-twitter-embed": "^4.0.4",
     "react-use-measure": "^2.1.7",
     "serwist": "^9.5.0",

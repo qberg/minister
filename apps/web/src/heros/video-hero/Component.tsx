@@ -29,35 +29,9 @@ export function VideoHero({ block }: Props) {
     : desktopVideoSrc;
 
   return (
-    <>
+    <div className='relative'>
       <Box as="section" className="relative h-svh pb-0! md:h-screen">
-        <div className="absolute inset-0 z-0 select-none">
-          {mobileVideoSrc && (
-            <video
-              autoPlay
-              className="block h-full w-full object-cover md:hidden"
-              loop
-              muted
-              playsInline
-              src={mobileVideoSrc}
-            />
-          )}
-
-          {desktopVideoSrc && (
-            <video
-              autoPlay
-              className={cn(
-                mobileBgVideo ? "hidden md:block" : "block",
-                "h-full w-full object-cover"
-              )}
-              loop
-              muted
-              playsInline
-              src={desktopVideoSrc}
-            />
-          )}
-        </div>
-        <div className="-translate-x-1/2 absolute bottom-0 left-1/2 z-10 aspect-[1.15/1] w-full md:w-[42vw]">
+        <div className="-translate-x-1/2 absolute bottom-14 md:bottom-0 left-1/2 z-10 aspect-[1.15/1] w-full md:w-[42vw]">
           <Image
             alt="TMA Portrait"
             className="object-contain"
@@ -74,51 +48,49 @@ export function VideoHero({ block }: Props) {
               </motion.div>
             )}
           </div>
-
-          <div
-            className={cn(
-              "flex flex-col 4xl:gap-8 gap-4 lxl:gap-6 sxl:gap-5 bg-gradient-to-b from-black/0 to-black",
-              "pt-[3vw] md:py-[3vw]",
-              "4xl:px-48 lxl:px-36 px-6 sxl:px-24 md:px-10 lg:px-20",
-              "-mx-6 md:-mx-10 lg:-mx-20 sxl:-mx-24 lxl:-mx-36 4xl:-mx-48"
-            )}
-          >
-            <div className="border-body-subtle border-b">
-              <Typography
-                as="h1"
-                className="pb-4 font-bold md:pb-0"
-                intent={"body"}
-                variant="headingXL"
-              >
-                {title}
-              </Typography>
-            </div>
-
-            <div className="hidden items-center justify-between gap-4 md:flex">
-              <Typography
-                as="p"
-                className="max-w-[55ch]"
-                intent={"subtle"}
-                variant="bodyLG"
-              >
-                {desc}
-              </Typography>
-
-              {link && (
-                <motion.div>
-                  <CMSLink {...link}>
-                    <Button size={"spacious"} variant="primary">
-                      {link.label}
-                    </Button>
-                  </CMSLink>
-                </motion.div>
-              )}
-            </div>
-          </div>
         </div>
       </Box>
+      <div
+        className={cn(
+          "relative w-full flex flex-col 4xl:gap-8 gap-4 lxl:gap-6 sxl:gap-5 bg-gradient-to-b from-black/0 to-black z-10",
+          "pt-[3vw] md:py-[3vw]",
+          "4xl:px-48 lxl:px-36 px-6 sxl:px-24 md:px-10 lg:px-20",
+        )}
+      >
+        <div className="border-(--color-neutral-200) border-b">
+          <Typography
+            as="h1"
+            className="pb-4 font-bold md:pb-0 text-(--color-yellow-50)"
+            intent={"body"}
+            variant="headingXL"
+          >
+            {title}
+          </Typography>
+        </div>
 
-      <Box className="flex flex-col gap-6 md:hidden">
+        <div className="hidden items-center justify-between gap-4 md:flex">
+          <Typography
+            as="p"
+            className="max-w-full text-(--color-yellow-50)"
+            intent={"subtle"}
+            variant="bodyLG"
+          >
+            {desc}
+          </Typography>
+
+          {link && (
+            <motion.div>
+              <CMSLink {...link}>
+                <Button size={"spacious"} variant="primary">
+                  {link.label}
+                </Button>
+              </CMSLink>
+            </motion.div>
+          )}
+        </div>
+      </div>
+
+      <Box className="relative flex flex-col gap-6 md:hidden z-10">
         <Typography
           as="p"
           className="max-w-[55ch]"
@@ -138,7 +110,33 @@ export function VideoHero({ block }: Props) {
           </motion.div>
         )}
       </Box>
-    </>
+      <div className="absolute inset-0 z-0 select-none">
+        {mobileVideoSrc && (
+          <video
+            autoPlay
+            className="block h-full w-full object-cover md:hidden"
+            loop
+            muted
+            playsInline
+            src={mobileVideoSrc}
+          />
+        )}
+
+        {desktopVideoSrc && (
+          <video
+            autoPlay
+            className={cn(
+              mobileBgVideo ? "hidden md:block" : "block",
+              "h-full w-full object-cover"
+            )}
+            loop
+            muted
+            playsInline
+            src={desktopVideoSrc}
+          />
+        )}
+      </div>
+    </div>
   );
 }
 

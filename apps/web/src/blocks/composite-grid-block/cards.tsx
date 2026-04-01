@@ -6,7 +6,7 @@ import Image from "next/image";
 import { CMSLink } from "@/components/cms-link";
 import type { CompositeGridBlock as CompositeGridBlockProps } from "@/payload-types";
 
-const cardVariants = cva(
+export const cardVariants = cva(
   "relative w-full overflow-hidden rounded-lg md:rounded-2xl",
   {
     variants: {
@@ -23,7 +23,7 @@ const cardVariants = cva(
   }
 );
 
-interface CardProps extends VariantProps<typeof cardVariants> {
+export interface CardProps extends VariantProps<typeof cardVariants> {
   data: NonNullable<CompositeGridBlockProps["items"]>[number];
 }
 

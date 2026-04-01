@@ -22,7 +22,7 @@ export function SimpleIssueCard({ data, label = "Amount Spent" }: Props) {
             src={data.imageSrc || ""}
           />
           {/* Apply the overlay logic here */}
-          <div className="absolute inset-0 bg-primary/70" />
+          {/* <div className="absolute inset-0 bg-primary/70" /> */}
         </>
       )}
       <div className="relative z-10 flex h-full flex-col items-center justify-center gap-8">
@@ -35,7 +35,7 @@ export function SimpleIssueCard({ data, label = "Amount Spent" }: Props) {
             {data.activityCount}
           </Typography>
         </div>
-        <div className="flex flex-col items-center gap-2">
+        {/* <div className="flex flex-col items-center gap-2">
           <Typography as={"p"} variant={"bodyLG"}>
             {label}
           </Typography>
@@ -43,7 +43,7 @@ export function SimpleIssueCard({ data, label = "Amount Spent" }: Props) {
           <Typography as={"p"} variant={"brandHeading"}>
             {formatCurrency(data.totalAmount)}
           </Typography>
-        </div>
+        </div> */}
       </div>
     </div>
   );

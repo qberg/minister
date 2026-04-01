@@ -121,6 +121,7 @@ type Props = {
   theme?: CardTheme;
   overlayType?: "gradient" | "solid";
   label?: string;
+  variant?: 'perspective' | 'activities'
 };
 
 export function IssueCard({
@@ -129,6 +130,7 @@ export function IssueCard({
   theme,
   overlayType = "gradient",
   label,
+  variant = "perspective"
 }: Props) {
   const hasImage = !!data.imageSrc;
   const resolvedTheme = (theme || data.color || "neutral") as CardTheme;
@@ -162,20 +164,25 @@ export function IssueCard({
 
       <div className="relative z-10 flex flex-col gap-1">
         <Typography
-          className="font-bold text-yellow-50 uppercase leading-tight tracking-wide drop-shadow-sm"
+          className={`font-bold text-yellow-50 ${variant === 'perspective'? 'uppercase leading-tight tracking-wide drop-shadow-sm':''}`}
           variant="brandHeading"
         >
           {data.name}
         </Typography>
+        {data.activityCount && (
+          <Typography as={"p"} variant={"brandHeading"} className="text-yellow-50">
+            {data.activityCount}
+          </Typography>
+        )}
 
-        <div className="mt-1 flex items-baseline gap-2">
+        {/* <div className="mt-1 flex items-baseline gap-2">
           <span className="font-bold text-[10px] uppercase tracking-wider opacity-80">
             {label}
           </span>
           <span className="font-bold font-times-new-roman text-3xl tracking-tight drop-shadow-sm">
             {formatCurrency(data.totalAmount)}
           </span>
-        </div>
+        </div> */}
       </div>
     </div>
   );

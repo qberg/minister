@@ -32,7 +32,7 @@ const LIMIT_OPTIONS = [10, 25, 50];
 
 const COLUMNS = [
   { key: "title", labelKey: "col_name" },
-  { key: "cost", labelKey: "col_amount" },
+  // { key: "cost", labelKey: "col_amount" },
   { key: "type", labelKey: "col_type" },
   { key: "zone", labelKey: "col_ward" },
   { key: "scheme", labelKey: "col_scheme" },
@@ -134,7 +134,7 @@ export function ActivitiesTable({
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-12">{t("col_no")}</TableHead>
+                {/* <TableHead className="w-12">{t("col_no")}</TableHead> */}
                 {COLUMNS.map((col) => (
                   <ActivitiesTableHeader
                     currentSort={currentSort}
@@ -165,12 +165,12 @@ export function ActivitiesTable({
 
   return (
     <div className="flex flex-col gap-4">
-      <TypeFilter
+      {/* <TypeFilter
         issues={issueOptions}
         onChange={handleTypeChange}
         placeholder={t("filter_type_placeholder")}
         value={actType ?? null}
-      />
+      /> */}
 
       {renderTableContent()}
 

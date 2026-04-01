@@ -35,23 +35,26 @@ StatItem.displayName = "StatItem";
 type StatGridProps = {
   children: React.ReactNode;
   className?: string;
+  blkType: 'sBlk' | 'iBlk';
 };
 
-const StatGrid = ({ children, className }: StatGridProps) => (
-  <div className={cn("relative 4xl:pb-12 pb-4 lg:pb-8", className)}>
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">{children}</div>
+const StatGrid = ({ children, className, blkType }: StatGridProps) => (
+  <div className={cn(`relative 4xl:pb-12 pb-4 lg:pb-8`, className)}>
+    <div className={`grid gap-8 ${blkType === 'iBlk' ? 'grid-cols-2 lg:grid-cols-3':'grid-cols-1 lg:grid-cols-2'}`}>{children}</div>
 
-    <motion.div
-      className="absolute bottom-0 left-0 h-px bg-body-subtle"
-      initial={{ width: 0 }}
-      transition={{
-        duration: 1.2,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.2,
-      }}
-      viewport={{ once: true, amount: 0.3 }}
-      whileInView={{ width: "100%" }}
-    />
+    {blkType === 'sBlk' && (
+      <motion.div
+        className="absolute bottom-0 left-0 h-px bg-body-subtle"
+        initial={{ width: 0 }}
+        transition={{
+          duration: 1.2,
+          ease: [0.22, 1, 0.36, 1],
+          delay: 0.2,
+        }}
+        viewport={{ once: true, amount: 0.3 }}
+        whileInView={{ width: "100%" }}
+      />
+    )}
   </div>
 );
 
@@ -61,10 +64,11 @@ StatGrid.displayName = "StatGrid";
 
 type StatBlockProps = {
   title: string;
-  description: string;
+  description: string | null;
   children: React.ReactNode;
   className?: string;
   variant?: StickyStatsVariant;
+  blkType: 'sBlk' | 'iBlk'
 };
 
 const StatBlock = ({
@@ -72,16 +76,39 @@ const StatBlock = ({
   description,
   children,
   className,
+  blkType
 }: StatBlockProps) => (
-  <Stack className={className} gap="sm">
-    <Typography as="h6" className="" intent={"title"} variant="bodyLG">
-      {title}
-    </Typography>
-    <Typography as="h6" intent={"subtle"} variant="headingXXS">
-      {description}
-    </Typography>
-    {children}
-  </Stack>
+  <div className={`relative ${blkType==='iBlk' ? '4xl:pb-12 pb-4 lg:pb-8':''}`}>
+    <Stack className={className} gap="sm">
+      <Typography as="h6" className="" intent={"title"} variant="bodyLG">
+        {title}
+      </Typography>
+      {blkType === 'sBlk' && description && (
+        <Typography as="h6" intent={"subtle"} variant="headingXXS">
+          {description}
+        </Typography>
+      )}
+      {children}
+      {blkType === 'iBlk' && description && (
+        <Typography as="h6" intent={"subtle"} variant="headingXXS">
+          {description}
+        </Typography>
+      )}
+    </Stack>
+    {blkType === 'iBlk' && (
+      <motion.div
+        className="absolute bottom-0 left-0 h-px bg-body-subtle"
+        initial={{ width: 0 }}
+        transition={{
+          duration: 1.2,
+          ease: [0.22, 1, 0.36, 1],
+          delay: 0.2,
+        }}
+        viewport={{ once: true, amount: 0.3 }}
+        whileInView={{ width: "100%" }}
+      />
+    )}
+  </div>
 );
 
 StatBlock.displayName = "StatBlock";

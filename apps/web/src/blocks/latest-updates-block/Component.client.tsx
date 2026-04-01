@@ -20,6 +20,7 @@ import type {
 } from "@/types";
 import ArticlesGrid from "./articles-grid";
 import NewsFeatGrid from "./news-feat-grid";
+import AnnouncementsGrid from "./announcements-grid";
 
 type Props = {
   block: LatestUpdatesBlockType;
@@ -63,6 +64,7 @@ const LatestUpdatesClient = ({ block, tags, initialData, locale }: Props) => {
       });
 
       setItems(result.docs);
+
       setHasNextPage(result.hasNextPage);
       setCurrentPage(1);
     });
@@ -127,6 +129,9 @@ const LatestUpdatesClient = ({ block, tags, initialData, locale }: Props) => {
         )}
 
         {/* content grids */}
+        {currentType === "announcements" && (
+          <AnnouncementsGrid items={items} locale={locale} />
+        )}
         {currentType === "articles" && (
           <ArticlesGrid items={items} locale={locale} />
         )}
