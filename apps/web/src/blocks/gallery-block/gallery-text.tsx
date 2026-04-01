@@ -26,7 +26,7 @@ export function GalleryText() {
   const activeItem = items[wrappedIndex];
 
   const location = activeItem?.location ?? null;
-  const title = activeItem?.title ?? null;
+  const caption = activeItem?.caption ?? null;
 
   return (
     <>
@@ -56,7 +56,7 @@ export function GalleryText() {
         {/* Title — large heading */}
         <div className="w-full overflow-hidden">
           <AnimatePresence mode="wait">
-            {title && (
+            {caption && (
               <motion.h2
                 animate={{ y: "0%", opacity: 1 }}
                 className="font-heading font-normal text-4xl text-white"
@@ -65,7 +65,7 @@ export function GalleryText() {
                 key={`title-${wrappedIndex}`}
                 transition={SPRING}
               >
-                {title}
+                {caption}
               </motion.h2>
             )}
           </AnimatePresence>

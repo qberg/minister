@@ -19,12 +19,12 @@ export const GalleryBlock: Block = {
           type: "text",
           localized: true,
           required: true,
-          defaultValue: "Alandur",
         },
         {
-          name: "title",
+          name: "caption",
           type: "text",
-        },
+          localized: true,
+        }
       ],
     },
   ],

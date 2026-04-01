@@ -183,7 +183,7 @@ export function GalleryCanvas({ items }: GalleryCanvasProps) {
           </div>
         </div>
 
-        <div className="z-10 flex h-[25dvh] items-center md:hidden">
+        <div className="z-10 flex h-[20px] items-center md:hidden">
           <GalleryText />
         </div>
       </div>

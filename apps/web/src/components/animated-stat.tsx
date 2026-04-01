@@ -49,7 +49,7 @@ function AnimatedStat({ label, value, type, isLoading, className }: Props) {
       {/* THE LABEL */}
       <Typography
         as="span"
-        className="mb-2 font-normal text-yellow-50/80"
+        className="mt-1.5 font-normal text-yellow-50/80"
         variant="bodyMD"
       >
         {label}

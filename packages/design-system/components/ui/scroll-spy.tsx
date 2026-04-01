@@ -241,7 +241,7 @@ export function ScrollSpyTrigger({
 
 <span 
         className={cn(
-          "relative z-10 text-sm font-medium transition-colors duration-200",
+          "relative z-10 text-sm font-medium transition-colors duration-200 whitespace-normal break-words",
           isActive 
             ? "text-body"  // Color when active (e.g., White)
             : "text-body-subtle hover:text-body" // Color when inactive

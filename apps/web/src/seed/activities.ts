@@ -58,6 +58,17 @@ const resolveIssueSlug = (rawType: string, rawTitle: string): string => {
     text.includes("வகுப்பறை") || 
     text.includes("நூலக")
   ) {
+    if (text.includes("repair") || text.includes("பழுது")) {
+      return "school-renovation-work"
+    }
+    if (
+      text.includes("toilet") ||
+      text.includes("sanitary") ||
+      text.includes("latrine") ||
+      text.includes("கழிப்பிட")
+    ) {
+      return "school-toilet"
+    }
     return "education";
   }
 
@@ -110,7 +121,8 @@ const resolveIssueSlug = (rawType: string, rawTitle: string): string => {
   }
 
   if (
-    text.includes("kitchen-shed")
+    text.includes("kitchen-shed") ||
+    text.includes("kitchen shed")
   ) {
     return "kitchen-shed"
   }

@@ -42,7 +42,7 @@ export const Carousel = ({array}: CarouselProps) => {
             >
                 {array.map((data, index) => (
                     <SwiperSlide key={data.id || index} className="h-full">
-                        <div className="relative z-20 flex h-full flex-col justify-center gap-8 4xl:p-12 p-6 lg:p-8">
+                        <div className="relative z-20 flex h-full flex-col justify-center gap-8 md:gap-4 lg:gap-8 4xl:p-12 p-6 lg:p-8">
                             <Typography as="h4" className="text-secondary" variant="headingSM">
                                 {data.title}
                             </Typography>
@@ -50,9 +50,11 @@ export const Carousel = ({array}: CarouselProps) => {
                                 {data.text}
                             </Typography>
                             {data.link && (
-                                <CMSLink {...data.link}>
-                                <Button variant={"outline"}>{data.link.label}</Button>
-                                </CMSLink>
+                                <div className="md:hidden xl:block">
+                                    <CMSLink {...data.link}>
+                                        <Button variant={"outline"}>{data.link.label}</Button>
+                                    </CMSLink>
+                                </div>
                             )}
                         </div>
                     </SwiperSlide>

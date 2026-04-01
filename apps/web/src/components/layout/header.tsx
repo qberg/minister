@@ -96,7 +96,7 @@ const HeaderNav = ({
 }) => (
   <nav
     className={cn(
-      "flex items-center justify-center 4xl:gap-10 gap-8",
+      "flex items-center justify-center 4xl:gap-10 gap-6",
       className
     )}
     ref={ref}

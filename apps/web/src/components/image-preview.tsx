@@ -9,6 +9,8 @@ import Image from "next/image";
 import { Dialog } from "radix-ui";
 import React, { useRef, useState } from "react";
 import { PdfPage } from "./pdf-page";
+import Title from "@/app/[locale]/_components/title";
+import { Typography } from "@repo/design-system/components/ui/typography";
 
 const MotionImage = motion.create(Image);
 
@@ -17,6 +19,7 @@ type FilePreviewProps = {
   tagLabel?: string;
   uniqueId?: string;
   fileType?: "image" | "file";
+  title?: string;
 };
 
 export function ImagePreview({
@@ -24,6 +27,7 @@ export function ImagePreview({
   tagLabel,
   uniqueId = "",
   fileType,
+  title,
 }: FilePreviewProps) {
   const [isOpen, setIsOpen] = useState(false);
   const isPdf = fileType === "file";
@@ -47,8 +51,12 @@ export function ImagePreview({
               role="button"
             >
               {isPdf ? (
-                <div className="flex aspect-square w-full items-center justify-center bg-white overflow-hidden">
-                  <PdfPage url={src!} />
+                <div className="group relative flex p-2 aspect-square w-full items-center justify-center overflow-hidden">
+                  <div className="absolute inset-0 bg-[url(/images/about-bg.png)] bg-contain bg-center transition-transform duration-500 group-hover:scale-110"></div>
+                  <div className="absolute inset-0 bg-black/50"></div>
+                  <Typography as="h5" intent="highlight" variant="headingLG" className="text-center z-10 text-white">
+                    {title}
+                  </Typography>
                 </div>
               ) : (
                 <MotionImage

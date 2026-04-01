@@ -41,10 +41,10 @@ function TimeLineContent({ items }: { items: TimelineItem[] }) {
   };
 
   return (
-    <div className="relative mx-auto flex w-full w-full flex-col gap-6 md:max-w-[95%] md:flex-row lg:gap-8">
+    <div className="relative mx-auto flex w-full flex-col gap-6 xl:max-w-[95%] xl:flex-row xl:gap-8">
       {/*desktop nav*/}
       <button
-        className="-translate-x-[125%] -translate-y-1/2 absolute top-1/2 left-0 hidden aspect-square w-[3.5vw] items-center justify-center rounded-full border border-yellow-50 text-yellow-50 md:flex"
+        className="-translate-x-[125%] -translate-y-1/2 absolute top-1/2 left-0 hidden aspect-square w-[3.5vw] items-center justify-center rounded-full border border-yellow-50 text-yellow-50 xl:flex"
         onClick={handlePrev}
         type="button"
       >
@@ -52,7 +52,7 @@ function TimeLineContent({ items }: { items: TimelineItem[] }) {
       </button>
 
       <button
-        className="-translate-y-1/2 absolute top-1/2 right-0 hidden aspect-square w-[3.5vw] translate-x-[140%] items-center justify-center rounded-full border border-yellow-50 text-yellow-50 md:flex"
+        className="-translate-y-1/2 absolute top-1/2 right-0 hidden aspect-square w-[3.5vw] translate-x-[140%] items-center justify-center rounded-full border border-yellow-50 text-yellow-50 xl:flex"
         onClick={handleNext}
         type="button"
       >
@@ -106,7 +106,24 @@ function TimeLineContent({ items }: { items: TimelineItem[] }) {
         </div>
       </div>
 
-      <div className="-mx-6 relative aspect-square w-screen flex-1 overflow-hidden md:mx-0 md:rounded-lg">
+      {/*mobile next/prev*/}
+      <div className="md:flex w-full justify-between hidden xl:hidden">
+        <button
+          className="aspect-square items-center justify-center rounded-full border border-yellow-50 p-2 text-yellow-50"
+          onClick={handlePrev}
+        >
+          <ArrowLeft size={24} strokeWidth="1px" />
+        </button>
+
+        <button
+          className="aspect-square items-center justify-center rounded-full border border-yellow-50 p-2 text-yellow-50"
+          onClick={handleNext}
+        >
+          <ArrowRight size={24} strokeWidth="1px" />
+        </button>
+      </div>
+
+      <div className="-mx-6 md:-mx-10 lg:-mx-20 relative aspect-square w-screen flex-1 overflow-hidden xl:mx-0 xl:rounded-lg">
         <AnimatePresence mode="popLayout">
           <motion.div
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}

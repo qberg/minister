@@ -32,17 +32,17 @@ type Props = {
 const AnnouncementsGrid = ({ items, locale }: Props) => (
   <div className="grid grid-cols-1 md:grid-cols-2 md:gap-y-4 lg:grid-cols-4 2xl:grid-cols-4">
     {items.map((item, index) => (
-      <Card key={`${index}-${item.id}`} className="min-h-40 max-w-lg border-border" interactive>
+      <Card key={`${index}-${item.id}`} className="min-h-40 max-w-lg border-border pt-0" interactive>
         {(item.fileType === "image" || item.fileType === "file") && (
           <ImagePreview
             src={item.fileType === "image" ? getFileUrl(item.image):getFileUrl(item.file)}
-            tagLabel="Alandur"
             uniqueId="q2e4"
             fileType={item.fileType}
+            title={item.title}
           />
         )}
-        <CardContent>
-          <Badge>Badge</Badge>
+        <CardContent className="ml-2 lg:ml-0">
+          <Badge>{item.badge || "TM Anbarasan"}</Badge>
         </CardContent>
       </Card>
     ))}

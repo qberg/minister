@@ -676,7 +676,7 @@ export interface GalleryBlock {
     | {
         image: number | Media;
         location: string;
-        title?: string | null;
+        caption?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -1518,7 +1518,7 @@ export interface GalleryBlockSelect<T extends boolean = true> {
     | {
         image?: T;
         location?: T;
-        title?: T;
+        caption?: T;
         id?: T;
       };
   id?: T;

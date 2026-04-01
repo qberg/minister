@@ -61,7 +61,7 @@ export const HeaderClient = ({ data, hasGallery }: HeaderClientProps) => {
         <HeaderNav className="hidden lg:flex">
           {data?.navItems?.map((item, index) => (
             <CMSLink key={`${index}-${item.id}`} {...item.link}>
-              <Typography as="ul" className="uppercase" variant="bodyMD">
+              <Typography as="ul" className="uppercase text-center" variant="bodyMD">
                 {item.link.label}
               </Typography>
             </CMSLink>

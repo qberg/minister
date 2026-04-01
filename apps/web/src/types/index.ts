@@ -104,7 +104,7 @@ export type AnimeScrollSectionData = {
 export type GalleryImageItem = {
   id: string | number;
   image: Media;
-  title?: string | null;
+  caption?: string | null;
   location?: string | null;
   width: number;
   height: number;

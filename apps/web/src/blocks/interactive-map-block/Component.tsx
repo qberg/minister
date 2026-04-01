@@ -303,20 +303,20 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
                 label={t("stat_label_one")}
                 type="currency"
                 value={stats?.totalAmount || 0}
-                className="pt-4"
+                className="py-3"
               />
               <AnimatedStat
                 isLoading={isLoadingStats}
                 label={t("stat_label_two")}
                 value={stats?.totalActivities || 0}
-                className="pt-4"
+                className="py-2.5"
               />
 
               <AnimatedStat
                 isLoading={isLoadingStats}
                 label={t("stat_label_three")}
                 value={stats?.totalIssues || 0}
-                className="pt-4"
+                className="py-2.5"
               />
             </div>
             {/*issue cards max 8*/}

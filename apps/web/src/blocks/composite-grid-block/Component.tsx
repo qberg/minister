@@ -54,7 +54,7 @@ export function CompositeGridBlock({ block }: Props) {
           </Typography>
         )}
 
-        <div className="grid grid-cols-1 4xl:gap-8 gap-6 md:auto-rows-fr lg:grid-cols-3 lg:grid-rows-3 lg:gap-4">
+        <div className="grid grid-cols-1 4xl:gap-8 gap-6 md:auto-rows-fr md:grid-cols-3 md:grid-rows-3 md:gap-4">
           {imageCards?.map((item, index) => {
             return (
               <ImageCard
