@@ -112,7 +112,7 @@ function InteractiveMapBlock({ locale, block, issueOptions }: Props) {
             }
           })
         });
-        const allIssues = Array.from(issueMap.values())
+        const allIssues = Array.from(issueMap.values()).sort((a, b) => (a.order || Infinity) - (b.order || Infinity))
 
         statsData = {
           totalActivities,

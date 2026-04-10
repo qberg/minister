@@ -26,8 +26,8 @@ const SPREAD_X = 98;
 const SPREAD_Y = 60;
 const CURVE = 10;
 
-const MIN_SCALE = 0.75;
-const SCALE_RANGE = 0.4;
+//const MIN_SCALE = 1;
+const SCALE_RANGE = -0.5;
 
 const SMOOTH_TIME = 0.25;
 const MIN_OPACITY = 0.6;
@@ -46,6 +46,7 @@ export function GalleryImagePlane({ index }: GalleryImagePlaneProps) {
   const prevTCenteredRef = useRef<number | null>(null);
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<InstanceType<typeof GalleryShaderMaterial>>(null);
+  const MIN_SCALE = isMobile ? 0.75 : 0.95;
 
   // basically aspect ratio
   const [planeDims, setPlaneDims] = useState(() => {

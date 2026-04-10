@@ -41,7 +41,7 @@ export function GalleryText() {
             {location && (
               <motion.p
                 animate={{ y: "0%", opacity: 1 }}
-                className="font-body font-light text-base text-white leading-none"
+                className="font-body font-light text-base text-white leading-none [html[lang='ta-IN']_&]:leading-normal"
                 exit={{ y: "-95%", opacity: 0 }}
                 initial={{ y: "95%", opacity: 0 }}
                 key={`loc-${wrappedIndex}`}
@@ -59,7 +59,7 @@ export function GalleryText() {
             {caption && (
               <motion.h2
                 animate={{ y: "0%", opacity: 1 }}
-                className="font-heading font-normal text-4xl text-white"
+                className="font-heading font-normal text-4xl text-white [html[lang='ta-IN']_&]:leading-normal"
                 exit={{ y: "-95%", opacity: 0 }}
                 initial={{ y: "95%", opacity: 0 }}
                 key={`title-${wrappedIndex}`}

@@ -6,7 +6,7 @@ const LOGO_STYLES = {
 
 const Logo = () => (
   <div
-    className="relative aspect-square overflow-hidden rounded-full bg-secondary"
+    className="relative aspect-square overflow-hidden rounded-full bg-yellow-300"
     style={LOGO_STYLES}
   >
     <Image
@@ -15,7 +15,7 @@ const Logo = () => (
       fill
       priority
       sizes="5vw"
-      src="/logo.png"
+      src="/DP_2.webp"
     />
   </div>
 );

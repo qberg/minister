@@ -36,7 +36,7 @@ export function AlandurMap({
 
   const getName = (slug: string) => zoneNames[slug] || slug.replace(/-/g, " ");
 
-  console.log("Image:", hoveredImage);
+  // console.log("Image:", hoveredImage);
 
   return (
     <div

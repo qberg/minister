@@ -18,11 +18,11 @@ type StatItemProps = {
 const StatItem = ({ value, label, className, index = 0 }: StatItemProps) => (
   <div className={cn("", className)}>
     <AppearSlide delay={index * 0.15}>
-      <Typography as="h2" className="mb-1" intent={"title"} variant="headingMD">
+      <Typography as="h2" className="mb-1 leading-tight whitespace-normal wrap-break-word" intent={"title"} variant="headingMD">
         {value}
       </Typography>
     </AppearSlide>
-    <Typography as="p" intent={"subtle"} variant="bodyLG">
+    <Typography as="p" intent={"subtle"} variant="headingXXS">
       {label}
     </Typography>
   </div>

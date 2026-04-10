@@ -38,6 +38,14 @@ export const Issues: CollectionConfig<"issues"> = {
     ...createSlugField("name"),
 
     {
+      name: "order",
+      type: "number",
+      admin: {
+        position: "sidebar"
+      }
+    },
+
+    {
       name: "icon",
       type: "upload",
       relationTo: "media",

@@ -88,6 +88,7 @@ export type IssueCardStat = {
   totalAmount?: number;
   imageSrc?: string | null;
   color?: string;
+  order?: number | null;
 };
 
 export type AllImpactStats = {

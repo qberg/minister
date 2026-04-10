@@ -865,6 +865,7 @@ export interface Issue {
   name: string;
   slug?: string | null;
   slugLock?: boolean | null;
+  order?: number | null;
   icon?: (number | null) | Media;
   color?: ('blue' | 'yellow' | 'neutral') | null;
   overlayType?: ('solid' | 'gradient') | null;
@@ -1608,6 +1609,7 @@ export interface IssuesSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   slugLock?: T;
+  order?: T;
   icon?: T;
   color?: T;
   overlayType?: T;

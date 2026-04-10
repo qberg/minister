@@ -155,16 +155,21 @@ export async function Footer({ locale = "ta-IN" }: Props) {
       </div>
 
       <div className="relative z-10 mt-auto flex flex-col gap-2 border-t-1 border-t-neutral-50/40 4xl:pt-10 pt-2 md:pt-4 lg:flex-row lg:justify-between lg:gap-4 lg:pt-6">
-        <div className="flex-1">
+        <div className="order-2 md:order-1 flex-1">
           <Typography as="span" intent="subtle" variant="bodySM">
             {t("trademark")}
           </Typography>
         </div>
-        <div className="hidden flex-1 items-center justify-center gap-2 md:flex">
+        <div className="order-1 md:order-2 flex-1 items-center justify-end md:justify-center gap-2 flex">
           <Typography as="span" intent="subtle" variant="bodySM">
             {t("creatorTag")}
           </Typography>
-          <span className="relative aspect-[1.5/1] w-12">
+          <a
+            href="https://minsky.in"
+            className="relative aspect-[1.5/1] w-12"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
             <Image
               alt="Minsky Logo"
               className="object-contain"
@@ -172,9 +177,9 @@ export async function Footer({ locale = "ta-IN" }: Props) {
               loading="lazy"
               src="/minsky-logo.svg"
             />
-          </span>
+          </a>
         </div>
-        <div className="flex flex-1 gap-2 md:justify-end md:gap-4">
+        <div className="order-3 flex flex-1 gap-2 md:justify-end md:gap-4">
           <Link href="/legal/privacy-policy">
             <Typography as="span" intent="subtle" variant="bodySM">
               {t("ppLabel")}

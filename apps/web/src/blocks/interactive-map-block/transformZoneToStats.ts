@@ -9,6 +9,7 @@ export function transformZoneToStats(zoneData: any): AllImpactStats {
       color: item.issueType?.color ?? "blue",
       activityCount: item.activityCount ?? 0,
       imageSrc: item.issueType?.icon?.url ?? null,
+      order: item.issueType?.order ?? null,
     })
   );
 

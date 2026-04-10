@@ -9,7 +9,7 @@ declare const messages: {
     "name": "T. M. Anbarasan"
   },
   "IntMap": {
-    "heading_default": "All Impact on Alandur",
+    "heading_default": "All Impact on Alandur Constituency",
     "heading_zone": "Impact on {zone}",
     "placeholder": "Select a ward/village",
     "search_label": "Search for the ward/village...",

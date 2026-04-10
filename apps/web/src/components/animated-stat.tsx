@@ -67,8 +67,8 @@ function AnimatedStat({ label, value, type, isLoading, className }: Props) {
       >
         <NumberFlow
           format={{
-            minimumFractionDigits: type === "currency" ? 0 : 0,
-            maximumFractionDigits: type === "currency" ? 2 : 0,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: type === "currency" ? 2 : 1,
           }}
           opacityTiming={{ duration: 300 }}
           prefix={type === "currency" ? "₹ " : ""}

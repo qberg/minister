@@ -75,6 +75,20 @@ export function ZoneCombobox({
           <CommandInput placeholder={t("search_label")} />
           <CommandList>
             <CommandEmpty>{t("empty_label")}</CommandEmpty>
+            {/* <CommandItem
+              onSelect={() => {
+                onSelect("");
+                setOpen(false);
+              }}
+            >
+              <Check
+                className={cn(
+                  "mr-2 h-4 w-4 text-blue-600",
+                  activeSlug === "" ? "opacity-100" : "opacity-0"
+                )}
+              />
+              All
+            </CommandItem> */}
 
             {/* Group: Wards */}
             <CommandGroup heading={t("wards_heading")}>

@@ -36,7 +36,7 @@ const AnnouncementsGrid = ({ items, locale }: Props) => (
         {(item.fileType === "image" || item.fileType === "file") && (
           <ImagePreview
             src={item.fileType === "image" ? getFileUrl(item.image):getFileUrl(item.file)}
-            uniqueId="q2e4"
+            uniqueId={`${index}-${item.id}`}
             fileType={item.fileType}
             title={item.title}
           />

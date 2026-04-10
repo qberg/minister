@@ -10,6 +10,7 @@ import {
   Pagination,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from 'swiper';
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -42,8 +43,9 @@ export function PerspectiveCarousel({
 }: Props) {
   const limitedIssues = issues.slice(0, 8);
 
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
+  // const prevRef = useRef<HTMLButtonElement>(null);
+  // const nextRef = useRef<HTMLButtonElement>(null);
+  const swiperRef = useRef<SwiperType | null>(null)
 
   const carouselStyles = `
     .issue-carousel {
@@ -113,19 +115,20 @@ export function PerspectiveCarousel({
         grabCursor={true}
         loop={loop && limitedIssues.length > 1}
         modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
-        navigation={{
-          prevEl: prevRef.current,
-          nextEl: nextRef.current,
-        }}
-        onBeforeInit={(swiper) => {
-          if (typeof swiper.params.navigation !== "boolean") {
-            const navigation = swiper.params.navigation;
-            if (navigation) {
-              navigation.prevEl = prevRef.current;
-              navigation.nextEl = nextRef.current;
-            }
-          }
-        }}
+        onSwiper={(swiper) => { swiperRef.current = swiper; }}
+        // navigation={{
+        //   prevEl: prevRef.current,
+        //   nextEl: nextRef.current,
+        // }}
+        // onBeforeInit={(swiper) => {
+        //   if (typeof swiper.params.navigation !== "boolean") {
+        //     const navigation = swiper.params.navigation;
+        //     if (navigation) {
+        //       navigation.prevEl = prevRef.current;
+        //       navigation.nextEl = nextRef.current;
+        //     }
+        //   }
+        // }}
         pagination={
           showPagination
             ? {
@@ -144,13 +147,13 @@ export function PerspectiveCarousel({
       {(showNavigation || showPagination) && (
         <div className="flex w-full items-center justify-between gap-6 md:gap-8">
           {showNavigation && (
-            <button className={cn(navButtonStyle)} ref={prevRef}>
+            <button className={cn(navButtonStyle)} onClick={() => swiperRef.current?.slidePrev()}>
               <ArrowLeft size={32} strokeWidth="1px" />
             </button>
           )}
 
           {showNavigation && (
-            <button className={cn(navButtonStyle)} ref={nextRef}>
+            <button className={cn(navButtonStyle)} onClick={() => swiperRef.current?.slideNext()}>
               <ArrowRight size={32} strokeWidth="1px" />
             </button>
           )}
